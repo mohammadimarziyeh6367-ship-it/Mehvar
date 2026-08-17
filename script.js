@@ -331,11 +331,12 @@ function generateQuestion() {
     questionTypeElement.textContent =
       "جمع";
 
+questionElement.textContent =
+  `${toPersianNumber(a)} − ${toPersianNumber(b)} = ؟`;
 
-    questionElement.textContent =
-      `${toPersianNumber(a)}
-       + ${toPersianNumber(b)}
-       = ؟`;
+questionElement.style.direction = "ltr";
+questionElement.style.unicodeBidi = "isolate";
+    
 
 
     movementInfo.textContent =
@@ -383,9 +384,10 @@ function generateQuestion() {
 
 
     questionElement.textContent =
-      `${toPersianNumber(a)}
-       − ${toPersianNumber(b)}
-       = ؟`;
+  `${toPersianNumber(a)} + ${toPersianNumber(b)} = ؟`;
+
+questionElement.style.direction = "ltr";
+questionElement.style.unicodeBidi = "isolate";
 
 
     movementInfo.textContent =
@@ -521,15 +523,18 @@ function generateQuestion() {
     op2 === "+"
       ? "+"
       : "−";
+questionElement.textContent =
+  `${toPersianNumber(a)}
+   ${visibleOp1}
+   ${toPersianNumber(b)}
+   ${visibleOp2}
+   ${toPersianNumber(c)}
+   = ؟`;
 
+questionElement.style.direction = "ltr";
+questionElement.style.unicodeBidi = "isolate";
 
-  questionElement.textContent =
-    `${toPersianNumber(a)}
-     ${visibleOp1}
-     ${toPersianNumber(b)}
-     ${visibleOp2}
-     ${toPersianNumber(c)}
-     = ؟`;
+  
 
 
   movementInfo.textContent =
