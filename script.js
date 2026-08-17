@@ -1605,10 +1605,30 @@ function showCorrect() {
 
     score++;
 
-
     scoreElement.textContent =
-        toPersianNumber(
-            score
+        toPersianNumber(score);
+
+
+    /* =========================================
+       نمایش جواب نهایی جلوی عبارت
+    ========================================= */
+
+    const answer =
+        currentQuestion.answer;
+
+
+    const answerText =
+        toPersianNumber(answer);
+
+
+    /*
+      علامت سؤال را با جواب عوض می‌کنیم
+    */
+
+    questionElement.textContent =
+        questionElement.textContent.replace(
+            "؟",
+            answerText
         );
 
 
@@ -1620,11 +1640,20 @@ function showCorrect() {
         "#39956c";
 
 
+    /* صدای موفقیت */
+
     playCorrectSound();
 
 
+    /* فشفشه */
+
     launchFireworks();
 
+
+    /*
+      کمی مکث می‌کنیم تا دانش‌آموز
+      جواب را ببیند، سپس سؤال جدید
+    */
 
     setTimeout(
         () => {
@@ -1632,7 +1661,7 @@ function showCorrect() {
             generateQuestion();
 
         },
-        1600
+        1800
     );
 }
 
