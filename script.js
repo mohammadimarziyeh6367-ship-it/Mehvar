@@ -1,12 +1,13 @@
 /* =====================================================
    بازی «محور اعداد»
    مناسب کلاس اول
-   ===================================================== */
+   نسخه نهایی
+===================================================== */
 
 
 /* =====================================================
    گرفتن عناصر HTML
-   ===================================================== */
+===================================================== */
 
 const startScreen =
     document.getElementById("startScreen");
@@ -56,7 +57,7 @@ const fireworkContainer =
 
 /* =====================================================
    وضعیت بازی
-   ===================================================== */
+===================================================== */
 
 let score = 0;
 
@@ -70,17 +71,12 @@ let drawingStart = null;
 
 let previewSvg = null;
 
-
-/* =====================================================
-   سیستم صدا
-   ===================================================== */
-
 let audioContext = null;
 
 
 /* =====================================================
    تبدیل اعداد
-   ===================================================== */
+===================================================== */
 
 function toPersianNumber(value) {
 
@@ -118,7 +114,7 @@ function toEnglishNumber(value) {
 
 /* =====================================================
    عدد تصادفی
-   ===================================================== */
+===================================================== */
 
 function randomInt(min, max) {
 
@@ -130,8 +126,8 @@ function randomInt(min, max) {
 
 
 /* =====================================================
-   فعال کردن صدا
-   ===================================================== */
+   سیستم صدا
+===================================================== */
 
 function initializeAudio() {
 
@@ -148,21 +144,15 @@ function initializeAudio() {
         }
     }
 
-
     if (
         audioContext &&
-        audioContext.state ===
-            "suspended"
+        audioContext.state === "suspended"
     ) {
 
         audioContext.resume();
     }
 }
 
-
-/* =====================================================
-   ساخت یک نت
-   ===================================================== */
 
 function playTone(
     frequency,
@@ -172,16 +162,11 @@ function playTone(
     delay = 0
 ) {
 
-    if (!audioContext) {
-
-        initializeAudio();
-    }
-
+    initializeAudio();
 
     if (!audioContext) {
         return;
     }
-
 
     const oscillator =
         audioContext.createOscillator();
@@ -189,39 +174,32 @@ function playTone(
     const gain =
         audioContext.createGain();
 
-
-    oscillator.type =
-        type;
-
-
     const startTime =
         audioContext.currentTime +
         delay;
 
+    oscillator.type =
+        type;
 
     oscillator.frequency.setValueAtTime(
         frequency,
         startTime
     );
 
-
     gain.gain.setValueAtTime(
         0,
         startTime
     );
-
 
     gain.gain.linearRampToValueAtTime(
         volume,
         startTime + 0.02
     );
 
-
     gain.gain.exponentialRampToValueAtTime(
         0.001,
         startTime + duration
     );
-
 
     oscillator.connect(gain);
 
@@ -229,11 +207,9 @@ function playTone(
         audioContext.destination
     );
 
-
     oscillator.start(
         startTime
     );
-
 
     oscillator.stop(
         startTime +
@@ -243,14 +219,9 @@ function playTone(
 }
 
 
-/* =====================================================
-   صدای پاسخ صحیح
-   ===================================================== */
-
 function playCorrectSound() {
 
     initializeAudio();
-
 
     playTone(
         523.25,
@@ -260,7 +231,6 @@ function playCorrectSound() {
         0
     );
 
-
     playTone(
         659.25,
         0.18,
@@ -269,7 +239,6 @@ function playCorrectSound() {
         0.13
     );
 
-
     playTone(
         783.99,
         0.28,
@@ -277,7 +246,6 @@ function playCorrectSound() {
         0.11,
         0.26
     );
-
 
     playTone(
         1046.50,
@@ -289,14 +257,9 @@ function playCorrectSound() {
 }
 
 
-/* =====================================================
-   صدای پاسخ اشتباه
-   ===================================================== */
-
 function playWrongSound() {
 
     initializeAudio();
-
 
     playTone(
         300,
@@ -305,7 +268,6 @@ function playWrongSound() {
         0.07,
         0
     );
-
 
     playTone(
         220,
@@ -319,12 +281,15 @@ function playWrongSound() {
 
 /* =====================================================
    ساخت محور ۰ تا ۲۰
-   ===================================================== */
+===================================================== */
 
 function createNumberLine() {
 
-    numberLine.innerHTML = "";
+    if (!numberLine) {
+        return;
+    }
 
+    numberLine.innerHTML = "";
 
     for (
         let i = 0;
@@ -332,17 +297,11 @@ function createNumberLine() {
         i++
     ) {
 
-        /*
-           فاصله از لبه‌ها کمی بیشتر است
-           تا محور از صفحه بیرون نزند.
-        */
-
         const position =
-            4 +
-            (i / 20) * 92;
+            4 + (i / 20) * 92;
 
 
-        /* خط کوچک روی محور */
+        /* خطک کوچک */
 
         const tick =
             document.createElement(
@@ -387,23 +346,19 @@ function createNumberLine() {
 
 
 /* =====================================================
-   ساخت سؤال جدید
-   ===================================================== */
+   ساخت سؤال
+===================================================== */
 
 function generateQuestion() {
 
     clearDrawing();
 
-    feedback.textContent = "";
-
     resetAnswer();
 
+    if (feedback) {
+        feedback.textContent = "";
+    }
 
-    /*
-       ۱ = جمع
-       ۲ = تفریق
-       ۳ = سه عبارتی
-    */
 
     const type =
         randomInt(1, 3);
@@ -411,13 +366,13 @@ function generateQuestion() {
 
     /* =================================================
        جمع
-       
+
        مثال:
        ۷ + ۵
 
        حرکت:
        ۰ → ۷ → ۱۲
-       ================================================= */
+    ================================================= */
 
     if (type === 1) {
 
@@ -469,13 +424,13 @@ function generateQuestion() {
 
     /* =================================================
        تفریق
-       
+
        مثال:
        ۱۷ − ۱۲
 
        حرکت:
        ۰ → ۱۷ → ۵
-       ================================================= */
+    ================================================= */
 
     if (type === 2) {
 
@@ -533,7 +488,7 @@ function generateQuestion() {
 
        حرکت:
        ۰ → ۵ → ۱۲ → ۹
-       ================================================= */
+    ================================================= */
 
     let a;
     let b;
@@ -586,18 +541,9 @@ function generateQuestion() {
             selected[1];
 
 
-        /*
-           حرکت اول:
-           صفر → a
-        */
-
         firstResult =
             a;
 
-
-        /*
-           حرکت دوم
-        */
 
         if (op1 === "+") {
 
@@ -610,10 +556,6 @@ function generateQuestion() {
                 a - b;
         }
 
-
-        /*
-           حرکت سوم
-        */
 
         if (op2 === "+") {
 
@@ -644,7 +586,8 @@ function generateQuestion() {
         type:
             "سه‌عبارتی",
 
-        start: 0,
+        start:
+            0,
 
         operations: [
 
@@ -692,8 +635,8 @@ function generateQuestion() {
 
 
 /* =====================================================
-   پاک کردن کادر جواب
-   ===================================================== */
+   جواب
+===================================================== */
 
 function resetAnswer() {
 
@@ -701,9 +644,7 @@ function resetAnswer() {
         return;
     }
 
-
     answerInput.value = "";
-
 
     answerInput.classList.remove(
         "correct",
@@ -713,8 +654,29 @@ function resetAnswer() {
 
 
 /* =====================================================
-   پیدا کردن موقعیت عدد روی محور
-   ===================================================== */
+   اندازه واقعی محور
+===================================================== */
+
+function getLineSize() {
+
+    const rect =
+        numberLine.getBoundingClientRect();
+
+    return {
+
+        width:
+            rect.width,
+
+        height:
+            rect.height
+    };
+}
+
+
+/* =====================================================
+   موقعیت واقعی عدد روی محور
+   بدون عدد ثابت برای ارتفاع
+===================================================== */
 
 function getNumberPosition(value) {
 
@@ -736,22 +698,86 @@ function getNumberPosition(value) {
         number.getBoundingClientRect();
 
 
+    /*
+       مرکز افقی عدد
+    */
+
+    const x =
+        numberRect.left +
+        numberRect.width / 2 -
+        lineRect.left;
+
+
+    /*
+       مهم‌ترین قسمت:
+       موقعیت عمودی از خود محور
+       و از CSS واقعی گرفته می‌شود.
+    */
+
+    const axisLine =
+        getComputedStyle(
+            numberLine,
+            "::before"
+        );
+
+
+    let axisTop =
+        parseFloat(
+            axisLine.top
+        );
+
+
+    /*
+       اگر مرورگر مقدار مناسبی نداد،
+       خط محور را از موقعیت تیک‌ها
+       پیدا می‌کنیم.
+    */
+
+    if (
+        !Number.isFinite(axisTop)
+    ) {
+
+        const tick =
+            numberLine.querySelector(
+                `.tick`
+            );
+
+        if (tick) {
+
+            const tickRect =
+                tick.getBoundingClientRect();
+
+            axisTop =
+                tickRect.top -
+                lineRect.top +
+                tickRect.height / 2;
+        }
+    }
+
+
+    /*
+       مسیر روی خود خط افقی محور قرار می‌گیرد.
+    */
+
+    const y =
+        axisTop +
+        2;
+
+
     return {
 
         x:
-            numberRect.left +
-            numberRect.width / 2 -
-            lineRect.left,
+            x,
 
         y:
-    numberLine.clientHeight - 20
+            y
     };
 }
 
 
 /* =====================================================
-   تبدیل محل انگشت به عدد
-   ===================================================== */
+   تبدیل انگشت به عدد
+===================================================== */
 
 function getNumberFromPointer(event) {
 
@@ -766,9 +792,9 @@ function getNumberFromPointer(event) {
 
     const percent =
         Math.max(
-            0,
+            4,
             Math.min(
-                100,
+                96,
                 (x / rect.width) * 100
             )
         );
@@ -794,15 +820,12 @@ function getNumberFromPointer(event) {
 
 
 /* =====================================================
-   پیدا کردن مبدأ حرکت بعدی
-   ===================================================== */
+   مبدأ حرکت بعدی
+===================================================== */
 
 function getExpectedStart() {
 
-    if (
-        !currentQuestion
-    ) {
-
+    if (!currentQuestion) {
         return 0;
     }
 
@@ -822,17 +845,14 @@ function getExpectedStart() {
 
 
 /* =====================================================
-   شروع کشیدن با انگشت
-   ===================================================== */
+   شروع کشیدن
+===================================================== */
 
 numberLine.addEventListener(
     "pointerdown",
     event => {
 
-        if (
-            !currentQuestion
-        ) {
-
+        if (!currentQuestion) {
             return;
         }
 
@@ -849,11 +869,6 @@ numberLine.addEventListener(
         const expected =
             getExpectedStart();
 
-
-        /*
-           کودک حتماً باید
-           از مبدأ درست شروع کند.
-        */
 
         if (
             value !== expected
@@ -894,7 +909,7 @@ numberLine.addEventListener(
 
 /* =====================================================
    حرکت انگشت
-   ===================================================== */
+===================================================== */
 
 numberLine.addEventListener(
     "pointermove",
@@ -922,7 +937,7 @@ numberLine.addEventListener(
 
 /* =====================================================
    پایان کشیدن
-   ===================================================== */
+===================================================== */
 
 numberLine.addEventListener(
     "pointerup",
@@ -961,11 +976,6 @@ numberLine.addEventListener(
         } catch (error) {}
 
 
-        /*
-           اگر کودک همان عدد را انتخاب کرد
-           حرکت ثبت نشود.
-        */
-
         if (
             end === drawingStart
         ) {
@@ -991,7 +1001,7 @@ numberLine.addEventListener(
 
 /* =====================================================
    لغو کشیدن
-   ===================================================== */
+===================================================== */
 
 numberLine.addEventListener(
     "pointercancel",
@@ -1007,8 +1017,8 @@ numberLine.addEventListener(
 
 
 /* =====================================================
-   ساخت پیش‌نمایش منحنی
-   ===================================================== */
+   ساخت پیش‌نمایش
+===================================================== */
 
 function createPreview(
     start,
@@ -1016,6 +1026,10 @@ function createPreview(
 ) {
 
     removePreview();
+
+
+    const size =
+        getLineSize();
 
 
     previewSvg =
@@ -1032,7 +1046,7 @@ function createPreview(
 
     previewSvg.setAttribute(
         "viewBox",
-        `0 0 ${numberLine.clientWidth} ${numberLine.clientHeight}`
+        `0 0 ${size.width} ${size.height}`
     );
 
 
@@ -1068,7 +1082,7 @@ function createPreview(
 
 /* =====================================================
    به‌روزرسانی پیش‌نمایش
-   ===================================================== */
+===================================================== */
 
 function updatePreview(
     start,
@@ -1116,9 +1130,9 @@ function updatePreview(
 
     const curve =
         Math.min(
-            60,
+            getLineSize().height * 0.32,
             Math.max(
-                22,
+                20,
                 distance * 0.22
             )
         );
@@ -1155,7 +1169,7 @@ function updatePreview(
 
 /* =====================================================
    حذف پیش‌نمایش
-   ===================================================== */
+===================================================== */
 
 function removePreview() {
 
@@ -1170,7 +1184,7 @@ function removePreview() {
 
 /* =====================================================
    ثبت حرکت
-   ===================================================== */
+===================================================== */
 
 function addMove(
     start,
@@ -1215,8 +1229,8 @@ function addMove(
 
 
 /* =====================================================
-   رسم کمان واقعی
-   ===================================================== */
+   رسم کمان
+===================================================== */
 
 function drawMove(
     start,
@@ -1246,18 +1260,15 @@ function drawMove(
     }
 
 
-    const width =
-        numberLine.clientWidth;
-
-    const height =
-        numberLine.clientHeight;
+    const size =
+        getLineSize();
 
 
     const curve =
         Math.min(
-            60,
+            size.height * 0.32,
             Math.max(
-                22,
+                20,
                 Math.abs(
                     endPos.x -
                     startPos.x
@@ -1290,9 +1301,13 @@ function drawMove(
     );
 
 
+    /*
+       ارتفاع واقعی محور
+    */
+
     svg.setAttribute(
         "viewBox",
-        `0 0 ${width} ${height}`
+        `0 0 ${size.width} ${size.height}`
     );
 
 
@@ -1302,9 +1317,9 @@ function drawMove(
     );
 
 
-    /* ---------------------------------
-       فلش ظریف
-       --------------------------------- */
+    /* =================================================
+       فلش
+    ================================================= */
 
     const defs =
         document.createElementNS(
@@ -1337,25 +1352,25 @@ function drawMove(
 
     marker.setAttribute(
         "markerWidth",
-        "7"
-    );
-
-
-    marker.setAttribute(
-        "markerHeight",
-        "7"
-    );
-
-
-    marker.setAttribute(
-        "refX",
         "6"
     );
 
 
     marker.setAttribute(
+        "markerHeight",
+        "6"
+    );
+
+
+    marker.setAttribute(
+        "refX",
+        "5"
+    );
+
+
+    marker.setAttribute(
         "refY",
-        "3.5"
+        "3"
     );
 
 
@@ -1374,7 +1389,7 @@ function drawMove(
 
     head.setAttribute(
         "d",
-        "M 0 0 L 7 3.5 L 0 7 Z"
+        "M 0 0 L 6 3 L 0 6 Z"
     );
 
 
@@ -1401,9 +1416,9 @@ function drawMove(
     );
 
 
-    /* ---------------------------------
-       منحنی
-       --------------------------------- */
+    /* =================================================
+       مسیر منحنی
+    ================================================= */
 
     const path =
         document.createElementNS(
@@ -1415,6 +1430,21 @@ function drawMove(
     path.classList.add(
         "curved-path"
     );
+
+
+    /*
+       برای اینکه CSS بتواند
+       رنگ حرکت چپ را تشخیص دهد.
+    */
+
+    if (
+        direction === "left"
+    ) {
+
+        svg.classList.add(
+            "left"
+        );
+    }
 
 
     path.setAttribute(
@@ -1438,9 +1468,9 @@ function drawMove(
     );
 
 
-    /* ---------------------------------
-       نمایش مقدار حرکت
-       --------------------------------- */
+    /* =================================================
+       مقدار حرکت
+    ================================================= */
 
     const text =
         document.createElementNS(
@@ -1483,9 +1513,9 @@ function drawMove(
     );
 
 
-    /* ---------------------------------
-       نقطه مبدأ
-       --------------------------------- */
+    /* =================================================
+       نقطه شروع
+    ================================================= */
 
     const dot =
         document.createElement(
@@ -1513,7 +1543,7 @@ function drawMove(
 
 /* =====================================================
    پاک کردن آخرین حرکت
-   ===================================================== */
+===================================================== */
 
 if (undoButton) {
 
@@ -1568,8 +1598,8 @@ if (undoButton) {
 
 
 /* =====================================================
-   پاک کردن همه حرکت‌ها
-   ===================================================== */
+   پاک کردن همه
+===================================================== */
 
 if (clearButton) {
 
@@ -1619,7 +1649,7 @@ function clearDrawing() {
 
 /* =====================================================
    بررسی پاسخ
-   ===================================================== */
+===================================================== */
 
 if (checkButton) {
 
@@ -1632,17 +1662,10 @@ if (checkButton) {
 
 function checkAnswer() {
 
-    if (
-        !currentQuestion
-    ) {
-
+    if (!currentQuestion) {
         return;
     }
 
-
-    /*
-       ساخت مسیر صحیح
-    */
 
     const correctMoves = [];
 
@@ -1688,9 +1711,7 @@ function checkAnswer() {
     }
 
 
-    /*
-       بررسی تعداد حرکت‌ها
-    */
+    /* تعداد حرکت */
 
     if (
         drawnMoves.length !==
@@ -1705,9 +1726,7 @@ function checkAnswer() {
     }
 
 
-    /*
-       بررسی تک تک حرکت‌ها
-    */
+    /* بررسی حرکت‌ها */
 
     for (
         let i = 0;
@@ -1732,14 +1751,9 @@ function checkAnswer() {
     }
 
 
-    /*
-       بررسی جواب داخل کادر
-    */
+    /* بررسی جواب */
 
-    if (
-        !answerInput
-    ) {
-
+    if (!answerInput) {
         return;
     }
 
@@ -1788,10 +1802,6 @@ function checkAnswer() {
     }
 
 
-    /*
-       همه چیز صحیح است
-    */
-
     answerInput.classList.remove(
         "wrong"
     );
@@ -1808,7 +1818,7 @@ function checkAnswer() {
 
 /* =====================================================
    پاسخ صحیح
-   ===================================================== */
+===================================================== */
 
 function showCorrect() {
 
@@ -1818,9 +1828,7 @@ function showCorrect() {
     if (scoreElement) {
 
         scoreElement.textContent =
-            toPersianNumber(
-                score
-            );
+            toPersianNumber(score);
     }
 
 
@@ -1838,11 +1846,6 @@ function showCorrect() {
     launchFireworks();
 
 
-    /*
-       بعد از تمام شدن فشفشه
-       سؤال جدید می‌آید.
-    */
-
     setTimeout(
         () => {
 
@@ -1855,8 +1858,8 @@ function showCorrect() {
 
 
 /* =====================================================
-   پاسخ اشتباه
-   ===================================================== */
+   پاسخ غلط
+===================================================== */
 
 function showWrong(message) {
 
@@ -1873,15 +1876,12 @@ function showWrong(message) {
 
 
 /* =====================================================
-   فشفشه نورافشانی
-   ===================================================== */
+   فشفشه
+===================================================== */
 
 function launchFireworks() {
 
-    if (
-        !fireworkContainer
-    ) {
-
+    if (!fireworkContainer) {
         return;
     }
 
@@ -2019,19 +2019,13 @@ function launchFireworks() {
 
 /* =====================================================
    شروع بازی
-   ===================================================== */
+===================================================== */
 
 if (startButton) {
 
     startButton.addEventListener(
         "click",
         () => {
-
-            /*
-               مهم:
-               صدا همین‌جا فعال می‌شود،
-               چون این کلیک مستقیم کاربر است.
-            */
 
             initializeAudio();
 
@@ -2044,10 +2038,8 @@ if (startButton) {
 
                 studentNameInput.focus();
 
-
                 studentNameInput.placeholder =
                     "اول نام زیبایت را بنویس 🌷";
-
 
                 return;
             }
@@ -2077,7 +2069,21 @@ if (startButton) {
             createNumberLine();
 
 
-            generateQuestion();
+            /*
+               بعد از ظاهر شدن صفحه بازی،
+               اندازه واقعی محور را دوباره
+               محاسبه می‌کنیم.
+            */
+
+            requestAnimationFrame(
+                () => {
+
+                    createNumberLine();
+
+                    generateQuestion();
+
+                }
+            );
         }
     );
 }
@@ -2085,7 +2091,7 @@ if (startButton) {
 
 /* =====================================================
    شروع با Enter
-   ===================================================== */
+===================================================== */
 
 if (studentNameInput) {
 
@@ -2105,7 +2111,88 @@ if (studentNameInput) {
 
 
 /* =====================================================
-   اجرای اولیه
-   ===================================================== */
+   اصلاح اندازه هنگام چرخاندن گوشی
+===================================================== */
 
-createNumberLine();
+window.addEventListener(
+    "resize",
+    () => {
+
+        if (!numberLine) {
+            return;
+        }
+
+
+        /*
+           اگر کودک هنوز چیزی نکشیده،
+           فقط محور را دوباره تنظیم می‌کنیم.
+        */
+
+        if (
+            drawnMoves.length === 0
+        ) {
+
+            createNumberLine();
+
+            return;
+        }
+
+
+        /*
+           اگر حرکت‌هایی وجود دارد،
+           دوباره همان حرکت‌ها را
+           با اندازه جدید رسم می‌کنیم.
+        */
+
+        const savedMoves =
+            [...drawnMoves];
+
+
+        numberLine
+            .querySelectorAll(
+                ".curved-move"
+            )
+            .forEach(
+                element =>
+                    element.remove()
+            );
+
+
+        numberLine
+            .querySelectorAll(
+                ".start-dot"
+            )
+            .forEach(
+                element =>
+                    element.remove()
+            );
+
+
+        requestAnimationFrame(
+            () => {
+
+                savedMoves.forEach(
+                    move => {
+
+                        drawMove(
+                            move.start,
+                            move.end,
+                            move.direction,
+                            move.distance
+                        );
+                    }
+                );
+            }
+        );
+    }
+);
+
+
+/* =====================================================
+   اجرای اولیه
+===================================================== */
+
+if (numberLine) {
+
+    createNumberLine();
+}
