@@ -242,9 +242,9 @@ function createNumberLine() {
     i++
   ) {
 
-    const position =
-      2.4 +
-      (i / 20) * 95.2;
+   const position =
+  4 +
+  (i / 20) * 92;
 
 
     const tick =
@@ -598,12 +598,12 @@ function getNumberFromPointer(event) {
       )
     );
 
-
-  const value =
-    Math.round(
-      ((percent - 2.4) / 95.2) *
-      20
-    );
+const value =
+  Math.round(
+    ((percent - 4) / 92) *
+    20
+  );
+  
 
 
   return Math.max(
