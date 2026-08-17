@@ -827,3 +827,8 @@ input {
     unicode-bidi: isolate;
     text-align: center;
 }
+#question {
+  direction: ltr !important;
+  unicode-bidi: isolate;
+  text-align: center;
+}
