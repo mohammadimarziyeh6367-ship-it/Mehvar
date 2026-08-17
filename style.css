@@ -9,21 +9,23 @@
 
 html,
 body {
+
     margin: 0;
     padding: 0;
 
     width: 100%;
     min-height: 100%;
 
-    font-family:
-        "Vazirmatn",
-        Tahoma,
-        Arial,
-        sans-serif;
 }
 
 
 body {
+
+    font-family:
+        Tahoma,
+        Arial,
+        sans-serif;
+
     background:
         linear-gradient(
             135deg,
@@ -32,40 +34,51 @@ body {
         );
 
     overflow-x: hidden;
+
 }
 
 
 button,
 input {
+
     font-family: inherit;
+
 }
 
 
 .app {
+
     width: 100%;
     min-height: 100vh;
 
     position: relative;
+
 }
 
 
 .screen {
+
     width: 100%;
     min-height: 100vh;
 
     padding:
-        20px 15px 15px;
+        15px 10px 8px;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
 
     position: relative;
+
 }
 
 
 .hidden {
+
     display: none !important;
+
 }
 
 
@@ -73,127 +86,157 @@ input {
    صفحه شروع
 ===================================================== */
 
-#startScreen {
+.start-screen {
+
     justify-content: center;
 
     text-align: center;
 
     background:
+
         radial-gradient(
             circle at top,
             #ffffff,
             #fff4fa 50%,
             #edf8ff
         );
+
 }
 
 
-.teacher-photo-box {
+.teacher-photo {
+
     width: 145px;
     height: 145px;
-
-    margin-bottom: 10px;
 
     border-radius: 50%;
 
     background: white;
 
     border:
-        5px solid #f4b7ce;
+        5px solid #efb5cd;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
 
     box-shadow:
         0 8px 25px
         rgba(150, 100, 130, .15);
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    overflow: hidden;
 }
 
 
 .photo-placeholder {
+
     font-size: 58px;
+
 }
 
 
-.title-sticker {
+.start-sticker {
+
     font-size: 42px;
 
-    margin-top: 5px;
+    margin-top: 8px;
+
 }
 
 
-#startScreen h1 {
-    margin:
-        5px 0 8px;
+.start-screen h1 {
 
-    color: #765b83;
+    margin:
+        3px 0 8px;
+
+    color:
+        #765b83;
 
     font-size:
-        clamp(32px, 8vw, 55px);
+        clamp(32px, 8vw, 52px);
 
-    font-weight: 900;
+    font-weight:
+        900;
+
 }
 
 
 .welcome-text {
-    color: #6f6874;
-
-    font-size:
-        clamp(15px, 4vw, 21px);
 
     margin:
-        0 0 25px;
+        0 0 22px;
 
-    max-width: 500px;
+    color:
+        #6f6874;
+
+    font-size:
+        clamp(14px, 3.8vw, 20px);
+
 }
 
 
 #studentName {
-    width: min(90%, 400px);
 
-    height: 58px;
+    width:
+        min(90%, 400px);
+
+    height:
+        56px;
 
     border:
-        2px solid #e6b7cc;
+        2px solid #e4b4ca;
 
-    border-radius: 18px;
+    border-radius:
+        18px;
 
-    outline: none;
+    outline:
+        none;
 
-    background: white;
+    background:
+        white;
 
-    text-align: center;
+    text-align:
+        center;
 
-    font-size: 20px;
+    font-size:
+        19px;
 
-    color: #554c59;
+    color:
+        #554c59;
 
-    padding: 0 15px;
+    padding:
+        0 15px;
 
-    box-shadow:
-        0 5px 15px
-        rgba(120, 90, 120, .08);
 }
 
 
 #studentName:focus {
-    border-color: #c98eb0;
+
+    border-color:
+        #b989bd;
+
 }
 
 
-#startButton {
-    margin-top: 18px;
+.start-button {
 
-    min-width: 220px;
+    margin-top:
+        17px;
 
-    height: 58px;
+    min-width:
+        220px;
 
-    border: none;
+    height:
+        56px;
 
-    border-radius: 18px;
+    border:
+        none;
+
+    border-radius:
+        18px;
 
     background:
         linear-gradient(
@@ -202,22 +245,22 @@ input {
             #a982cf
         );
 
-    color: white;
+    color:
+        white;
 
-    font-size: 20px;
+    font-size:
+        19px;
 
-    font-weight: bold;
+    font-weight:
+        bold;
 
-    cursor: pointer;
+    cursor:
+        pointer;
 
     box-shadow:
         0 8px 18px
         rgba(170, 110, 160, .25);
-}
 
-
-#startButton:active {
-    transform: scale(.97);
 }
 
 
@@ -225,7 +268,8 @@ input {
    صفحه بازی
 ===================================================== */
 
-#gameScreen {
+.game-screen {
+
     background:
         linear-gradient(
             180deg,
@@ -233,192 +277,333 @@ input {
             #f4fbff
         );
 
-    overflow: hidden;
+    overflow:
+        hidden;
+
 }
 
 
 .game-header {
-    width: 100%;
-    max-width: 900px;
 
-    display: flex;
+    width:
+        100%;
+
+    max-width:
+        950px;
+
+    display:
+        flex;
 
     justify-content:
         space-between;
 
-    align-items: center;
+    align-items:
+        center;
 
-    gap: 10px;
 }
 
 
 .student-box,
 .score-box {
-    background: white;
 
-    border-radius: 15px;
+    background:
+        white;
+
+    border-radius:
+        14px;
 
     padding:
-        9px 13px;
+        8px 12px;
 
-    color: #695b72;
+    color:
+        #695b72;
 
     font-size:
-        clamp(13px, 3vw, 18px);
+        clamp(12px, 3vw, 17px);
 
     box-shadow:
         0 4px 12px
         rgba(100, 80, 120, .08);
+
 }
 
 
 .game-title {
-    margin-top: 12px;
 
-    color: #765b83;
+    margin-top:
+        7px;
 
-    font-size:
-        clamp(27px, 7vw, 45px);
-
-    font-weight: 900;
-}
-
-
-.question-type {
-    margin-top: 5px;
-
-    color: #9c789f;
-
-    font-size: 16px;
-
-    font-weight: bold;
-}
-
-
-.question {
-    margin-top: 5px;
-
-    min-height: 48px;
-
-    color: #4f4655;
+    color:
+        #765b83;
 
     font-size:
         clamp(27px, 7vw, 43px);
 
-    font-weight: 900;
+    font-weight:
+        900;
 
-    direction: ltr !important;
-
-    unicode-bidi: isolate;
-
-    text-align: center;
-
-    white-space: nowrap;
 }
 
 
-.movement-info {
-    min-height: 42px;
+.question-type {
 
-    margin-top: 5px;
+    margin-top:
+        2px;
 
-    padding:
-        8px 14px;
-
-    border-radius: 15px;
-
-    background: rgba(255,255,255,.8);
-
-    color: #6d6370;
+    color:
+        #9c789f;
 
     font-size:
-        clamp(13px, 3.5vw, 18px);
+        15px;
 
-    text-align: center;
+    font-weight:
+        bold;
+
 }
 
 
 /* =====================================================
-   محفظه محور
+   عبارت
+===================================================== */
+
+.question {
+
+    min-height:
+        62px;
+
+    margin-top:
+        2px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        8px;
+
+    direction:
+        ltr !important;
+
+    unicode-bidi:
+        isolate;
+
+    color:
+        #4f4655;
+
+    font-size:
+        clamp(26px, 7vw, 42px);
+
+    font-weight:
+        900;
+
+    white-space:
+        nowrap;
+
+}
+
+
+.expression {
+
+    direction:
+        ltr;
+
+}
+
+
+.equals-sign {
+
+    font-weight:
+        900;
+
+}
+
+
+.answer-input {
+
+    width:
+        62px;
+
+    height:
+        54px;
+
+    border:
+        3px solid #d5a5bc;
+
+    border-radius:
+        14px;
+
+    background:
+        white;
+
+    outline:
+        none;
+
+    text-align:
+        center;
+
+    direction:
+        ltr;
+
+    font-size:
+        27px;
+
+    font-weight:
+        900;
+
+    color:
+        #594d5e;
+
+    box-shadow:
+        0 4px 12px
+        rgba(120, 80, 120, .10);
+
+}
+
+
+.answer-input:focus {
+
+    border-color:
+        #a982cf;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(169,130,207,.12);
+
+}
+
+
+.answer-input.correct {
+
+    border-color:
+        #4caf87;
+
+    background:
+        #effbf5;
+
+}
+
+
+.answer-input.wrong {
+
+    border-color:
+        #df7185;
+
+    background:
+        #fff1f4;
+
+}
+
+
+/* =====================================================
+   محور
 ===================================================== */
 
 .number-line-wrapper {
-    width: 100%;
 
-    max-width: 950px;
+    width:
+        100%;
 
-    margin-top: 4px;
+    max-width:
+        950px;
 
     padding:
-        0 5px;
+        0 4px;
+
 }
 
 
-/* =====================================================
-   خود محور
-===================================================== */
-
 .number-line {
-    width: 100%;
 
-    height: 190px;
+    width:
+        100%;
 
-    position: relative;
+    height:
+        190px;
 
-    overflow: hidden;
+    position:
+        relative;
 
-    touch-action: none;
+    overflow:
+        hidden;
 
-    user-select: none;
+    touch-action:
+        none;
 
-    -webkit-user-select: none;
+    user-select:
+        none;
+
+    -webkit-user-select:
+        none;
 
     background:
         rgba(255,255,255,.45);
 
-    border-radius: 20px;
+    border-radius:
+        20px;
+
 }
 
 
-/* خط اصلی محور */
+/* خط محور */
 
 .number-line::before {
-    content: "";
 
-    position: absolute;
+    content:
+        "";
 
-    left: 4%;
+    position:
+        absolute;
 
-    right: 4%;
+    left:
+        4%;
 
-    top: 88px;
+    right:
+        4%;
 
-    height: 4px;
+    top:
+        88px;
 
-    background: #756b79;
+    height:
+        4px;
 
-    border-radius: 10px;
+    background:
+        #756b79;
 
-    z-index: 1;
+    border-radius:
+        10px;
+
+    z-index:
+        1;
+
 }
 
 
-/* =====================================================
-   پیکان فقط سمت راست
-===================================================== */
+/* پیکان فقط سمت راست */
 
 .number-line::after {
-    content: "";
 
-    position: absolute;
+    content:
+        "";
 
-    right: 1.5%;
+    position:
+        absolute;
 
-    top: 84px;
+    right:
+        1.5%;
 
-    width: 0;
+    top:
+        84px;
 
-    height: 0;
+    width:
+        0;
+
+    height:
+        0;
 
     border-top:
         5px solid transparent;
@@ -429,80 +614,111 @@ input {
     border-left:
         8px solid #756b79;
 
-    z-index: 2;
+    z-index:
+        2;
+
 }
 
 
 /* =====================================================
-   اعداد
+   اعداد محور
 ===================================================== */
 
 .number {
-    position: absolute;
 
-    top: 103px;
+    position:
+        absolute;
+
+    top:
+        103px;
 
     transform:
         translateX(-50%);
 
-    color: #514957;
+    color:
+        #514957;
 
     font-size:
         clamp(10px, 2.3vw, 18px);
 
-    font-weight: bold;
+    font-weight:
+        bold;
 
-    z-index: 3;
+    z-index:
+        3;
 
-    pointer-events: none;
+    pointer-events:
+        none;
+
 }
 
 
-/* خط‌های کوچک */
-
 .tick {
-    position: absolute;
 
-    top: 78px;
+    position:
+        absolute;
 
-    width: 2px;
+    top:
+        78px;
 
-    height: 20px;
+    width:
+        2px;
 
-    background: #756b79;
+    height:
+        20px;
+
+    background:
+        #756b79;
 
     transform:
         translateX(-50%);
 
-    z-index: 2;
+    z-index:
+        2;
 
-    pointer-events: none;
+    pointer-events:
+        none;
+
 }
 
 
 /* =====================================================
-   کمان‌های حرکت
+   کمان حرکت
 ===================================================== */
 
 .curved-move {
-    position: absolute;
 
-    left: 0;
-    top: 0;
+    position:
+        absolute;
 
-    width: 100%;
-    height: 190px;
+    left:
+        0;
 
-    overflow: visible;
+    top:
+        0;
 
-    z-index: 8;
+    width:
+        100%;
 
-    pointer-events: none !important;
+    height:
+        190px;
+
+    overflow:
+        visible;
+
+    z-index:
+        8;
+
+    pointer-events:
+        none !important;
+
 }
 
 
 .curved-path {
-    fill: none;
+
+    fill:
+        none;
 
     stroke:
         #ed7097;
@@ -516,88 +732,123 @@ input {
     stroke-linejoin:
         round;
 
-    pointer-events: none !important;
+    pointer-events:
+        none !important;
+
 }
 
 
-.curved-move.left
-.curved-path {
-    stroke: #62a4e6;
+.curved-move.left .curved-path {
+
+    stroke:
+        #62a4e6;
+
 }
 
 
 .curved-move text {
-    pointer-events: none !important;
+
+    pointer-events:
+        none !important;
 
     font-family:
         Tahoma,
         Arial,
         sans-serif;
 
-    font-size: 16px;
+    font-size:
+        16px;
 
-    font-weight: bold;
+    font-weight:
+        bold;
 
-    fill: #6e6074;
+    fill:
+        #6e6074;
+
 }
 
 
 /* نقطه شروع */
 
 .start-dot {
-    position: absolute;
 
-    width: 10px;
-    height: 10px;
+    position:
+        absolute;
+
+    width:
+        10px;
+
+    height:
+        10px;
 
     transform:
         translate(-50%, -50%);
 
-    border-radius: 50%;
+    border-radius:
+        50%;
 
-    background: #ed7097;
+    background:
+        #ed7097;
 
-    box-shadow:
-        0 0 0 3px
-        rgba(237,112,151,.15);
+    z-index:
+        9;
 
-    z-index: 9;
+    pointer-events:
+        none !important;
 
-    pointer-events: none !important;
 }
 
 
 /* =====================================================
-   کمان موقت هنگام کشیدن
+   کمان موقت زیر انگشت
 ===================================================== */
 
 .drawing-preview {
-    position: absolute;
 
-    left: 0;
-    top: 0;
+    position:
+        absolute;
 
-    width: 100%;
-    height: 190px;
+    left:
+        0;
 
-    z-index: 20;
+    top:
+        0;
 
-    pointer-events: none !important;
+    width:
+        100%;
+
+    height:
+        190px;
+
+    z-index:
+        20;
+
+    pointer-events:
+        none !important;
+
 }
 
 
 .drawing-preview path {
-    fill: none;
 
-    stroke: #b9a8c2;
+    fill:
+        none;
 
-    stroke-width: 3px;
+    stroke:
+        #b9a8c2;
 
-    stroke-dasharray: 7 6;
+    stroke-width:
+        3px;
 
-    stroke-linecap: round;
+    stroke-dasharray:
+        7 6;
 
-    pointer-events: none !important;
+    stroke-linecap:
+        round;
+
+    pointer-events:
+        none !important;
+
 }
 
 
@@ -606,55 +857,77 @@ input {
 ===================================================== */
 
 .buttons {
-    width: 100%;
 
-    max-width: 850px;
+    width:
+        100%;
 
-    display: flex;
+    max-width:
+        850px;
 
-    justify-content: center;
+    display:
+        flex;
 
-    align-items: center;
+    justify-content:
+        center;
 
-    flex-wrap: wrap;
+    align-items:
+        center;
 
-    gap: 10px;
+    flex-wrap:
+        wrap;
 
-    margin-top: 3px;
+    gap:
+        8px;
+
+    margin-top:
+        2px;
+
 }
 
 
 .buttons button {
-    min-height: 47px;
+
+    min-height:
+        45px;
 
     padding:
-        8px 15px;
+        7px 14px;
 
-    border: none;
+    border:
+        none;
 
-    border-radius: 15px;
+    border-radius:
+        14px;
 
-    cursor: pointer;
+    cursor:
+        pointer;
 
     font-size:
-        clamp(13px, 3vw, 17px);
+        clamp(12px, 3vw, 16px);
 
-    font-weight: bold;
+    font-weight:
+        bold;
+
 }
 
 
 .secondary-button {
-    background: white;
 
-    color: #766b78;
+    background:
+        white;
+
+    color:
+        #766b78;
 
     box-shadow:
         0 4px 12px
         rgba(100,80,120,.10);
+
 }
 
 
 .check-button {
+
     background:
         linear-gradient(
             135deg,
@@ -662,34 +935,37 @@ input {
             #4b9f83
         );
 
-    color: white;
+    color:
+        white;
 
     box-shadow:
         0 5px 15px
         rgba(70,150,120,.20);
-}
 
-
-.buttons button:active {
-    transform: scale(.96);
 }
 
 
 /* =====================================================
-   بازخورد
+   پیام
 ===================================================== */
 
 .feedback {
-    min-height: 35px;
 
-    margin-top: 5px;
+    min-height:
+        34px;
+
+    margin-top:
+        3px;
 
     font-size:
-        clamp(16px, 4vw, 23px);
+        clamp(16px, 4vw, 22px);
 
-    font-weight: bold;
+    font-weight:
+        bold;
 
-    text-align: center;
+    text-align:
+        center;
+
 }
 
 
@@ -698,58 +974,93 @@ input {
 ===================================================== */
 
 .firework-container {
-    position: fixed;
 
-    inset: 0;
+    position:
+        fixed;
 
-    width: 100vw;
-    height: 100vh;
+    inset:
+        0;
 
-    pointer-events: none;
+    width:
+        100vw;
 
-    overflow: hidden;
+    height:
+        100vh;
 
-    z-index: 1000;
+    pointer-events:
+        none;
+
+    overflow:
+        hidden;
+
+    z-index:
+        1000;
+
 }
 
 
 .firework-particle {
-    position: absolute;
 
-    width: 8px;
-    height: 8px;
+    position:
+        absolute;
 
-    border-radius: 50%;
+    width:
+        8px;
 
-    opacity: 0;
+    height:
+        8px;
+
+    border-radius:
+        50%;
+
+    opacity:
+        0;
 
     animation:
-        firework 1.05s
-        ease-out forwards;
+        firework
+        1.05s
+        ease-out
+        forwards;
+
 }
 
 
 @keyframes firework {
 
     0% {
+
         transform:
             translate(0,0)
             scale(.3);
 
-        opacity: 1;
+        opacity:
+            1;
+
     }
+
 
     65% {
-        opacity: 1;
+
+        opacity:
+            1;
+
     }
+
 
     100% {
+
         transform:
-            translate(var(--x),var(--y))
+            translate(
+                var(--x),
+                var(--y)
+            )
             scale(0);
 
-        opacity: 0;
+        opacity:
+            0;
+
     }
+
 }
 
 
@@ -758,18 +1069,22 @@ input {
 ===================================================== */
 
 footer {
-    margin-top: auto;
 
-    padding-top: 8px;
+    margin-top:
+        auto;
 
-    padding-bottom: 3px;
+    padding-top:
+        4px;
 
-    color: #88758e;
+    color:
+        #88758e;
 
     font-size:
         clamp(9px, 2.2vw, 13px);
 
-    text-align: center;
+    text-align:
+        center;
+
 }
 
 
@@ -779,101 +1094,150 @@ footer {
 
 @media (max-width: 600px) {
 
+
     .screen {
+
         padding:
-            10px 8px 8px;
+            9px 7px 6px;
+
     }
 
 
     .game-title {
-        margin-top: 7px;
+
+        font-size:
+            28px;
+
     }
 
 
     .question {
-        font-size: 28px;
 
-        min-height: 40px;
+        min-height:
+            53px;
+
+        font-size:
+            28px;
+
+        gap:
+            5px;
+
     }
 
 
-    .movement-info {
-        min-height: 36px;
+    .answer-input {
 
-        padding: 6px 8px;
+        width:
+            54px;
+
+        height:
+            48px;
+
+        font-size:
+            24px;
+
     }
 
 
     .number-line {
-        height: 165px;
+
+        height:
+            165px;
+
     }
 
 
     .number-line::before {
-        top: 74px;
 
-        height: 3px;
+        top:
+            74px;
+
+        height:
+            3px;
+
     }
 
 
     .number-line::after {
-        top: 70px;
 
-        right: 1%;
+        top:
+            70px;
 
-        border-top-width: 4px;
+        right:
+            1%;
 
-        border-bottom-width: 4px;
+        border-top-width:
+            4px;
 
-        border-left-width: 7px;
+        border-bottom-width:
+            4px;
+
+        border-left-width:
+            7px;
+
     }
 
 
     .tick {
-        top: 65px;
 
-        height: 17px;
+        top:
+            65px;
+
+        height:
+            17px;
+
     }
 
 
     .number {
-        top: 88px;
 
-        font-size: 10px;
+        top:
+            88px;
+
+        font-size:
+            10px;
+
     }
 
 
     .curved-move,
     .drawing-preview {
-        height: 165px;
+
+        height:
+            165px;
+
     }
 
 
     .curved-move text {
-        font-size: 13px;
+
+        font-size:
+            13px;
+
     }
 
 
     .buttons {
-        gap: 6px;
 
-        margin-top: 2px;
+        gap:
+            5px;
+
     }
 
 
     .buttons button {
-        min-height: 42px;
+
+        min-height:
+            41px;
 
         padding:
-            6px 10px;
+            6px 9px;
 
-        font-size: 12px;
+        font-size:
+            11px;
+
     }
 
-
-    footer {
-        padding-top: 5px;
-    }
 }
 
 
@@ -883,55 +1247,81 @@ footer {
 
 @media (max-width: 380px) {
 
-    .game-title {
-        font-size: 27px;
+
+    .question {
+
+        font-size:
+            25px;
+
     }
 
 
-    .question {
-        font-size: 25px;
+    .answer-input {
+
+        width:
+            48px;
+
+        height:
+            44px;
+
+        font-size:
+            22px;
+
     }
 
 
     .number-line {
-        height: 150px;
+
+        height:
+            150px;
+
     }
 
 
     .number-line::before {
-        top: 68px;
+
+        top:
+            68px;
+
     }
 
 
     .number-line::after {
-        top: 64px;
+
+        top:
+            64px;
+
     }
 
 
     .tick {
-        top: 59px;
 
-        height: 15px;
+        top:
+            59px;
+
+        height:
+            15px;
+
     }
 
 
     .number {
-        top: 81px;
 
-        font-size: 9px;
+        top:
+            81px;
+
+        font-size:
+            9px;
+
     }
 
 
     .curved-move,
     .drawing-preview {
-        height: 150px;
+
+        height:
+            150px;
+
     }
 
-
-    .buttons button {
-        font-size: 11px;
-
-        padding:
-            5px 8px;
-    }
 }
