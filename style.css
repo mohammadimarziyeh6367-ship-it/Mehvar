@@ -819,3 +819,11 @@ input {
         font-size: 9px !important;
     }
 }
+
+/* اصلاح جهت نمایش عبارت‌های ریاضی */
+
+#question {
+    direction: ltr !important;
+    unicode-bidi: isolate;
+    text-align: center;
+}
