@@ -744,8 +744,7 @@ function getNumberPosition(value) {
             lineRect.left,
 
         y:
-            numberLine.clientHeight *
-            0.72
+    numberLine.clientHeight - 20
     };
 }
 
