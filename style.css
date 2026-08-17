@@ -649,3 +649,173 @@ input {
     top: 88px;
   }
 }
+/* =====================================================
+   اصلاح نهایی محور اعداد
+===================================================== */
+
+#numberLine {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+
+    overflow: hidden !important;
+
+    padding: 0 !important;
+}
+
+
+/* خط محور؛ کاملاً داخل صفحه */
+
+#numberLine::before {
+    left: 18px !important;
+    right: 18px !important;
+
+    width: auto !important;
+
+    top: 76px !important;
+
+    height: 4px !important;
+
+    border-radius: 5px !important;
+}
+
+
+/* پیکان خیلی ظریف فقط در سمت راست */
+
+#numberLine::after {
+    right: 8px !important;
+
+    top: 71px !important;
+
+    width: 0 !important;
+    height: 0 !important;
+
+    border-top: 5px solid transparent !important;
+    border-bottom: 5px solid transparent !important;
+
+    border-left: 8px solid #685b70 !important;
+}
+
+
+/* عددها */
+
+#numberLine .number {
+    font-size: clamp(
+        10px,
+        2.3vw,
+        18px
+    ) !important;
+
+    top: 92px !important;
+}
+
+
+/* خط‌های کوچک */
+
+#numberLine .tick {
+    top: 68px !important;
+
+    height: 17px !important;
+
+    width: 2px !important;
+}
+
+
+/* روی گوشی */
+
+@media (max-width: 600px) {
+
+    #numberLine {
+        width: 100% !important;
+
+        height: 145px !important;
+
+        margin: 5px 0 !important;
+
+        overflow: hidden !important;
+    }
+
+
+    #numberLine::before {
+        left: 12px !important;
+        right: 12px !important;
+
+        top: 70px !important;
+
+        height: 3px !important;
+    }
+
+
+    #numberLine::after {
+        right: 5px !important;
+
+        top: 66px !important;
+
+        border-top: 4px solid transparent !important;
+        border-bottom: 4px solid transparent !important;
+
+        border-left: 7px solid #685b70 !important;
+    }
+
+
+    #numberLine .tick {
+        top: 63px !important;
+
+        height: 15px !important;
+
+        width: 2px !important;
+    }
+
+
+    #numberLine .number {
+        top: 84px !important;
+
+        font-size: 10px !important;
+    }
+}
+
+
+/* گوشی‌های خیلی کوچک */
+
+@media (max-width: 380px) {
+
+    #numberLine {
+        height: 135px !important;
+    }
+
+
+    #numberLine::before {
+        left: 9px !important;
+        right: 9px !important;
+
+        top: 66px !important;
+    }
+
+
+    #numberLine::after {
+        right: 3px !important;
+
+        top: 62px !important;
+
+        border-top-width: 4px !important;
+        border-bottom-width: 4px !important;
+
+        border-left-width: 6px !important;
+    }
+
+
+    #numberLine .tick {
+        top: 59px !important;
+
+        height: 14px !important;
+    }
+
+
+    #numberLine .number {
+        top: 79px !important;
+
+        font-size: 9px !important;
+    }
+}
