@@ -1,45 +1,23 @@
-const startScreen =
-  document.getElementById("startScreen");
+const startScreen = document.getElementById("startScreen");
+const gameScreen = document.getElementById("gameScreen");
 
-const gameScreen =
-  document.getElementById("gameScreen");
+const studentNameInput = document.getElementById("studentName");
+const startButton = document.getElementById("startButton");
 
-const studentNameInput =
-  document.getElementById("studentName");
+const playerName = document.getElementById("playerName");
+const scoreElement = document.getElementById("score");
 
-const startButton =
-  document.getElementById("startButton");
+const questionTypeElement = document.getElementById("questionType");
+const questionElement = document.getElementById("question");
 
-const playerName =
-  document.getElementById("playerName");
+const numberLine = document.getElementById("numberLine");
+const movementInfo = document.getElementById("movementInfo");
 
-const scoreElement =
-  document.getElementById("score");
+const undoButton = document.getElementById("undoButton");
+const clearButton = document.getElementById("clearButton");
+const checkButton = document.getElementById("checkButton");
 
-const questionTypeElement =
-  document.getElementById("questionType");
-
-const questionElement =
-  document.getElementById("question");
-
-const numberLine =
-  document.getElementById("numberLine");
-
-const movementInfo =
-  document.getElementById("movementInfo");
-
-const undoButton =
-  document.getElementById("undoButton");
-
-const clearButton =
-  document.getElementById("clearButton");
-
-const checkButton =
-  document.getElementById("checkButton");
-
-const feedback =
-  document.getElementById("feedback");
-
+const feedback = document.getElementById("feedback");
 const fireworkContainer =
   document.getElementById("fireworkContainer");
 
@@ -49,26 +27,22 @@ const fireworkContainer =
 ===================================================== */
 
 let score = 0;
-
 let currentQuestion = null;
-
 let drawnMoves = [];
 
 let isDrawing = false;
-
 let drawingStart = null;
 
 let audioContext = null;
 
 
 /* =====================================================
-   تبدیل عدد به فارسی
+   عدد فارسی
 ===================================================== */
 
 function toPersianNumber(value) {
 
-  const numbers =
-    "۰۱۲۳۴۵۶۷۸۹";
+  const numbers = "۰۱۲۳۴۵۶۷۸۹";
 
   return String(value).replace(
     /\d/g,
@@ -84,8 +58,7 @@ function toPersianNumber(value) {
 function randomInt(min, max) {
 
   return Math.floor(
-    Math.random() *
-      (max - min + 1)
+    Math.random() * (max - min + 1)
   ) + min;
 }
 
@@ -103,9 +76,7 @@ function initializeAudio() {
       window.webkitAudioContext;
 
     if (AudioContext) {
-
-      audioContext =
-        new AudioContext();
+      audioContext = new AudioContext();
     }
   }
 
@@ -113,7 +84,6 @@ function initializeAudio() {
     audioContext &&
     audioContext.state === "suspended"
   ) {
-
     audioContext.resume();
   }
 }
@@ -135,15 +105,11 @@ function playTone(
   const gain =
     audioContext.createGain();
 
-  oscillator.type =
-    type;
-
-  oscillator.frequency.value =
-    frequency;
+  oscillator.type = type;
+  oscillator.frequency.value = frequency;
 
   const startTime =
-    audioContext.currentTime +
-    delay;
+    audioContext.currentTime + delay;
 
   gain.gain.setValueAtTime(
     0,
@@ -161,17 +127,12 @@ function playTone(
   );
 
   oscillator.connect(gain);
-
-  gain.connect(
-    audioContext.destination
-  );
+  gain.connect(audioContext.destination);
 
   oscillator.start(startTime);
 
   oscillator.stop(
-    startTime +
-    duration +
-    0.03
+    startTime + duration + 0.03
   );
 }
 
@@ -229,46 +190,45 @@ function playWrongSound() {
 
 
 /* =====================================================
-   محور ۰ تا ۲۰
+   ساخت محور ۰ تا ۲۰
 ===================================================== */
 
 function createNumberLine() {
 
   numberLine.innerHTML = "";
 
-  for (
-    let i = 0;
-    i <= 20;
-    i++
-  ) {
+  for (let i = 0; i <= 20; i++) {
 
-   const position =
-  4 +
-  (i / 20) * 92;
+    /*
+      محور از ۴٪ تا ۹۶٪
+      تا کاملاً داخل صفحه بماند
+    */
 
+    const position =
+      4 + (i / 20) * 92;
+
+
+    /* خط کوچک */
 
     const tick =
       document.createElement("div");
 
-    tick.className =
-      "tick";
+    tick.className = "tick";
 
     tick.style.left =
       `${position}%`;
 
-    numberLine.appendChild(
-      tick
-    );
+    numberLine.appendChild(tick);
 
+
+    /* عدد */
 
     const number =
       document.createElement("div");
 
-    number.className =
-      "number";
+    number.className = "number";
 
-    number.dataset.value =
-      i;
+    number.dataset.value = i;
 
     number.textContent =
       toPersianNumber(i);
@@ -276,9 +236,7 @@ function createNumberLine() {
     number.style.left =
       `${position}%`;
 
-    numberLine.appendChild(
-      number
-    );
+    numberLine.appendChild(number);
   }
 }
 
@@ -291,19 +249,24 @@ function generateQuestion() {
 
   clearDrawing();
 
-  feedback.textContent =
-    "";
+  feedback.textContent = "";
 
-  const type =
-    randomInt(1, 3);
+  /*
+    ۱ = جمع
+    ۲ = تفریق
+    ۳ = عبارت سه‌تایی
+  */
+
+  const type = randomInt(1, 3);
 
 
-  /* جمع */
+  /* ===================================================
+     جمع
+  =================================================== */
 
   if (type === 1) {
 
-    const a =
-      randomInt(0, 15);
+    const a = randomInt(0, 15);
 
     const b =
       randomInt(1, 20 - a);
@@ -316,12 +279,10 @@ function generateQuestion() {
       start: a,
 
       operations: [
-
         {
           operator: "+",
           value: b
         }
-
       ],
 
       answer: a + b
@@ -331,33 +292,36 @@ function generateQuestion() {
     questionTypeElement.textContent =
       "جمع";
 
-questionElement.textContent =
-  `${toPersianNumber(a)} − ${toPersianNumber(b)} = ؟`;
 
-questionElement.style.direction = "ltr";
-questionElement.style.unicodeBidi = "isolate";
-    
+    questionElement.textContent =
+      `${toPersianNumber(a)} + ${toPersianNumber(b)} = ؟`;
+
+
+    setMathDirection();
 
 
     movementInfo.textContent =
-      `از ${toPersianNumber(a)}
-       شروع کن و
-       ${toPersianNumber(b)}
-       خانه به راست برو.`;
+      `از ${toPersianNumber(a)} شروع کن و ${toPersianNumber(b)} خانه به راست برو.`;
 
     return;
   }
 
 
-  /* تفریق */
+  /* ===================================================
+     تفریق
+  =================================================== */
 
   if (type === 2) {
 
+    /*
+      عدد اول همیشه بزرگ‌تر است
+    */
+
     const a =
-      randomInt(1, 20);
+      randomInt(2, 20);
 
     const b =
-      randomInt(1, a);
+      randomInt(1, a - 1);
 
 
     currentQuestion = {
@@ -367,12 +331,10 @@ questionElement.style.unicodeBidi = "isolate";
       start: a,
 
       operations: [
-
         {
           operator: "-",
           value: b
         }
-
       ],
 
       answer: a - b
@@ -384,23 +346,24 @@ questionElement.style.unicodeBidi = "isolate";
 
 
     questionElement.textContent =
-  `${toPersianNumber(a)} + ${toPersianNumber(b)} = ؟`;
+      `${toPersianNumber(a)} − ${toPersianNumber(b)} = ؟`;
 
-questionElement.style.direction = "ltr";
-questionElement.style.unicodeBidi = "isolate";
+
+    setMathDirection();
 
 
     movementInfo.textContent =
-      `از ${toPersianNumber(a)}
-       شروع کن و
-       ${toPersianNumber(b)}
-       خانه به چپ برو.`;
+      `از ${toPersianNumber(a)} شروع کن و ${toPersianNumber(b)} خانه به چپ برو.`;
 
     return;
   }
 
 
-  /* سه عبارتی */
+  /* ===================================================
+     عبارت سه‌تایی
+  =================================================== */
+
+  let valid = false;
 
   let a;
   let b;
@@ -411,21 +374,22 @@ questionElement.style.unicodeBidi = "isolate";
 
   let answer;
 
-  let valid =
-    false;
-
 
   while (!valid) {
 
-    a =
-      randomInt(2, 15);
+    /*
+      عدد شروع
+    */
 
-    b =
-      randomInt(1, 7);
+    a = randomInt(3, 15);
 
-    c =
-      randomInt(1, 7);
+    b = randomInt(1, 7);
+    c = randomInt(1, 7);
 
+
+    /*
+      ترکیب‌های ممکن
+    */
 
     const combinations = [
 
@@ -449,39 +413,49 @@ questionElement.style.unicodeBidi = "isolate";
       ];
 
 
-    op1 =
-      selected[0];
-
-    op2 =
-      selected[1];
+    op1 = selected[0];
+    op2 = selected[1];
 
 
-    let result =
+    /*
+      مرحله اول
+    */
+
+    let position1 =
       a;
 
 
-    result =
+    const result1 =
       op1 === "+"
-        ? result + b
-        : result - b;
+        ? position1 + b
+        : position1 - b;
 
 
-    result =
+    /*
+      مرحله دوم
+    */
+
+    const result2 =
       op2 === "+"
-        ? result + c
-        : result - c;
+        ? result1 + c
+        : result1 - c;
 
+
+    /*
+      هیچ مرحله‌ای نباید
+      از محور ۰ تا ۲۰ خارج شود
+    */
 
     if (
-      result >= 0 &&
-      result <= 20
+      result1 >= 0 &&
+      result1 <= 20 &&
+      result2 >= 0 &&
+      result2 <= 20
     ) {
 
-      answer =
-        result;
+      answer = result2;
 
-      valid =
-        true;
+      valid = true;
     }
   }
 
@@ -515,26 +489,17 @@ questionElement.style.unicodeBidi = "isolate";
 
 
   const visibleOp1 =
-    op1 === "+"
-      ? "+"
-      : "−";
+    op1 === "+" ? "+" : "−";
 
   const visibleOp2 =
-    op2 === "+"
-      ? "+"
-      : "−";
-questionElement.textContent =
-  `${toPersianNumber(a)}
-   ${visibleOp1}
-   ${toPersianNumber(b)}
-   ${visibleOp2}
-   ${toPersianNumber(c)}
-   = ؟`;
+    op2 === "+" ? "+" : "−";
 
-questionElement.style.direction = "ltr";
-questionElement.style.unicodeBidi = "isolate";
 
-  
+  questionElement.textContent =
+    `${toPersianNumber(a)} ${visibleOp1} ${toPersianNumber(b)} ${visibleOp2} ${toPersianNumber(c)} = ؟`;
+
+
+  setMathDirection();
 
 
   movementInfo.textContent =
@@ -543,7 +508,23 @@ questionElement.style.unicodeBidi = "isolate";
 
 
 /* =====================================================
-   موقعیت عدد
+   جهت صحیح عبارت ریاضی
+===================================================== */
+
+function setMathDirection() {
+
+  questionElement.style.direction = "ltr";
+
+  questionElement.style.unicodeBidi =
+    "isolate";
+
+  questionElement.style.textAlign =
+    "center";
+}
+
+
+/* =====================================================
+   موقعیت عدد روی محور
 ===================================================== */
 
 function getNumberPosition(value) {
@@ -573,8 +554,8 @@ function getNumberPosition(value) {
       lineRect.left,
 
     y:
-      numberLine.clientWidth < 500
-        ? 76
+      window.innerWidth <= 600
+        ? 70
         : 85
   };
 }
@@ -590,8 +571,7 @@ function getNumberFromPointer(event) {
     numberLine.getBoundingClientRect();
 
   const x =
-    event.clientX -
-    rect.left;
+    event.clientX - rect.left;
 
 
   const percent =
@@ -603,12 +583,16 @@ function getNumberFromPointer(event) {
       )
     );
 
-const value =
-  Math.round(
-    ((percent - 4) / 92) *
-    20
-  );
-  
+
+  /*
+    همان ۴٪ تا ۹۶٪
+    که برای اعداد استفاده کردیم
+  */
+
+  const value =
+    Math.round(
+      ((percent - 4) / 92) * 20
+    );
 
 
   return Math.max(
@@ -637,8 +621,7 @@ function getExpectedNextStart() {
 
 
   for (
-    const move
-    of drawnMoves
+    const move of drawnMoves
   ) {
 
     position =
@@ -676,19 +659,15 @@ numberLine.addEventListener(
     ) {
 
       movementInfo.textContent =
-        `از عدد
-        ${toPersianNumber(expectedStart)}
-        شروع کن 🌱`;
+        `از عدد ${toPersianNumber(expectedStart)} شروع کن 🌱`;
 
       return;
     }
 
 
-    isDrawing =
-      true;
+    isDrawing = true;
 
-    drawingStart =
-      value;
+    drawingStart = value;
 
 
     try {
@@ -722,8 +701,7 @@ numberLine.addEventListener(
       getNumberFromPointer(event);
 
 
-    isDrawing =
-      false;
+    isDrawing = false;
 
 
     try {
@@ -739,8 +717,22 @@ numberLine.addEventListener(
       end === drawingStart
     ) {
 
-      drawingStart =
-        null;
+      drawingStart = null;
+
+      return;
+    }
+
+
+    /*
+      جلوگیری از حرکت نامعتبر
+    */
+
+    if (
+      end < 0 ||
+      end > 20
+    ) {
+
+      drawingStart = null;
 
       return;
     }
@@ -752,21 +744,22 @@ numberLine.addEventListener(
     );
 
 
-    drawingStart =
-      null;
+    drawingStart = null;
   }
 );
 
+
+/* =====================================================
+   لغو لمس
+===================================================== */
 
 numberLine.addEventListener(
   "pointercancel",
   () => {
 
-    isDrawing =
-      false;
+    isDrawing = false;
 
-    drawingStart =
-      null;
+    drawingStart = null;
   }
 );
 
@@ -787,17 +780,18 @@ function addMove(
 
 
   const distance =
-    Math.abs(
-      end - start
-    );
+    Math.abs(end - start);
 
 
   drawnMoves.push({
 
-    start,
-    end,
-    direction,
-    distance
+    start: start,
+
+    end: end,
+
+    direction: direction,
+
+    distance: distance
   });
 
 
@@ -847,11 +841,15 @@ function drawMove(
     );
 
 
+  /*
+    ارتفاع کمان متناسب با فاصله
+  */
+
   const curveHeight =
     Math.min(
-      65,
+      60,
       Math.max(
-        35,
+        28,
         distanceX * 0.25
       )
     );
@@ -884,9 +882,13 @@ function drawMove(
 
   svg.setAttribute(
     "viewBox",
-    `0 0
-     ${numberLine.clientWidth}
-     150`
+    `0 0 ${numberLine.clientWidth} 150`
+  );
+
+
+  svg.setAttribute(
+    "preserveAspectRatio",
+    "none"
   );
 
 
@@ -899,12 +901,9 @@ function drawMove(
 
   path.setAttribute(
     "d",
-    `M ${startPos.x}
-       ${startPos.y}
-       Q ${middleX}
-         ${middleY}
-         ${endPos.x}
-         ${endPos.y}`
+    `M ${startPos.x} ${startPos.y}
+     Q ${middleX} ${middleY}
+     ${endPos.x} ${endPos.y}`
   );
 
 
@@ -913,7 +912,9 @@ function drawMove(
   );
 
 
-  /* فلش */
+  /*
+    فلش ظریف
+  */
 
   const markerId =
     `arrow-${Date.now()}-${Math.random()
@@ -942,22 +943,22 @@ function drawMove(
 
   marker.setAttribute(
     "markerWidth",
-    "10"
+    "7"
   );
 
   marker.setAttribute(
     "markerHeight",
-    "10"
+    "7"
   );
 
   marker.setAttribute(
     "refX",
-    "8"
+    "6"
   );
 
   marker.setAttribute(
     "refY",
-    "4"
+    "3.5"
   );
 
   marker.setAttribute(
@@ -975,7 +976,7 @@ function drawMove(
 
   arrowHead.setAttribute(
     "d",
-    "M0,0 L0,8 L10,4 Z"
+    "M 0 0 L 7 3.5 L 0 7 Z"
   );
 
 
@@ -1006,12 +1007,12 @@ function drawMove(
   );
 
 
-  svg.appendChild(
-    path
-  );
+  svg.appendChild(path);
 
 
-  /* عدد حرکت */
+  /*
+    نمایش مقدار حرکت
+  */
 
   const text =
     document.createElementNS(
@@ -1025,12 +1026,10 @@ function drawMove(
     middleX
   );
 
-
   text.setAttribute(
     "y",
-    middleY - 7
+    middleY - 6
   );
-
 
   text.setAttribute(
     "text-anchor",
@@ -1039,29 +1038,21 @@ function drawMove(
 
 
   text.textContent =
-    `${
-      direction === "right"
-        ? "+"
-        : "−"
-    }${toPersianNumber(distance)}`;
+    `${direction === "right" ? "+" : "−"}${toPersianNumber(distance)}`;
 
 
-  svg.appendChild(
-    text
-  );
+  svg.appendChild(text);
 
 
-  numberLine.appendChild(
-    svg
-  );
+  numberLine.appendChild(svg);
 
 
-  /* نقطه شروع */
+  /*
+    نقطه شروع
+  */
 
   const dot =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
 
   dot.className =
@@ -1076,9 +1067,7 @@ function drawMove(
     `${startPos.y}px`;
 
 
-  numberLine.appendChild(
-    dot
-  );
+  numberLine.appendChild(dot);
 }
 
 
@@ -1106,9 +1095,7 @@ undoButton.addEventListener(
       );
 
 
-    if (
-      curves.length
-    ) {
+    if (curves.length > 0) {
 
       curves[
         curves.length - 1
@@ -1122,15 +1109,15 @@ undoButton.addEventListener(
       );
 
 
-    if (
-      dots.length
-    ) {
+    if (dots.length > 0) {
 
       dots[
         dots.length - 1
       ].remove();
     }
 
+
+    feedback.textContent = "";
 
     movementInfo.textContent =
       "حرکت قبلی پاک شد؛ دوباره بکش ✏️";
@@ -1139,7 +1126,7 @@ undoButton.addEventListener(
 
 
 /* =====================================================
-   پاک کردن همه
+   پاک کردن همه حرکت‌ها
 ===================================================== */
 
 clearButton.addEventListener(
@@ -1148,8 +1135,7 @@ clearButton.addEventListener(
 
     clearDrawing();
 
-    feedback.textContent =
-      "";
+    feedback.textContent = "";
 
     movementInfo.textContent =
       "از عدد مبدأ شروع کن و حرکتت را بکش ✏️";
@@ -1159,8 +1145,7 @@ clearButton.addEventListener(
 
 function clearDrawing() {
 
-  drawnMoves =
-    [];
+  drawnMoves = [];
 
 
   numberLine
@@ -1195,9 +1180,7 @@ checkButton.addEventListener(
     }
 
 
-    const correctMoves =
-      [];
-
+    const correctMoves = [];
 
     let position =
       currentQuestion.start;
@@ -1210,10 +1193,8 @@ checkButton.addEventListener(
 
       const newPosition =
         operation.operator === "+"
-          ? position +
-            operation.value
-          : position -
-            operation.value;
+          ? position + operation.value
+          : position - operation.value;
 
 
       correctMoves.push({
@@ -1242,8 +1223,7 @@ checkButton.addEventListener(
     }
 
 
-    let correct =
-      true;
+    let correct = true;
 
 
     for (
@@ -1260,8 +1240,7 @@ checkButton.addEventListener(
           correctMoves[i].end
       ) {
 
-        correct =
-          false;
+        correct = false;
 
         break;
       }
@@ -1283,13 +1262,12 @@ checkButton.addEventListener(
 
 
 /* =====================================================
-   درست
+   پاسخ صحیح
 ===================================================== */
 
 function showCorrect() {
 
   score++;
-
 
   scoreElement.textContent =
     toPersianNumber(score);
@@ -1320,7 +1298,7 @@ function showCorrect() {
 
 
 /* =====================================================
-   غلط
+   پاسخ غلط
 ===================================================== */
 
 function showWrong(message) {
@@ -1328,39 +1306,33 @@ function showWrong(message) {
   feedback.textContent =
     message;
 
-
   feedback.style.color =
     "#d65b70";
-
 
   playWrongSound();
 }
 
 
 /* =====================================================
-   فشفشه
+   فشفشه نورافشانی
 ===================================================== */
 
 function launchFireworks() {
 
-  fireworkContainer.innerHTML =
-    "";
+  fireworkContainer.innerHTML = "";
 
 
   const colors = [
-
     "#ff5c8a",
     "#ffd166",
     "#55c2ff",
     "#8bd450",
     "#a875ff",
     "#ff8c42"
-
   ];
 
 
   const centers = [
-
     {
       x: "25%",
       y: "32%"
@@ -1385,7 +1357,6 @@ function launchFireworks() {
       x: "65%",
       y: "52%"
     }
-
   ];
 
 
@@ -1431,35 +1402,23 @@ function launchFireworks() {
 
 
         const distance =
-          randomInt(
-            70,
-            190
-          );
+          randomInt(70, 190);
 
 
         particle.style.setProperty(
           "--x",
-          `${
-            Math.cos(angle) *
-            distance
-          }px`
+          `${Math.cos(angle) * distance}px`
         );
 
 
         particle.style.setProperty(
           "--y",
-          `${
-            Math.sin(angle) *
-            distance
-          }px`
+          `${Math.sin(angle) * distance}px`
         );
 
 
         particle.style.animationDelay =
-          `${
-            Math.random() *
-            0.18
-          }s`;
+          `${Math.random() * 0.18}s`;
 
 
         fireworkContainer.appendChild(
@@ -1473,8 +1432,7 @@ function launchFireworks() {
   setTimeout(
     () => {
 
-      fireworkContainer.innerHTML =
-        "";
+      fireworkContainer.innerHTML = "";
 
     },
     1300
@@ -1512,8 +1470,7 @@ startButton.addEventListener(
       name;
 
 
-    score =
-      0;
+    score = 0;
 
 
     scoreElement.textContent =
@@ -1538,7 +1495,7 @@ startButton.addEventListener(
 
 
 /* =====================================================
-   Enter
+   شروع با Enter
 ===================================================== */
 
 studentNameInput.addEventListener(
