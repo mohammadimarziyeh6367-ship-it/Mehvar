@@ -1,178 +1,188 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
 
-  <title>محور اعداد</title>
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0,
+                   maximum-scale=1.0,
+                   user-scalable=no">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>محور اعداد</title>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
-
-  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <section id="startScreen" class="screen start-screen">
+<div class="app">
 
-    <div class="teacher-photo-box">
+    <!-- =========================================
+         صفحه شروع
+    ========================================== -->
 
-      <img
-        src="teacher.jpg"
-        alt="آموزگار"
-        class="teacher-photo"
-      >
+    <section id="startScreen" class="screen">
 
-      <div class="photo-placeholder-text">
-        عکس آموزگار
-      </div>
+        <div class="teacher-photo-box">
 
-    </div>
+            <!--
+              فعلاً جای عکس خالی است.
+              بعداً عکس خودت را اینجا قرار می‌دهیم.
+            -->
 
-    <h1>محور اعداد</h1>
+            <div class="photo-placeholder">
+                🌷
+            </div>
 
-    <div class="axis-decoration">
-      <span>↶</span>
-      <span>🔢</span>
-      <span>↷</span>
-    </div>
-
-    <div class="name-box">
-
-      <label for="studentName">
-        نام زیبایت را وارد کن:
-      </label>
-
-      <input
-        id="studentName"
-        type="text"
-        maxlength="25"
-        autocomplete="off"
-        placeholder="نام من"
-      >
-
-    </div>
-
-    <button id="startButton" class="main-button">
-      شروع بازی 🎮
-    </button>
-
-    <div class="creator">
-      AI based education content creator: ENG Marziyeh Mohammadi
-    </div>
-
-  </section>
+        </div>
 
 
-  <section id="gameScreen" class="screen game-screen hidden">
-
-    <div class="game-header">
-
-      <div class="welcome">
-        آفرین <span id="playerName"></span> 🌷
-      </div>
-
-      <div class="score">
-        امتیاز:
-        <span id="score">۰</span>
-      </div>
-
-    </div>
+        <div class="title-sticker">
+            📚
+        </div>
 
 
-    <div class="question-card">
-
-      <div id="questionType" class="question-type">
-        جمع
-      </div>
-
-      <div id="question" class="question">
-        ۳ + ۲ = ؟
-      </div>
-
-      <div class="instruction">
-        با کمک محور اعداد حرکت کن و پاسخ را پیدا کن.
-      </div>
-
-    </div>
+        <h1>
+            محور اعداد
+        </h1>
 
 
-    <div class="axis-area">
-
-      <div class="axis-top-decor">
-        <span>↶</span>
-        <span>🔢</span>
-        <span>↷</span>
-      </div>
-
-      <div class="number-line-wrapper">
-
-        <div id="numberLine" class="number-line"></div>
-
-      </div>
-
-      <div id="movementInfo" class="movement-info">
-        انگشتت را از عدد مبدأ بکش تا عدد مقصد 👆
-      </div>
-
-    </div>
+        <p class="welcome-text">
+            با کمک محور اعداد، جمع و تفریق را تمرین کنیم 🌈
+        </p>
 
 
-    <div class="drawing-panel">
-
-      <div class="drawing-title">
-        حرکتت را روی محور رسم کن
-      </div>
-
-      <div class="drawing-buttons">
-
-        <button
-          id="undoButton"
-          class="small-button"
-          type="button"
+        <input
+            id="studentName"
+            type="text"
+            placeholder="نام زیبایت را وارد کن"
+            autocomplete="off"
         >
-          ↩ پاک کردن آخرین حرکت
+
+
+        <button id="startButton">
+            شروع بازی 🚀
         </button>
 
-        <button
-          id="clearButton"
-          class="small-button"
-          type="button"
-        >
-          🗑 پاک کردن همه
-        </button>
-
-        <button
-          id="checkButton"
-          class="check-button"
-          type="button"
-        >
-          ✓ بررسی پاسخ
-        </button>
-
-      </div>
-
-    </div>
+    </section>
 
 
-    <div id="feedback" class="feedback"></div>
+    <!-- =========================================
+         صفحه بازی
+    ========================================== -->
 
-  </section>
+    <section id="gameScreen"
+             class="screen hidden">
+
+        <header class="game-header">
+
+            <div class="student-box">
+                🌸
+                <span id="playerName"></span>
+            </div>
 
 
-  <div
-    id="fireworkContainer"
-    class="firework-container"
-  ></div>
+            <div class="score-box">
+                امتیاز:
+                <span id="score">۰</span>
+            </div>
+
+        </header>
 
 
-  <script src="script.js"></script>
+        <div class="game-title">
+            محور اعداد
+        </div>
+
+
+        <div id="questionType"
+             class="question-type">
+        </div>
+
+
+        <div id="question"
+             class="question">
+        </div>
+
+
+        <div id="movementInfo"
+             class="movement-info">
+            از عدد مبدأ شروع کن و حرکتت را بکش ✏️
+        </div>
+
+
+        <!-- =====================================
+             محور
+        ====================================== -->
+
+        <div class="number-line-wrapper">
+
+            <div id="numberLine"
+                 class="number-line">
+
+                <!--
+                  محور و اعداد توسط JavaScript
+                  ساخته می‌شوند.
+                -->
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             دکمه‌ها
+        ====================================== -->
+
+        <div class="buttons">
+
+            <button id="undoButton"
+                    class="secondary-button">
+                ↩ پاک کردن حرکت قبلی
+            </button>
+
+
+            <button id="clearButton"
+                    class="secondary-button">
+                🧹 پاک کردن همه
+            </button>
+
+
+            <button id="checkButton"
+                    class="check-button">
+                بررسی پاسخ ✓
+            </button>
+
+        </div>
+
+
+        <div id="feedback"
+             class="feedback">
+        </div>
+
+
+        <!-- =====================================
+             فشفشه
+        ====================================== -->
+
+        <div id="fireworkContainer"
+             class="firework-container">
+        </div>
+
+
+        <footer>
+            AI based education content creator:
+            ENG Marziyeh Mohammadi
+        </footer>
+
+    </section>
+
+</div>
+
+
+<script src="script.js"></script>
 
 </body>
 </html>
