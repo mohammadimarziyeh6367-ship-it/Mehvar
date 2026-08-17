@@ -2,35 +2,42 @@
 <html lang="fa" dir="rtl">
 
 <head>
+
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width,
-                   initial-scale=1.0,
-                   maximum-scale=1.0,
-                   user-scalable=no">
+    <meta
+        name="viewport"
+        content="width=device-width,
+                 initial-scale=1.0,
+                 maximum-scale=1.0,
+                 user-scalable=no"
+    >
 
     <title>محور اعداد</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
 <div class="app">
 
+
     <!-- =========================================
          صفحه شروع
     ========================================== -->
 
-    <section id="startScreen" class="screen">
+    <section
+        id="startScreen"
+        class="screen start-screen"
+    >
 
-        <div class="teacher-photo-box">
 
-            <!--
-              فعلاً جای عکس خالی است.
-              بعداً عکس خودت را اینجا قرار می‌دهیم.
-            -->
+        <!-- جای عکس آموزگار -->
+
+        <div class="teacher-photo">
 
             <div class="photo-placeholder">
                 🌷
@@ -39,7 +46,7 @@
         </div>
 
 
-        <div class="title-sticker">
+        <div class="start-sticker">
             📚
         </div>
 
@@ -50,7 +57,7 @@
 
 
         <p class="welcome-text">
-            با کمک محور اعداد، جمع و تفریق را تمرین کنیم 🌈
+            با کمک محور اعداد، جمع و تفریق را تمرین کنیم
         </p>
 
 
@@ -62,74 +69,127 @@
         >
 
 
-        <button id="startButton">
+        <button
+            id="startButton"
+            class="start-button"
+        >
             شروع بازی 🚀
         </button>
 
+
     </section>
+
 
 
     <!-- =========================================
          صفحه بازی
     ========================================== -->
 
-    <section id="gameScreen"
-             class="screen hidden">
+    <section
+        id="gameScreen"
+        class="screen game-screen hidden"
+    >
 
-        <header class="game-header">
+
+        <!-- اطلاعات بالا -->
+
+        <div class="game-header">
+
 
             <div class="student-box">
+
                 🌸
-                <span id="playerName"></span>
+
+                <span id="playerName">
+                </span>
+
             </div>
 
 
             <div class="score-box">
+
                 امتیاز:
-                <span id="score">۰</span>
+
+                <span id="score">
+                    ۰
+                </span>
+
             </div>
 
-        </header>
 
+        </div>
+
+
+
+        <!-- عنوان -->
 
         <div class="game-title">
             محور اعداد
         </div>
 
 
-        <div id="questionType"
-             class="question-type">
+
+        <!-- نوع سؤال -->
+
+        <div
+            id="questionType"
+            class="question-type"
+        >
         </div>
 
-
-        <div id="question"
-             class="question">
-        </div>
-
-
-        <div id="movementInfo"
-             class="movement-info">
-            از عدد مبدأ شروع کن و حرکتت را بکش ✏️
-        </div>
 
 
         <!-- =====================================
-             محور
+             عبارت + جای خالی
+        ====================================== -->
+
+        <div
+            id="question"
+            class="question"
+        >
+
+            <span
+                id="expression"
+                class="expression"
+            >
+            </span>
+
+
+            <span class="equals-sign">
+                =
+            </span>
+
+
+            <input
+                id="answerInput"
+                class="answer-input"
+                type="text"
+                inputmode="numeric"
+                maxlength="2"
+                placeholder="؟"
+                autocomplete="off"
+            >
+
+        </div>
+
+
+
+        <!-- =====================================
+             محور اعداد
         ====================================== -->
 
         <div class="number-line-wrapper">
 
-            <div id="numberLine"
-                 class="number-line">
 
-                <!--
-                  محور و اعداد توسط JavaScript
-                  ساخته می‌شوند.
-                -->
-
+            <div
+                id="numberLine"
+                class="number-line"
+            >
             </div>
 
+
         </div>
+
 
 
         <!-- =====================================
@@ -138,46 +198,71 @@
 
         <div class="buttons">
 
-            <button id="undoButton"
-                    class="secondary-button">
+
+            <button
+                id="undoButton"
+                class="secondary-button"
+            >
                 ↩ پاک کردن حرکت قبلی
             </button>
 
 
-            <button id="clearButton"
-                    class="secondary-button">
+            <button
+                id="clearButton"
+                class="secondary-button"
+            >
                 🧹 پاک کردن همه
             </button>
 
 
-            <button id="checkButton"
-                    class="check-button">
+            <button
+                id="checkButton"
+                class="check-button"
+            >
                 بررسی پاسخ ✓
             </button>
 
+
         </div>
 
 
-        <div id="feedback"
-             class="feedback">
+
+        <!-- پیام -->
+
+        <div
+            id="feedback"
+            class="feedback"
+        >
         </div>
+
 
 
         <!-- =====================================
              فشفشه
         ====================================== -->
 
-        <div id="fireworkContainer"
-             class="firework-container">
+        <div
+            id="fireworkContainer"
+            class="firework-container"
+        >
         </div>
 
 
+
+        <!-- =====================================
+             پایین صفحه
+        ====================================== -->
+
         <footer>
+
             AI based education content creator:
             ENG Marziyeh Mohammadi
+
         </footer>
 
+
     </section>
+
 
 </div>
 
@@ -185,4 +270,5 @@
 <script src="script.js"></script>
 
 </body>
+
 </html>
