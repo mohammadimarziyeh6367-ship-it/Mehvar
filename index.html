@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>محور اعداد</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <section id="startScreen" class="screen start-screen">
+
+    <div class="teacher-photo-box">
+
+      <img
+        src="teacher.jpg"
+        alt="آموزگار"
+        class="teacher-photo"
+      >
+
+      <div class="photo-placeholder-text">
+        عکس آموزگار
+      </div>
+
+    </div>
+
+    <h1>محور اعداد</h1>
+
+    <div class="axis-decoration">
+      <span>↶</span>
+      <span>🔢</span>
+      <span>↷</span>
+    </div>
+
+    <div class="name-box">
+
+      <label for="studentName">
+        نام زیبایت را وارد کن:
+      </label>
+
+      <input
+        id="studentName"
+        type="text"
+        maxlength="25"
+        autocomplete="off"
+        placeholder="نام من"
+      >
+
+    </div>
+
+    <button id="startButton" class="main-button">
+      شروع بازی 🎮
+    </button>
+
+    <div class="creator">
+      AI based education content creator: ENG Marziyeh Mohammadi
+    </div>
+
+  </section>
+
+
+  <section id="gameScreen" class="screen game-screen hidden">
+
+    <div class="game-header">
+
+      <div class="welcome">
+        آفرین <span id="playerName"></span> 🌷
+      </div>
+
+      <div class="score">
+        امتیاز:
+        <span id="score">۰</span>
+      </div>
+
+    </div>
+
+
+    <div class="question-card">
+
+      <div id="questionType" class="question-type">
+        جمع
+      </div>
+
+      <div id="question" class="question">
+        ۳ + ۲ = ؟
+      </div>
+
+      <div class="instruction">
+        با کمک محور اعداد حرکت کن و پاسخ را پیدا کن.
+      </div>
+
+    </div>
+
+
+    <div class="axis-area">
+
+      <div class="axis-top-decor">
+        <span>↶</span>
+        <span>🔢</span>
+        <span>↷</span>
+      </div>
+
+      <div class="number-line-wrapper">
+
+        <div id="numberLine" class="number-line"></div>
+
+      </div>
+
+      <div id="movementInfo" class="movement-info">
+        انگشتت را از عدد مبدأ بکش تا عدد مقصد 👆
+      </div>
+
+    </div>
+
+
+    <div class="drawing-panel">
+
+      <div class="drawing-title">
+        حرکتت را روی محور رسم کن
+      </div>
+
+      <div class="drawing-buttons">
+
+        <button
+          id="undoButton"
+          class="small-button"
+          type="button"
+        >
+          ↩ پاک کردن آخرین حرکت
+        </button>
+
+        <button
+          id="clearButton"
+          class="small-button"
+          type="button"
+        >
+          🗑 پاک کردن همه
+        </button>
+
+        <button
+          id="checkButton"
+          class="check-button"
+          type="button"
+        >
+          ✓ بررسی پاسخ
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div id="feedback" class="feedback"></div>
+
+  </section>
+
+
+  <div
+    id="fireworkContainer"
+    class="firework-container"
+  ></div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
