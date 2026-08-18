@@ -1,6 +1,6 @@
 /* =====================================================
    بازی «محور اعداد»
-   CSS نهایی
+   CSS نهایی و یک‌دست
 ===================================================== */
 
 * {
@@ -42,6 +42,7 @@ input {
 .app {
     width: 100%;
     min-height: 100vh;
+
     position: relative;
 }
 
@@ -74,6 +75,7 @@ input {
 
 .start-screen {
     justify-content: center;
+
     text-align: center;
 
     background:
@@ -99,6 +101,7 @@ input {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     overflow: hidden;
@@ -111,6 +114,7 @@ input {
 .teacher-photo img {
     width: 100%;
     height: 100%;
+
     object-fit: cover;
 }
 
@@ -120,7 +124,9 @@ input {
 
 .start-sticker {
     font-size: 42px;
-    margin-top: 8px;
+
+    margin-top:
+        8px;
 }
 
 .start-screen h1 {
@@ -136,9 +142,11 @@ input {
     font-weight:
         900;
 
-    max-width: 100%;
+    max-width:
+        100%;
 
-    overflow-wrap: break-word;
+    overflow-wrap:
+        break-word;
 }
 
 .welcome-text {
@@ -151,7 +159,8 @@ input {
     font-size:
         clamp(14px, 3.8vw, 20px);
 
-    max-width: 95%;
+    max-width:
+        95%;
 }
 
 #studentName {
@@ -546,8 +555,8 @@ input {
 
 
 /* =====================================================
-   پیکان فقط سمت راست
-   ظریف و باریک
+   پیکان سمت راست
+   نوک پیکان دقیقاً به انتهای خط می‌چسبد
 ===================================================== */
 
 .number-line::after {
@@ -558,10 +567,10 @@ input {
         absolute;
 
     right:
-        1.5%;
+        calc(4% - 7px);
 
     top:
-        85px;
+        88px;
 
     width:
         0;
@@ -577,6 +586,9 @@ input {
 
     border-left:
         7px solid #756b79;
+
+    transform:
+        translateY(-50%);
 
     z-index:
         2;
@@ -623,8 +635,7 @@ input {
 /* =====================================================
    علامت‌های روی محور
 
-   بسیار مهم:
-   از خود خط افقی شروع می‌شوند
+   از خود خط شروع می‌شوند
    و فقط به سمت پایین می‌روند.
 ===================================================== */
 
@@ -1009,29 +1020,32 @@ input {
 
 
 /* =====================================================
-   امضای پایین صفحه دوم
-   فقط یک بار
-===================================================== */
-/* =====================================================
-   امضای پایین صفحه
-   نسخه اصلاح‌شده
+   امضا
+   همیشه پایین صفحه
+   وسط‌چین
+   بدون خروج از عرض
 ===================================================== */
 
 .start-screen footer,
 .game-screen footer {
 
-    width: 100%;
+    width:
+        100%;
 
-    max-width: 100%;
+    max-width:
+        100%;
 
-    margin-top: auto;
+    margin-top:
+        auto;
 
     padding:
         10px 12px 6px;
 
-    text-align: center;
+    text-align:
+        center;
 
-    color: #80658f;
+    color:
+        #80658f;
 
     font-family:
         "Vazirmatn",
@@ -1039,63 +1053,29 @@ input {
         Arial,
         sans-serif;
 
-    font-size: 13px;
+    font-size:
+        13px;
 
-    font-weight: 500;
+    font-weight:
+        500;
 
-    line-height: 1.6;
+    line-height:
+        1.6;
 
-    white-space: normal;
+    white-space:
+        normal;
 
-    overflow-wrap: anywhere;
+    overflow-wrap:
+        anywhere;
 
-    word-break: normal;
+    word-break:
+        normal;
 
-    flex-shrink: 0;
+    flex-shrink:
+        0;
 
-    direction: ltr;
-}
-
-
-/* =====================================================
-   موبایل
-===================================================== */
-
-@media (max-width: 600px) {
-
-    .start-screen footer,
-    .game-screen footer {
-
-        font-size: 12px;
-
-        padding:
-            9px 10px 5px;
-
-        line-height: 1.5;
-
-    }
-
-}
-
-
-/* =====================================================
-   گوشی خیلی کوچک
-===================================================== */
-
-@media (max-width: 380px) {
-
-    .start-screen footer,
-    .game-screen footer {
-
-        font-size: 11px;
-
-        padding:
-            8px 8px 4px;
-
-        line-height: 1.5;
-
-    }
-
+    direction:
+        ltr;
 }
 
 
@@ -1161,11 +1141,12 @@ input {
 
 
     .number-line::after {
-        top:
-            70px;
 
         right:
-            1%;
+            calc(4% - 7px);
+
+        top:
+            74px;
 
         border-top-width:
             4px;
@@ -1175,10 +1156,11 @@ input {
 
         border-left-width:
             7px;
+
+        transform:
+            translateY(-50%);
     }
 
-
-    /* علامت‌ها فقط به پایین */
 
     .tick {
         top:
@@ -1233,19 +1215,20 @@ input {
 
 
     /* -------------------------------
-       امضا در موبایل
+       امضای موبایل
     ------------------------------- */
 
+    .start-screen footer,
     .game-screen footer {
 
         font-size:
-            9px;
+            12px;
 
         padding:
-            5px 4px 2px;
+            9px 10px 5px;
 
-        color:
-            #80658f;
+        line-height:
+            1.5;
     }
 }
 
@@ -1274,6 +1257,10 @@ input {
     }
 
 
+    /* -------------------------------
+       محور گوشی خیلی کوچک
+    ------------------------------- */
+
     .number-line {
         height:
             150px;
@@ -1290,15 +1277,26 @@ input {
 
 
     .number-line::after {
-        top:
-            64px;
 
         right:
-            1%;
+            calc(4% - 7px);
+
+        top:
+            68px;
+
+        border-top-width:
+            4px;
+
+        border-bottom-width:
+            4px;
+
+        border-left-width:
+            7px;
+
+        transform:
+            translateY(-50%);
     }
 
-
-    /* علامت‌ها دقیقاً از خط شروع می‌شوند */
 
     .tick {
         top:
@@ -1328,15 +1326,20 @@ input {
     }
 
 
+    /* -------------------------------
+       امضای گوشی خیلی کوچک
+    ------------------------------- */
+
+    .start-screen footer,
     .game-screen footer {
 
         font-size:
-            8px;
+            11px;
 
         padding:
-            4px 3px 1px;
+            8px 8px 4px;
 
-        color:
-            #80658f;
+        line-height:
+            1.5;
     }
 }
