@@ -442,7 +442,7 @@ input {
 
 /* =====================================================
    پیکان محور
-   نقطه اتصال دقیقاً روی انتهای خط است
+   اتصال دقیق به انتهای خط
 ===================================================== */
 
 .number-line::after {
@@ -450,10 +450,6 @@ input {
 
     position: absolute;
 
-    /*
-       خط افقی تا right: 4% ادامه دارد.
-       مرکز پیکان نیز دقیقاً همان‌جا قرار گرفته.
-    */
     right: 4%;
 
     top: 88px;
@@ -465,7 +461,7 @@ input {
     border-bottom: 5px solid transparent;
     border-left: 9px solid #756b79;
 
-    transform: translateY(-50%);
+    transform: translate(50%, -50%);
 
     z-index: 4;
 }
@@ -473,6 +469,7 @@ input {
 
 /* =====================================================
    اعداد محور
+   کمی بزرگ‌تر و خواناتر
 ===================================================== */
 
 .number {
@@ -484,8 +481,14 @@ input {
 
     color: #514957;
 
+    /*
+       قبلاً:
+       clamp(10px, 2.3vw, 18px)
+
+       حالا کمی بزرگ‌تر شده:
+    */
     font-size:
-        clamp(10px, 2.3vw, 18px);
+        clamp(12px, 2.7vw, 20px);
 
     font-weight: bold;
 
@@ -785,8 +788,6 @@ input {
 
 /* =====================================================
    امضای سازنده
-   هر صفحه فقط در صورت وجود footer
-   پایین صفحه قرار می‌گیرد
 ===================================================== */
 
 .start-screen footer,
@@ -879,7 +880,7 @@ input {
         border-bottom-width: 4px;
         border-left-width: 8px;
 
-        transform: translateY(-50%);
+        transform: translate(50%, -50%);
     }
 
     .tick {
@@ -892,7 +893,8 @@ input {
     .number {
         top: 88px;
 
-        font-size: 10px;
+        /* کمی بزرگ‌تر از نسخه قبلی */
+        font-size: 12px;
     }
 
     .curved-move,
@@ -978,7 +980,7 @@ input {
         border-bottom-width: 4px;
         border-left-width: 8px;
 
-        transform: translateY(-50%);
+        transform: translate(50%, -50%);
     }
 
     .tick {
@@ -991,7 +993,8 @@ input {
     .number {
         top: 81px;
 
-        font-size: 9px;
+        /* خواناتر روی گوشی‌های خیلی کوچک */
+        font-size: 11px;
     }
 
     .curved-move,
