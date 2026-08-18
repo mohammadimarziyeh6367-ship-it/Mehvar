@@ -1,6 +1,6 @@
 /* =====================================================
    بازی «محور اعداد»
-   CSS نهایی — نسخه تمیز و پایدار
+   CSS نهایی — نسخه یکپارچه و پایدار
 ===================================================== */
 
 
@@ -18,6 +18,7 @@ body {
     min-height: 100%;
     margin: 0;
     padding: 0;
+
     overflow-x: hidden;
 }
 
@@ -33,8 +34,6 @@ body {
             #fff7fb,
             #eef8ff
         );
-
-    overflow-x: hidden;
 }
 
 button,
@@ -52,7 +51,8 @@ input {
     width: 100%;
     min-height: 100vh;
 
-    padding: 15px 10px 8px;
+    padding:
+        15px 10px 8px;
 
     display: flex;
     flex-direction: column;
@@ -93,9 +93,11 @@ input {
 
     background: #ffffff;
 
-    border: 5px solid #efb5cd;
+    border:
+        5px solid #efb5cd;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -127,11 +129,14 @@ input {
 }
 
 .start-screen h1 {
+    width: 100%;
     max-width: 100%;
 
-    margin: 3px 0 8px;
+    margin:
+        3px 0 8px;
 
-    color: #765b83;
+    color:
+        #765b83;
 
     font-size:
         clamp(32px, 8vw, 52px);
@@ -142,52 +147,77 @@ input {
 }
 
 .welcome-text {
+    width: 100%;
     max-width: 95%;
 
-    margin: 0 0 22px;
+    margin:
+        0 0 22px;
 
-    color: #6f6874;
+    color:
+        #6f6874;
 
     font-size:
         clamp(14px, 3.8vw, 20px);
 }
 
 #studentName {
-    width: min(90%, 400px);
-    height: 56px;
+    width:
+        min(90%, 400px);
 
-    padding: 0 15px;
+    height:
+        56px;
 
-    border: 2px solid #e4b4ca;
-    border-radius: 18px;
+    padding:
+        0 15px;
 
-    outline: none;
+    border:
+        2px solid #e4b4ca;
 
-    background: #ffffff;
+    border-radius:
+        18px;
 
-    text-align: center;
+    outline:
+        none;
 
-    font-size: 19px;
+    background:
+        #ffffff;
 
-    color: #554c59;
+    text-align:
+        center;
 
-    flex-shrink: 0;
+    font-size:
+        19px;
+
+    color:
+        #554c59;
+
+    flex-shrink:
+        0;
 }
 
 #studentName:focus {
-    border-color: #b989bd;
+    border-color:
+        #b989bd;
 }
 
 .start-button {
-    min-width: 220px;
-    height: 56px;
+    min-width:
+        220px;
 
-    margin-top: 17px;
+    height:
+        56px;
 
-    padding: 0 20px;
+    margin-top:
+        17px;
 
-    border: none;
-    border-radius: 18px;
+    padding:
+        0 20px;
+
+    border:
+        none;
+
+    border-radius:
+        18px;
 
     background:
         linear-gradient(
@@ -196,18 +226,24 @@ input {
             #a982cf
         );
 
-    color: #ffffff;
+    color:
+        #ffffff;
 
-    font-size: 19px;
-    font-weight: bold;
+    font-size:
+        19px;
 
-    cursor: pointer;
+    font-weight:
+        bold;
+
+    cursor:
+        pointer;
 
     box-shadow:
         0 8px 18px
         rgba(170, 110, 160, 0.25);
 
-    flex-shrink: 0;
+    flex-shrink:
+        0;
 }
 
 
@@ -223,32 +259,46 @@ input {
             #f4fbff
         );
 
-    overflow: hidden;
+    overflow:
+        hidden;
 }
 
 .game-header {
-    width: 100%;
-    max-width: 950px;
+    width:
+        100%;
 
-    display: flex;
+    max-width:
+        950px;
 
-    justify-content: space-between;
-    align-items: center;
+    display:
+        flex;
 
-    flex-shrink: 0;
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    flex-shrink:
+        0;
 }
 
 .student-box,
 .score-box {
-    max-width: 45%;
+    max-width:
+        45%;
 
-    padding: 8px 12px;
+    padding:
+        8px 12px;
 
-    background: #ffffff;
+    background:
+        #ffffff;
 
-    border-radius: 14px;
+    border-radius:
+        14px;
 
-    color: #695b72;
+    color:
+        #695b72;
 
     font-size:
         clamp(12px, 3vw, 17px);
@@ -257,37 +307,54 @@ input {
         0 4px 12px
         rgba(100, 80, 120, 0.08);
 
-    overflow: hidden;
+    overflow:
+        hidden;
 
-    text-overflow: ellipsis;
+    text-overflow:
+        ellipsis;
 
-    white-space: nowrap;
+    white-space:
+        nowrap;
 }
 
 .game-title {
-    max-width: 100%;
+    width:
+        100%;
 
-    margin-top: 7px;
+    max-width:
+        100%;
 
-    color: #765b83;
+    margin-top:
+        7px;
+
+    color:
+        #765b83;
 
     font-size:
         clamp(27px, 7vw, 43px);
 
-    font-weight: 900;
+    font-weight:
+        900;
 
-    text-align: center;
+    text-align:
+        center;
 
-    overflow-wrap: break-word;
+    overflow-wrap:
+        break-word;
 }
 
 .question-type {
-    margin-top: 2px;
+    margin-top:
+        2px;
 
-    color: #9c789f;
+    color:
+        #9c789f;
 
-    font-size: 15px;
-    font-weight: bold;
+    font-size:
+        15px;
+
+    font-weight:
+        bold;
 }
 
 
@@ -296,76 +363,113 @@ input {
 ===================================================== */
 
 .question {
-    width: 100%;
-    max-width: 100%;
+    width:
+        100%;
 
-    min-height: 62px;
+    max-width:
+        100%;
 
-    margin-top: 2px;
+    min-height:
+        62px;
 
-    display: flex;
+    margin-top:
+        2px;
 
-    justify-content: center;
-    align-items: center;
+    display:
+        flex;
 
-    gap: 8px;
+    justify-content:
+        center;
 
-    direction: ltr !important;
+    align-items:
+        center;
 
-    unicode-bidi: isolate;
+    gap:
+        8px;
 
-    color: #4f4655;
+    direction:
+        ltr !important;
+
+    unicode-bidi:
+        isolate;
+
+    color:
+        #4f4655;
 
     font-size:
         clamp(26px, 7vw, 42px);
 
-    font-weight: 900;
+    font-weight:
+        900;
 
-    white-space: nowrap;
+    white-space:
+        nowrap;
 
-    flex-shrink: 0;
+    flex-shrink:
+        0;
 }
 
 .expression {
-    direction: ltr;
-    unicode-bidi: isolate;
+    direction:
+        ltr;
+
+    unicode-bidi:
+        isolate;
 }
 
 .equals-sign {
-    font-weight: 900;
+    font-weight:
+        900;
 }
 
 .answer-input {
-    width: 62px;
-    height: 54px;
+    width:
+        62px;
 
-    padding: 0;
+    height:
+        54px;
 
-    border: 3px solid #d5a5bc;
-    border-radius: 14px;
+    padding:
+        0;
 
-    outline: none;
+    border:
+        3px solid #d5a5bc;
 
-    background: #ffffff;
+    border-radius:
+        14px;
 
-    text-align: center;
+    outline:
+        none;
 
-    direction: ltr;
+    background:
+        #ffffff;
 
-    font-size: 27px;
-    font-weight: 900;
+    text-align:
+        center;
 
-    color: #594d5e;
+    direction:
+        ltr;
+
+    font-size:
+        27px;
+
+    font-weight:
+        900;
+
+    color:
+        #594d5e;
 
     box-shadow:
         0 4px 12px
         rgba(120, 80, 120, 0.10);
 
-    flex-shrink: 0;
+    flex-shrink:
+        0;
 }
 
 .answer-input:focus {
-    border-color: #a982cf;
+    border-color:
+        #a982cf;
 
     box-shadow:
         0 0 0 4px
@@ -373,13 +477,19 @@ input {
 }
 
 .answer-input.correct {
-    border-color: #4caf87;
-    background: #effbf5;
+    border-color:
+        #4caf87;
+
+    background:
+        #effbf5;
 }
 
 .answer-input.wrong {
-    border-color: #df7185;
-    background: #fff1f4;
+    border-color:
+        #df7185;
+
+    background:
+        #fff1f4;
 }
 
 
@@ -388,31 +498,46 @@ input {
 ===================================================== */
 
 .number-line-wrapper {
-    width: 100%;
-    max-width: 950px;
+    width:
+        100%;
 
-    padding: 0 4px;
+    max-width:
+        950px;
 
-    flex-shrink: 0;
+    padding:
+        0 4px;
+
+    flex-shrink:
+        0;
 }
 
 .number-line {
-    position: relative;
+    position:
+        relative;
 
-    width: 100%;
-    height: 190px;
+    width:
+        100%;
 
-    overflow: hidden;
+    height:
+        190px;
 
-    touch-action: none;
+    overflow:
+        hidden;
 
-    user-select: none;
-    -webkit-user-select: none;
+    touch-action:
+        none;
+
+    user-select:
+        none;
+
+    -webkit-user-select:
+        none;
 
     background:
         rgba(255, 255, 255, 0.45);
 
-    border-radius: 20px;
+    border-radius:
+        20px;
 }
 
 
@@ -421,49 +546,80 @@ input {
 ===================================================== */
 
 .number-line::before {
-    content: "";
+    content:
+        "";
 
-    position: absolute;
+    position:
+        absolute;
 
-    left: 4%;
-    right: 4%;
+    left:
+        4%;
 
-    top: 88px;
+    right:
+        4%;
 
-    height: 4px;
+    top:
+        88px;
 
-    background: #756b79;
+    height:
+        4px;
 
-    border-radius: 10px;
+    background:
+        #756b79;
 
-    z-index: 1;
+    border-radius:
+        10px;
+
+    z-index:
+        1;
 }
 
 
 /* =====================================================
    پیکان محور
-   اتصال دقیق به انتهای خط
+   نوک پیکان دقیقاً روی انتهای خط قرار می‌گیرد
 ===================================================== */
 
 .number-line::after {
-    content: "";
+    content:
+        "";
 
-    position: absolute;
+    position:
+        absolute;
 
-    right: 4%;
+    /*
+       چون مثلث از سمت چپ شروع می‌شود،
+       نوک آن در سمت راست قرار دارد.
+       با این مقدار، نوک دقیقاً به
+       انتهای خط افقی می‌رسد.
+    */
 
-    top: 88px;
+    right:
+        calc(4% - 9px);
 
-    width: 0;
-    height: 0;
+    top:
+        88px;
 
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    border-left: 9px solid #756b79;
+    width:
+        0;
 
-    transform: translate(50%, -50%);
+    height:
+        0;
 
-    z-index: 4;
+    border-top:
+        5px solid transparent;
+
+    border-bottom:
+        5px solid transparent;
+
+    border-left:
+        9px solid #756b79;
+
+    transform:
+        translateY(-50%);
+
+    z-index:
+        4;
 }
 
 
@@ -473,32 +629,35 @@ input {
 ===================================================== */
 
 .number {
-    position: absolute;
+    position:
+        absolute;
 
-    top: 103px;
+    top:
+        103px;
 
-    transform: translateX(-50%);
+    transform:
+        translateX(-50%);
 
-    color: #514957;
+    color:
+        #514957;
 
-    /*
-       قبلاً:
-       clamp(10px, 2.3vw, 18px)
-
-       حالا کمی بزرگ‌تر شده:
-    */
     font-size:
         clamp(12px, 2.7vw, 20px);
 
-    font-weight: bold;
+    font-weight:
+        bold;
 
-    line-height: 1.2;
+    line-height:
+        1.2;
 
-    white-space: nowrap;
+    white-space:
+        nowrap;
 
-    pointer-events: none;
+    pointer-events:
+        none;
 
-    z-index: 3;
+    z-index:
+        3;
 }
 
 
@@ -508,20 +667,29 @@ input {
 ===================================================== */
 
 .tick {
-    position: absolute;
+    position:
+        absolute;
 
-    top: 88px;
+    top:
+        88px;
 
-    width: 2px;
-    height: 13px;
+    width:
+        2px;
 
-    background: #756b79;
+    height:
+        13px;
 
-    transform: translateX(-50%);
+    background:
+        #756b79;
 
-    pointer-events: none;
+    transform:
+        translateX(-50%);
 
-    z-index: 2;
+    pointer-events:
+        none;
+
+    z-index:
+        2;
 }
 
 
@@ -530,50 +698,73 @@ input {
 ===================================================== */
 
 .curved-move {
-    position: absolute;
+    position:
+        absolute;
 
-    left: 0;
-    top: 0;
+    left:
+        0;
 
-    width: 100%;
-    height: 190px;
+    top:
+        0;
 
-    overflow: visible;
+    width:
+        100%;
 
-    pointer-events: none !important;
+    height:
+        190px;
 
-    z-index: 8;
+    overflow:
+        visible;
+
+    pointer-events:
+        none !important;
+
+    z-index:
+        8;
 }
 
 .curved-path {
-    fill: none;
+    fill:
+        none;
 
-    stroke: #ed7097;
+    stroke:
+        #ed7097;
 
-    stroke-width: 3px;
+    stroke-width:
+        3px;
 
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    stroke-linecap:
+        round;
 
-    pointer-events: none !important;
+    stroke-linejoin:
+        round;
+
+    pointer-events:
+        none !important;
 }
 
 .curved-move.left .curved-path {
-    stroke: #62a4e6;
+    stroke:
+        #62a4e6;
 }
 
 .curved-move text {
-    pointer-events: none !important;
+    pointer-events:
+        none !important;
 
     font-family:
         Tahoma,
         Arial,
         sans-serif;
 
-    font-size: 16px;
-    font-weight: bold;
+    font-size:
+        16px;
 
-    fill: #6e6074;
+    font-weight:
+        bold;
+
+    fill:
+        #6e6074;
 }
 
 
@@ -582,21 +773,32 @@ input {
 ===================================================== */
 
 .start-dot {
-    position: absolute;
+    position:
+        absolute;
 
-    width: 10px;
-    height: 10px;
+    width:
+        10px;
 
-    border-radius: 50%;
+    height:
+        10px;
 
-    background: #ed7097;
+    border-radius:
+        50%;
+
+    background:
+        #ed7097;
 
     transform:
-        translate(-50%, -50%);
+        translate(
+            -50%,
+            -50%
+        );
 
-    pointer-events: none !important;
+    pointer-events:
+        none !important;
 
-    z-index: 9;
+    z-index:
+        9;
 }
 
 
@@ -605,31 +807,46 @@ input {
 ===================================================== */
 
 .drawing-preview {
-    position: absolute;
+    position:
+        absolute;
 
-    left: 0;
-    top: 0;
+    left:
+        0;
 
-    width: 100%;
-    height: 190px;
+    top:
+        0;
 
-    pointer-events: none !important;
+    width:
+        100%;
 
-    z-index: 20;
+    height:
+        190px;
+
+    pointer-events:
+        none !important;
+
+    z-index:
+        20;
 }
 
 .drawing-preview path {
-    fill: none;
+    fill:
+        none;
 
-    stroke: #b9a8c2;
+    stroke:
+        #b9a8c2;
 
-    stroke-width: 3px;
+    stroke-width:
+        3px;
 
-    stroke-dasharray: 7 6;
+    stroke-dasharray:
+        7 6;
 
-    stroke-linecap: round;
+    stroke-linecap:
+        round;
 
-    pointer-events: none !important;
+    pointer-events:
+        none !important;
 }
 
 
@@ -638,43 +855,63 @@ input {
 ===================================================== */
 
 .buttons {
-    width: 100%;
-    max-width: 850px;
+    width:
+        100%;
 
-    margin-top: 2px;
+    max-width:
+        850px;
 
-    display: flex;
+    margin-top:
+        2px;
 
-    justify-content: center;
-    align-items: center;
+    display:
+        flex;
 
-    flex-wrap: wrap;
+    justify-content:
+        center;
 
-    gap: 8px;
+    align-items:
+        center;
 
-    flex-shrink: 0;
+    flex-wrap:
+        wrap;
+
+    gap:
+        8px;
+
+    flex-shrink:
+        0;
 }
 
 .buttons button {
-    min-height: 45px;
+    min-height:
+        45px;
 
-    padding: 7px 14px;
+    padding:
+        7px 14px;
 
-    border: none;
-    border-radius: 14px;
+    border:
+        none;
 
-    cursor: pointer;
+    border-radius:
+        14px;
+
+    cursor:
+        pointer;
 
     font-size:
         clamp(12px, 3vw, 16px);
 
-    font-weight: bold;
+    font-weight:
+        bold;
 }
 
 .secondary-button {
-    background: #ffffff;
+    background:
+        #ffffff;
 
-    color: #766b78;
+    color:
+        #766b78;
 
     box-shadow:
         0 4px 12px
@@ -689,7 +926,8 @@ input {
             #4b9f83
         );
 
-    color: #ffffff;
+    color:
+        #ffffff;
 
     box-shadow:
         0 5px 15px
@@ -702,24 +940,32 @@ input {
 ===================================================== */
 
 .feedback {
-    max-width: 95%;
+    max-width:
+        95%;
 
-    min-height: 34px;
+    min-height:
+        34px;
 
-    margin-top: 3px;
+    margin-top:
+        3px;
 
-    color: inherit;
+    color:
+        inherit;
 
     font-size:
         clamp(16px, 4vw, 22px);
 
-    font-weight: bold;
+    font-weight:
+        bold;
 
-    text-align: center;
+    text-align:
+        center;
 
-    overflow-wrap: break-word;
+    overflow-wrap:
+        break-word;
 
-    flex-shrink: 0;
+    flex-shrink:
+        0;
 }
 
 
@@ -728,29 +974,43 @@ input {
 ===================================================== */
 
 .firework-container {
-    position: fixed;
+    position:
+        fixed;
 
-    inset: 0;
+    inset:
+        0;
 
-    width: 100vw;
-    height: 100vh;
+    width:
+        100vw;
 
-    pointer-events: none;
+    height:
+        100vh;
 
-    overflow: hidden;
+    pointer-events:
+        none;
 
-    z-index: 1000;
+    overflow:
+        hidden;
+
+    z-index:
+        1000;
 }
 
 .firework-particle {
-    position: absolute;
+    position:
+        absolute;
 
-    width: 8px;
-    height: 8px;
+    width:
+        8px;
 
-    border-radius: 50%;
+    height:
+        8px;
 
-    opacity: 0;
+    border-radius:
+        50%;
+
+    opacity:
+        0;
 
     animation:
         firework
@@ -763,14 +1023,19 @@ input {
 
     0% {
         transform:
-            translate(0, 0)
+            translate(
+                0,
+                0
+            )
             scale(0.3);
 
-        opacity: 1;
+        opacity:
+            1;
     }
 
     65% {
-        opacity: 1;
+        opacity:
+            1;
     }
 
     100% {
@@ -781,28 +1046,36 @@ input {
             )
             scale(0);
 
-        opacity: 0;
+        opacity:
+            0;
     }
 }
 
 
 /* =====================================================
    امضای سازنده
+   کمی بالاتر از پایین صفحه
 ===================================================== */
 
 .start-screen footer,
 .game-screen footer {
-    width: 100%;
-    max-width: 100%;
+    width:
+        100%;
 
-    margin-top: auto;
+    max-width:
+        100%;
+
+    margin-top:
+        auto;
 
     padding:
-        10px 12px 7px;
+        5px 12px 14px;
 
-    text-align: center;
+    text-align:
+        center;
 
-    color: #80658f;
+    color:
+        #80658f;
 
     font-family:
         "Vazirmatn",
@@ -810,21 +1083,29 @@ input {
         Arial,
         sans-serif;
 
-    font-size: 14px;
+    font-size:
+        14px;
 
-    font-weight: 600;
+    font-weight:
+        600;
 
-    line-height: 1.5;
+    line-height:
+        1.4;
 
-    direction: ltr;
+    direction:
+        ltr;
 
-    white-space: normal;
+    white-space:
+        normal;
 
-    overflow-wrap: anywhere;
+    overflow-wrap:
+        anywhere;
 
-    word-break: normal;
+    word-break:
+        normal;
 
-    flex-shrink: 0;
+    flex-shrink:
+        0;
 }
 
 
@@ -840,22 +1121,30 @@ input {
     }
 
     .game-title {
-        font-size: 28px;
+        font-size:
+            28px;
     }
 
     .question {
-        min-height: 53px;
+        min-height:
+            53px;
 
-        font-size: 28px;
+        font-size:
+            28px;
 
-        gap: 5px;
+        gap:
+            5px;
     }
 
     .answer-input {
-        width: 54px;
-        height: 48px;
+        width:
+            54px;
 
-        font-size: 24px;
+        height:
+            48px;
+
+        font-size:
+            24px;
     }
 
 
@@ -864,46 +1153,66 @@ input {
     ----------------------------------------------- */
 
     .number-line {
-        height: 165px;
+        height:
+            165px;
     }
 
     .number-line::before {
-        top: 74px;
-        height: 3px;
+        top:
+            74px;
+
+        height:
+            3px;
     }
 
     .number-line::after {
-        right: 4%;
-        top: 74px;
+        right:
+            calc(4% - 8px);
 
-        border-top-width: 4px;
-        border-bottom-width: 4px;
-        border-left-width: 8px;
+        top:
+            74px;
 
-        transform: translate(50%, -50%);
+        border-top-width:
+            4px;
+
+        border-bottom-width:
+            4px;
+
+        border-left-width:
+            8px;
+
+        transform:
+            translateY(-50%);
     }
 
     .tick {
-        top: 74px;
+        top:
+            74px;
 
-        width: 2px;
-        height: 12px;
+        width:
+            2px;
+
+        height:
+            12px;
     }
 
     .number {
-        top: 88px;
+        top:
+            88px;
 
-        /* کمی بزرگ‌تر از نسخه قبلی */
-        font-size: 12px;
+        font-size:
+            12px;
     }
 
     .curved-move,
     .drawing-preview {
-        height: 165px;
+        height:
+            165px;
     }
 
     .curved-move text {
-        font-size: 13px;
+        font-size:
+            13px;
     }
 
 
@@ -912,16 +1221,19 @@ input {
     ----------------------------------------------- */
 
     .buttons {
-        gap: 5px;
+        gap:
+            5px;
     }
 
     .buttons button {
-        min-height: 41px;
+        min-height:
+            41px;
 
         padding:
             6px 9px;
 
-        font-size: 11px;
+        font-size:
+            11px;
     }
 
 
@@ -932,11 +1244,13 @@ input {
     .start-screen footer,
     .game-screen footer {
         padding:
-            9px 8px 5px;
+            5px 8px 12px;
 
-        font-size: 13px;
+        font-size:
+            13px;
 
-        line-height: 1.5;
+        line-height:
+            1.4;
     }
 }
 
@@ -948,58 +1262,82 @@ input {
 @media (max-width: 380px) {
 
     .question {
-        font-size: 25px;
+        font-size:
+            25px;
     }
 
     .answer-input {
-        width: 48px;
-        height: 44px;
+        width:
+            48px;
 
-        font-size: 22px;
+        height:
+            44px;
+
+        font-size:
+            22px;
     }
 
 
     /* -----------------------------------------------
-       محور
+       محور گوشی خیلی کوچک
     ----------------------------------------------- */
 
     .number-line {
-        height: 150px;
+        height:
+            150px;
     }
 
     .number-line::before {
-        top: 68px;
-        height: 3px;
+        top:
+            68px;
+
+        height:
+            3px;
     }
 
     .number-line::after {
-        right: 4%;
-        top: 68px;
+        right:
+            calc(4% - 8px);
 
-        border-top-width: 4px;
-        border-bottom-width: 4px;
-        border-left-width: 8px;
+        top:
+            68px;
 
-        transform: translate(50%, -50%);
+        border-top-width:
+            4px;
+
+        border-bottom-width:
+            4px;
+
+        border-left-width:
+            8px;
+
+        transform:
+            translateY(-50%);
     }
 
     .tick {
-        top: 68px;
+        top:
+            68px;
 
-        width: 2px;
-        height: 11px;
+        width:
+            2px;
+
+        height:
+            11px;
     }
 
     .number {
-        top: 81px;
+        top:
+            81px;
 
-        /* خواناتر روی گوشی‌های خیلی کوچک */
-        font-size: 11px;
+        font-size:
+            11px;
     }
 
     .curved-move,
     .drawing-preview {
-        height: 150px;
+        height:
+            150px;
     }
 
 
@@ -1010,10 +1348,12 @@ input {
     .start-screen footer,
     .game-screen footer {
         padding:
-            8px 6px 4px;
+            4px 6px 10px;
 
-        font-size: 12px;
+        font-size:
+            12px;
 
-        line-height: 1.45;
+        line-height:
+            1.4;
     }
 }
