@@ -7,27 +7,59 @@
 
     <meta
         name="viewport"
-        content="width=device-width,
-                 initial-scale=1.0,
-                 maximum-scale=1.0,
-                 user-scalable=no"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     >
 
-    <title>محور اعداد</title>
+    <meta
+        name="theme-color"
+        content="#fff7fb"
+    >
 
-    <link rel="stylesheet" href="style.css">
+    <title>
+        محور اعداد
+    </title>
+
+    <!-- =================================================
+         فونت
+    ================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- =================================================
+         فایل CSS
+    ================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
 </head>
 
 
 <body>
 
+
 <div class="app">
 
 
-    <!-- =========================================
+    <!-- =================================================
          صفحه شروع
-    ========================================== -->
+    ================================================= -->
 
     <section
         id="startScreen"
@@ -35,21 +67,28 @@
     >
 
 
-        <!-- جای عکس آموزگار -->
+        <!-- جای عکس در آینده -->
 
-        <div class="teacher-photo">
+        <div
+            class="teacher-photo"
+            aria-label="جای عکس آموزگار"
+        >
 
             <div class="photo-placeholder">
-                🌷
+                👩🏻‍🏫
             </div>
 
         </div>
 
 
+        <!-- استیکر -->
+
         <div class="start-sticker">
-            📚
+            🔢
         </div>
 
+
+        <!-- عنوان -->
 
         <h1>
             محور اعداد
@@ -57,35 +96,53 @@
 
 
         <p class="welcome-text">
-            با کمک محور اعداد، جمع و تفریق را تمرین کنیم
+            با انگشتت روی محور حرکت کن و جواب را پیدا کن 🌷
         </p>
 
+
+        <!-- نام دانش‌آموز -->
 
         <input
             id="studentName"
             type="text"
-            placeholder="نام زیبایت را وارد کن"
+            inputmode="text"
             autocomplete="off"
+            placeholder="نام زیبایت را وارد کن 🌸"
+            aria-label="نام دانش‌آموز"
         >
 
+
+        <!-- شروع -->
 
         <button
             id="startButton"
             class="start-button"
+            type="button"
         >
+
             شروع بازی 🚀
+
         </button>
 
 
+        <!-- امضا -->
+
+        <footer>
+
+            AI based education content creator
+            👩🏻‍💻
+            Marziyeh Mohammadi
+
+        </footer>
+
+
     </section>
-<footer class="creator-credit">
-    AI based education content creator 👩🏻‍💻 Marziyeh Mohammadi
-</footer>
 
 
-    <!-- =========================================
+
+    <!-- =================================================
          صفحه بازی
-    ========================================== -->
+    ================================================== -->
 
     <section
         id="gameScreen"
@@ -93,7 +150,9 @@
     >
 
 
-        <!-- اطلاعات بالا -->
+        <!-- =================================================
+             سربرگ
+        ================================================== -->
 
         <div class="game-header">
 
@@ -101,8 +160,8 @@
             <div class="student-box">
 
                 🌸
-
                 <span id="playerName">
+                    دانش‌آموز
                 </span>
 
             </div>
@@ -111,10 +170,11 @@
             <div class="score-box">
 
                 امتیاز:
-
                 <span id="score">
                     ۰
                 </span>
+
+                ⭐
 
             </div>
 
@@ -123,12 +183,15 @@
 
 
 
-        <!-- عنوان -->
+        <!-- =================================================
+             عنوان بازی
+        ================================================== -->
 
         <div class="game-title">
-            محور اعداد
-        </div>
 
+            محور اعداد
+
+        </div>
 
 
         <!-- نوع سؤال -->
@@ -137,48 +200,60 @@
             id="questionType"
             class="question-type"
         >
+
+            جمع و تفریق
+
         </div>
 
 
 
-        <!-- =====================================
-             عبارت + جای خالی
-        ====================================== -->
+        <!-- =================================================
+             عبارت
+        ================================================== -->
 
         <div
-            id="question"
             class="question"
+            aria-live="polite"
         >
+
+
+            <!-- عبارت توسط JavaScript ساخته می‌شود -->
 
             <span
                 id="expression"
                 class="expression"
             >
+                ۳ + ۲
             </span>
 
+
+            <!-- مساوی -->
 
             <span class="equals-sign">
                 =
             </span>
 
 
+            <!-- کادر جواب -->
+
             <input
                 id="answerInput"
                 class="answer-input"
                 type="text"
                 inputmode="numeric"
-                maxlength="2"
-                placeholder="؟"
                 autocomplete="off"
+                maxlength="2"
+                aria-label="جواب"
             >
+
 
         </div>
 
 
 
-        <!-- =====================================
+        <!-- =================================================
              محور اعداد
-        ====================================== -->
+        ================================================== -->
 
         <div class="number-line-wrapper">
 
@@ -187,6 +262,14 @@
                 id="numberLine"
                 class="number-line"
             >
+
+                <!--
+
+                    محور و اعداد توسط JavaScript
+                    ساخته می‌شوند.
+
+                -->
+
             </div>
 
 
@@ -194,9 +277,9 @@
 
 
 
-        <!-- =====================================
+        <!-- =================================================
              دکمه‌ها
-        ====================================== -->
+        ================================================== -->
 
         <div class="buttons">
 
@@ -204,24 +287,33 @@
             <button
                 id="undoButton"
                 class="secondary-button"
+                type="button"
             >
-                ↩ پاک کردن حرکت قبلی
+
+                ↩️ حرکت قبلی
+
             </button>
 
 
             <button
                 id="clearButton"
                 class="secondary-button"
+                type="button"
             >
-                🧹 پاک کردن همه
+
+                🧹 پاک کردن
+
             </button>
 
 
             <button
                 id="checkButton"
                 class="check-button"
+                type="button"
             >
-                بررسی پاسخ ✓
+
+                ✅ بررسی جواب
+
             </button>
 
 
@@ -229,49 +321,59 @@
 
 
 
-        <!-- پیام -->
+        <!-- =================================================
+             پیام
+        ================================================== -->
 
         <div
             id="feedback"
             class="feedback"
+            aria-live="polite"
         >
+
         </div>
 
 
 
-        <!-- =====================================
+        <!-- =================================================
              فشفشه
-        ====================================== -->
+        ================================================== -->
 
         <div
             id="fireworkContainer"
             class="firework-container"
         >
+
         </div>
 
 
 
-        <!-- =====================================
-             پایین صفحه
-        ====================================== -->
+        <!-- =================================================
+             امضای پایین صفحه
+        ================================================== -->
 
         <footer>
 
-            AI based education content creator:
-            ENG Marziyeh Mohammadi
+            AI based education content creator
+            👩🏻‍💻
+            Marziyeh Mohammadi
 
         </footer>
 
 
     </section>
-<footer class="creator-credit">
-    AI based education content creator 👩🏻‍💻 Marziyeh Mohammadi
-</footer>
+
 
 </div>
 
 
+
+<!-- =====================================================
+     JavaScript
+====================================================== -->
+
 <script src="script.js"></script>
+
 
 </body>
 
