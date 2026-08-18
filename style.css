@@ -3,11 +3,6 @@
    CSS نهایی
 ===================================================== */
 
-
-/* =====================================================
-   تنظیمات اصلی
-===================================================== */
-
 * {
     box-sizing: border-box;
 }
@@ -47,7 +42,6 @@ input {
 .app {
     width: 100%;
     min-height: 100vh;
-
     position: relative;
 }
 
@@ -56,7 +50,7 @@ input {
     min-height: 100vh;
 
     padding:
-        15px 10px 6px;
+        15px 10px 8px;
 
     display: flex;
 
@@ -79,9 +73,7 @@ input {
 ===================================================== */
 
 .start-screen {
-
     justify-content: center;
-
     text-align: center;
 
     background:
@@ -93,13 +85,7 @@ input {
         );
 }
 
-
-/* =====================================================
-   عکس آموزگار
-===================================================== */
-
 .teacher-photo {
-
     width: 145px;
     height: 145px;
 
@@ -113,7 +99,6 @@ input {
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     overflow: hidden;
@@ -121,46 +106,24 @@ input {
     box-shadow:
         0 8px 25px
         rgba(150, 100, 130, .15);
-
-    flex-shrink: 0;
-
-    margin-bottom: 8px;
 }
 
 .teacher-photo img {
-
     width: 100%;
     height: 100%;
-
     object-fit: cover;
-
-    display: block;
 }
 
 .photo-placeholder {
     font-size: 58px;
 }
 
-
-/* =====================================================
-   استیکر صفحه شروع
-===================================================== */
-
 .start-sticker {
-
     font-size: 42px;
-
-    margin-top: 5px;
-
+    margin-top: 8px;
 }
 
-
-/* =====================================================
-   عنوان صفحه شروع
-===================================================== */
-
 .start-screen h1 {
-
     margin:
         3px 0 8px;
 
@@ -173,15 +136,12 @@ input {
     font-weight:
         900;
 
+    max-width: 100%;
+
+    overflow-wrap: break-word;
 }
 
-
-/* =====================================================
-   متن خوش آمدگویی
-===================================================== */
-
 .welcome-text {
-
     margin:
         0 0 22px;
 
@@ -191,15 +151,10 @@ input {
     font-size:
         clamp(14px, 3.8vw, 20px);
 
+    max-width: 95%;
 }
 
-
-/* =====================================================
-   کادر نام
-===================================================== */
-
 #studentName {
-
     width:
         min(90%, 400px);
 
@@ -229,23 +184,14 @@ input {
 
     padding:
         0 15px;
-
 }
 
 #studentName:focus {
-
     border-color:
         #b989bd;
-
 }
 
-
-/* =====================================================
-   دکمه شروع
-===================================================== */
-
 .start-button {
-
     margin-top:
         17px;
 
@@ -283,7 +229,6 @@ input {
     box-shadow:
         0 8px 18px
         rgba(170, 110, 160, .25);
-
 }
 
 
@@ -292,7 +237,6 @@ input {
 ===================================================== */
 
 .game-screen {
-
     background:
         linear-gradient(
             180deg,
@@ -304,13 +248,7 @@ input {
         hidden;
 }
 
-
-/* =====================================================
-   سربرگ بازی
-===================================================== */
-
 .game-header {
-
     width:
         100%;
 
@@ -330,10 +268,8 @@ input {
         0;
 }
 
-
 .student-box,
 .score-box {
-
     background:
         white;
 
@@ -353,15 +289,20 @@ input {
         0 4px 12px
         rgba(100, 80, 120, .08);
 
+    max-width:
+        45%;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
 }
 
-
-/* =====================================================
-   عنوان بازی
-===================================================== */
-
 .game-title {
-
     margin-top:
         7px;
 
@@ -374,15 +315,14 @@ input {
     font-weight:
         900;
 
+    text-align:
+        center;
+
+    max-width:
+        100%;
 }
 
-
-/* =====================================================
-   نوع سؤال
-===================================================== */
-
 .question-type {
-
     margin-top:
         2px;
 
@@ -394,7 +334,6 @@ input {
 
     font-weight:
         bold;
-
 }
 
 
@@ -403,7 +342,6 @@ input {
 ===================================================== */
 
 .question {
-
     min-height:
         62px;
 
@@ -440,31 +378,24 @@ input {
     white-space:
         nowrap;
 
+    max-width:
+        100%;
 }
 
-
 .expression {
-
     direction:
         ltr;
 
+    unicode-bidi:
+        isolate;
 }
-
 
 .equals-sign {
-
     font-weight:
         900;
-
 }
 
-
-/* =====================================================
-   کادر جواب
-===================================================== */
-
 .answer-input {
-
     width:
         62px;
 
@@ -502,49 +433,41 @@ input {
         0 4px 12px
         rgba(120, 80, 120, .10);
 
+    flex-shrink:
+        0;
 }
 
-
 .answer-input:focus {
-
     border-color:
         #a982cf;
 
     box-shadow:
         0 0 0 4px
         rgba(169,130,207,.12);
-
 }
 
-
 .answer-input.correct {
-
     border-color:
         #4caf87;
 
     background:
         #effbf5;
-
 }
 
-
 .answer-input.wrong {
-
     border-color:
         #df7185;
 
     background:
         #fff1f4;
-
 }
 
 
 /* =====================================================
-   محفظه محور
+   محدوده محور
 ===================================================== */
 
 .number-line-wrapper {
-
     width:
         100%;
 
@@ -558,13 +481,7 @@ input {
         0;
 }
 
-
-/* =====================================================
-   خود محور
-===================================================== */
-
 .number-line {
-
     width:
         100%;
 
@@ -599,7 +516,6 @@ input {
 ===================================================== */
 
 .number-line::before {
-
     content:
         "";
 
@@ -630,12 +546,11 @@ input {
 
 
 /* =====================================================
-   پیکان سمت راست محور
-   سمت چپ پیکان ندارد
+   پیکان فقط سمت راست
+   ظریف و باریک
 ===================================================== */
 
 .number-line::after {
-
     content:
         "";
 
@@ -646,7 +561,7 @@ input {
         1.5%;
 
     top:
-        84px;
+        85px;
 
     width:
         0;
@@ -655,13 +570,13 @@ input {
         0;
 
     border-top:
-        5px solid transparent;
+        4px solid transparent;
 
     border-bottom:
-        5px solid transparent;
+        4px solid transparent;
 
     border-left:
-        8px solid #756b79;
+        7px solid #756b79;
 
     z-index:
         2;
@@ -669,17 +584,12 @@ input {
 
 
 /* =====================================================
-   اعداد محور
+   عددهای محور
 ===================================================== */
 
 .number {
-
     position:
         absolute;
-
-    /*
-       عدد دقیقاً زیر خط محور قرار می‌گیرد.
-    */
 
     top:
         103px;
@@ -704,30 +614,32 @@ input {
 
     line-height:
         1.2;
+
+    white-space:
+        nowrap;
 }
 
 
 /* =====================================================
-   علامت‌های کوچک روی محور
+   علامت‌های روی محور
+
+   بسیار مهم:
+   از خود خط افقی شروع می‌شوند
+   و فقط به سمت پایین می‌روند.
 ===================================================== */
 
 .tick {
-
     position:
         absolute;
 
-    /*
-       پایین علامت به خط محور می‌چسبد.
-    */
-
     top:
-        78px;
+        88px;
 
     width:
         2px;
 
     height:
-        20px;
+        13px;
 
     background:
         #756b79;
@@ -748,7 +660,6 @@ input {
 ===================================================== */
 
 .curved-move {
-
     position:
         absolute;
 
@@ -774,9 +685,7 @@ input {
         none !important;
 }
 
-
 .curved-path {
-
     fill:
         none;
 
@@ -796,20 +705,12 @@ input {
         none !important;
 }
 
-
-/* =====================================================
-   کمان حرکت به چپ
-===================================================== */
-
 .curved-move.left .curved-path {
-
     stroke:
         #62a4e6;
 }
 
-
 .curved-move text {
-
     pointer-events:
         none !important;
 
@@ -830,11 +731,10 @@ input {
 
 
 /* =====================================================
-   نقطه شروع حرکت
+   نقطه شروع
 ===================================================== */
 
 .start-dot {
-
     position:
         absolute;
 
@@ -845,7 +745,10 @@ input {
         10px;
 
     transform:
-        translate(-50%, -50%);
+        translate(
+            -50%,
+            -50%
+        );
 
     border-radius:
         50%;
@@ -866,7 +769,6 @@ input {
 ===================================================== */
 
 .drawing-preview {
-
     position:
         absolute;
 
@@ -889,9 +791,7 @@ input {
         none !important;
 }
 
-
 .drawing-preview path {
-
     fill:
         none;
 
@@ -917,7 +817,6 @@ input {
 ===================================================== */
 
 .buttons {
-
     width:
         100%;
 
@@ -946,9 +845,7 @@ input {
         0;
 }
 
-
 .buttons button {
-
     min-height:
         45px;
 
@@ -971,13 +868,7 @@ input {
         bold;
 }
 
-
-/* =====================================================
-   دکمه‌های فرعی
-===================================================== */
-
 .secondary-button {
-
     background:
         white;
 
@@ -989,13 +880,7 @@ input {
         rgba(100,80,120,.10);
 }
 
-
-/* =====================================================
-   دکمه بررسی
-===================================================== */
-
 .check-button {
-
     background:
         linear-gradient(
             135deg,
@@ -1013,11 +898,10 @@ input {
 
 
 /* =====================================================
-   پیام بازخورد
+   پیام
 ===================================================== */
 
 .feedback {
-
     min-height:
         34px;
 
@@ -1049,7 +933,6 @@ input {
 ===================================================== */
 
 .firework-container {
-
     position:
         fixed;
 
@@ -1072,9 +955,7 @@ input {
         1000;
 }
 
-
 .firework-particle {
-
     position:
         absolute;
 
@@ -1097,11 +978,9 @@ input {
         forwards;
 }
 
-
 @keyframes firework {
 
     0% {
-
         transform:
             translate(0,0)
             scale(.3);
@@ -1111,13 +990,11 @@ input {
     }
 
     65% {
-
         opacity:
             1;
     }
 
     100% {
-
         transform:
             translate(
                 var(--x),
@@ -1132,11 +1009,11 @@ input {
 
 
 /* =====================================================
-   امضای سازنده
-   پایین هر دو صفحه
+   امضای پایین صفحه دوم
+   فقط یک بار
 ===================================================== */
 
-.creator-credit {
+.game-screen footer {
 
     width:
         100%;
@@ -1148,41 +1025,31 @@ input {
         auto;
 
     padding:
-        6px 4px 2px;
+        5px 4px 2px;
 
     text-align:
         center;
 
-    font-family:
-        "Trebuchet MS",
-        "Segoe UI",
-        Tahoma,
-        Arial,
-        sans-serif;
+    color:
+        #80658f;
 
     font-size:
-        clamp(9px, 2.4vw, 14px);
+        9px;
 
     font-weight:
-        600;
-
-    letter-spacing:
-        0.2px;
-
-    color:
-        #80658d;
+        500;
 
     line-height:
         1.3;
 
     white-space:
-        nowrap;
+        normal;
 
-    overflow:
-        hidden;
+    overflow-wrap:
+        anywhere;
 
-    text-overflow:
-        clip;
+    word-break:
+        break-word;
 
     flex-shrink:
         0;
@@ -1196,34 +1063,18 @@ input {
 @media (max-width: 600px) {
 
     .screen {
-
         padding:
-            9px 7px 5px;
-    }
-
-
-    .teacher-photo {
-
-        width:
-            125px;
-
-        height:
-            125px;
-
-        border-width:
-            4px;
+            9px 7px 6px;
     }
 
 
     .game-title {
-
         font-size:
             28px;
     }
 
 
     .question {
-
         min-height:
             53px;
 
@@ -1236,7 +1087,6 @@ input {
 
 
     .answer-input {
-
         width:
             54px;
 
@@ -1248,19 +1098,17 @@ input {
     }
 
 
-    /* ---------------------------------------------
+    /* -------------------------------
        محور موبایل
-    --------------------------------------------- */
+    ------------------------------- */
 
     .number-line {
-
         height:
             165px;
     }
 
 
     .number-line::before {
-
         top:
             74px;
 
@@ -1270,7 +1118,6 @@ input {
 
 
     .number-line::after {
-
         top:
             70px;
 
@@ -1288,18 +1135,21 @@ input {
     }
 
 
-    .tick {
+    /* علامت‌ها فقط به پایین */
 
+    .tick {
         top:
-            65px;
+            74px;
 
         height:
-            17px;
+            12px;
+
+        width:
+            2px;
     }
 
 
     .number {
-
         top:
             88px;
 
@@ -1310,32 +1160,24 @@ input {
 
     .curved-move,
     .drawing-preview {
-
         height:
             165px;
     }
 
 
     .curved-move text {
-
         font-size:
             13px;
     }
 
 
-    /* ---------------------------------------------
-       دکمه‌ها
-    --------------------------------------------- */
-
     .buttons {
-
         gap:
             5px;
     }
 
 
     .buttons button {
-
         min-height:
             41px;
 
@@ -1347,20 +1189,20 @@ input {
     }
 
 
-    /* ---------------------------------------------
-       امضای پایین صفحه
-    --------------------------------------------- */
+    /* -------------------------------
+       امضا در موبایل
+    ------------------------------- */
 
-    .creator-credit {
+    .game-screen footer {
 
         font-size:
-            clamp(8px, 2.3vw, 11px);
+            9px;
 
         padding:
-            5px 2px 2px;
+            5px 4px 2px;
 
-        letter-spacing:
-            0;
+        color:
+            #80658f;
     }
 }
 
@@ -1371,39 +1213,13 @@ input {
 
 @media (max-width: 380px) {
 
-    .screen {
-
-        padding:
-            7px 5px 4px;
-    }
-
-
-    .teacher-photo {
-
-        width:
-            110px;
-
-        height:
-            110px;
-    }
-
-
-    .start-sticker {
-
-        font-size:
-            34px;
-    }
-
-
     .question {
-
         font-size:
             25px;
     }
 
 
     .answer-input {
-
         width:
             48px;
 
@@ -1415,19 +1231,13 @@ input {
     }
 
 
-    /* ---------------------------------------------
-       محور گوشی خیلی کوچک
-    --------------------------------------------- */
-
     .number-line {
-
         height:
             150px;
     }
 
 
     .number-line::before {
-
         top:
             68px;
 
@@ -1437,36 +1247,29 @@ input {
 
 
     .number-line::after {
-
         top:
             64px;
 
         right:
             1%;
-
-        border-top-width:
-            4px;
-
-        border-bottom-width:
-            4px;
-
-        border-left-width:
-            7px;
     }
 
 
-    .tick {
+    /* علامت‌ها دقیقاً از خط شروع می‌شوند */
 
+    .tick {
         top:
-            59px;
+            68px;
 
         height:
-            15px;
+            11px;
+
+        width:
+            2px;
     }
 
 
     .number {
-
         top:
             81px;
 
@@ -1477,83 +1280,20 @@ input {
 
     .curved-move,
     .drawing-preview {
-
         height:
             150px;
     }
 
 
-    .curved-move text {
-
-        font-size:
-            11px;
-    }
-
-
-    /* ---------------------------------------------
-       امضا در گوشی خیلی باریک
-    --------------------------------------------- */
-
-    .creator-credit {
+    .game-screen footer {
 
         font-size:
             8px;
 
         padding:
-            4px 1px 2px;
+            4px 3px 1px;
 
-        letter-spacing:
-            0;
-
-        line-height:
-            1.2;
-    }
-}
-
-
-/* =====================================================
-   گوشی‌های بسیار باریک
-===================================================== */
-
-@media (max-width: 340px) {
-
-    .creator-credit {
-
-        font-size:
-            7px;
-
-        padding-left:
-            0;
-
-        padding-right:
-            0;
-    }
-
-
-    .game-header {
-
-        gap:
-            4px;
-    }
-
-
-    .student-box,
-    .score-box {
-
-        padding:
-            6px 8px;
-
-        font-size:
-            11px;
-    }
-
-
-    .question {
-
-        font-size:
-            23px;
-
-        gap:
-            3px;
+        color:
+            #80658f;
     }
 }
