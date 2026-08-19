@@ -366,12 +366,6 @@ function generateQuestion() {
 
     /* =================================================
        جمع
-
-       مثال:
-       ۷ + ۵
-
-       حرکت:
-       ۰ → ۷ → ۱۲
     ================================================= */
 
     if (type === 1) {
@@ -424,12 +418,6 @@ function generateQuestion() {
 
     /* =================================================
        تفریق
-
-       مثال:
-       ۱۷ − ۱۲
-
-       حرکت:
-       ۰ → ۱۷ → ۵
     ================================================= */
 
     if (type === 2) {
@@ -482,12 +470,6 @@ function generateQuestion() {
 
     /* =================================================
        سه عبارتی
-
-       مثال:
-       ۵ + ۷ − ۳
-
-       حرکت:
-       ۰ → ۵ → ۱۲ → ۹
     ================================================= */
 
     let a;
@@ -675,7 +657,6 @@ function getLineSize() {
 
 /* =====================================================
    موقعیت واقعی عدد روی محور
-   بدون عدد ثابت برای ارتفاع
 ===================================================== */
 
 function getNumberPosition(value) {
@@ -698,21 +679,11 @@ function getNumberPosition(value) {
         number.getBoundingClientRect();
 
 
-    /*
-       مرکز افقی عدد
-    */
-
     const x =
         numberRect.left +
         numberRect.width / 2 -
         lineRect.left;
 
-
-    /*
-       مهم‌ترین قسمت:
-       موقعیت عمودی از خود محور
-       و از CSS واقعی گرفته می‌شود.
-    */
 
     const axisLine =
         getComputedStyle(
@@ -726,12 +697,6 @@ function getNumberPosition(value) {
             axisLine.top
         );
 
-
-    /*
-       اگر مرورگر مقدار مناسبی نداد،
-       خط محور را از موقعیت تیک‌ها
-       پیدا می‌کنیم.
-    */
 
     if (
         !Number.isFinite(axisTop)
@@ -754,10 +719,6 @@ function getNumberPosition(value) {
         }
     }
 
-
-    /*
-       مسیر روی خود خط افقی محور قرار می‌گیرد.
-    */
 
     const y =
         axisTop +
@@ -1301,10 +1262,6 @@ function drawMove(
     );
 
 
-    /*
-       ارتفاع واقعی محور
-    */
-
     svg.setAttribute(
         "viewBox",
         `0 0 ${size.width} ${size.height}`
@@ -1362,9 +1319,16 @@ function drawMove(
     );
 
 
+    /*
+       مهم:
+       نوک پیکان دقیقاً روی انتهای مسیر قرار می‌گیرد.
+       قبلاً 5 بود و باعث می‌شد نوک کمی از انتهای
+       مسیر جلوتر قرار بگیرد.
+    */
+
     marker.setAttribute(
         "refX",
-        "5"
+        "6"
     );
 
 
@@ -1431,11 +1395,6 @@ function drawMove(
         "curved-path"
     );
 
-
-    /*
-       برای اینکه CSS بتواند
-       رنگ حرکت چپ را تشخیص دهد.
-    */
 
     if (
         direction === "left"
@@ -1711,8 +1670,6 @@ function checkAnswer() {
     }
 
 
-    /* تعداد حرکت */
-
     if (
         drawnMoves.length !==
         correctMoves.length
@@ -1725,8 +1682,6 @@ function checkAnswer() {
         return;
     }
 
-
-    /* بررسی حرکت‌ها */
 
     for (
         let i = 0;
@@ -1750,8 +1705,6 @@ function checkAnswer() {
         }
     }
 
-
-    /* بررسی جواب */
 
     if (!answerInput) {
         return;
@@ -2069,12 +2022,6 @@ if (startButton) {
             createNumberLine();
 
 
-            /*
-               بعد از ظاهر شدن صفحه بازی،
-               اندازه واقعی محور را دوباره
-               محاسبه می‌کنیم.
-            */
-
             requestAnimationFrame(
                 () => {
 
@@ -2123,11 +2070,6 @@ window.addEventListener(
         }
 
 
-        /*
-           اگر کودک هنوز چیزی نکشیده،
-           فقط محور را دوباره تنظیم می‌کنیم.
-        */
-
         if (
             drawnMoves.length === 0
         ) {
@@ -2137,12 +2079,6 @@ window.addEventListener(
             return;
         }
 
-
-        /*
-           اگر حرکت‌هایی وجود دارد،
-           دوباره همان حرکت‌ها را
-           با اندازه جدید رسم می‌کنیم.
-        */
 
         const savedMoves =
             [...drawnMoves];
