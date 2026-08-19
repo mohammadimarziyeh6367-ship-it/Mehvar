@@ -891,6 +891,10 @@ input {
 
     font-weight:
         bold;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
 }
 
 
@@ -916,7 +920,7 @@ input {
 }
 
 
-/* بررسی جواب زیر هر دو دکمه */
+/* بررسی جواب — زیر هر دو دکمه */
 
 #checkButton {
     grid-column:
@@ -932,32 +936,62 @@ input {
         50%;
 }
 
+
+/* =====================================================
+   رنگ دکمه‌های معمولی
+===================================================== */
+
 .secondary-button {
     background:
-        #ffffff;
+        linear-gradient(
+            135deg,
+            #fff7fb,
+            #eee7fa
+        );
 
     color:
-        #766b78;
+        #705b78;
+
+    border:
+        2px solid #e5c9e0;
 
     box-shadow:
-        0 4px 12px
-        rgba(100, 80, 120, 0.10);
+        0 5px 14px
+        rgba(150, 110, 160, 0.14);
 }
+
+
+/* =====================================================
+   رنگ دکمه بررسی جواب
+===================================================== */
 
 .check-button {
     background:
         linear-gradient(
             135deg,
-            #6ebfa1,
-            #4b9f83
+            #76cdb0,
+            #59ad91
         );
 
     color:
         #ffffff;
 
+    border:
+        2px solid #4fa285;
+
     box-shadow:
-        0 5px 15px
-        rgba(70, 150, 120, 0.20);
+        0 6px 16px
+        rgba(70, 150, 120, 0.22);
+}
+
+
+/* =====================================================
+   حالت لمس و کلیک
+===================================================== */
+
+.buttons button:active {
+    transform:
+        scale(0.97);
 }
 
 
@@ -1133,7 +1167,7 @@ input {
         0;
 
     transform:
-        translateY(-12px);
+        translateY(-22px);
 }
 
 
@@ -1288,6 +1322,9 @@ input {
 
         font-size:
             14px;
+
+        transform:
+            translateY(-22px);
     }
 }
 
@@ -1475,7 +1512,7 @@ input {
             1.4;
 
         transform:
-            translateY(-12px);
+            translateY(-22px);
     }
 }
 
@@ -1585,6 +1622,6 @@ input {
             1.4;
 
         transform:
-            translateY(-12px);
+            translateY(-22px);
     }
 }
