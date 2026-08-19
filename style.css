@@ -1609,19 +1609,63 @@ input {
     /* -----------------------------------------------
        امضا
     ----------------------------------------------- */
+/* =====================================================
+   امضای سازنده — بالاتر از قبل
+===================================================== */
 
-    .start-screen footer,
-    .game-screen footer {
-        padding:
-            4px 6px 8px;
+.start-screen footer,
+.game-screen footer {
+    width:
+        100%;
 
-        font-size:
-            12px;
+    max-width:
+        100%;
 
-        line-height:
-            1.4;
+    margin-top:
+        auto;
 
-        transform:
-            translateY(-22px);
-    }
+    padding:
+        5px 12px 10px;
+
+    text-align:
+        center;
+
+    color:
+        #80658f;
+
+    font-family:
+        "Vazirmatn",
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    font-size:
+        14px;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.4;
+
+    direction:
+        ltr;
+
+    white-space:
+        normal;
+
+    overflow-wrap:
+        anywhere;
+
+    word-break:
+        normal;
+
+    flex-shrink:
+        0;
+
+    position:
+        relative;
+
+    top:
+        -35px;
 }
