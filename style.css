@@ -1,11 +1,6 @@
 /* =====================================================
    بازی «محور اعداد»
-   CSS نهایی — نسخه یکپارچه و پایدار
-===================================================== */
-
-
-/* =====================================================
-   تنظیمات پایه
+   CSS نهایی — نسخه یکپارچه
 ===================================================== */
 
 * {
@@ -58,6 +53,7 @@ input {
     align-items: center;
 
     position: relative;
+
     overflow: hidden;
 }
 
@@ -138,9 +134,11 @@ input {
     font-size:
         clamp(32px, 8vw, 52px);
 
-    font-weight: 900;
+    font-weight:
+        900;
 
-    overflow-wrap: break-word;
+    overflow-wrap:
+        break-word;
 }
 
 .welcome-text {
@@ -262,10 +260,10 @@ input {
 
 .game-header {
     width:
-        100%;
+        94%;
 
     max-width:
-        950px;
+        900px;
 
     display:
         flex;
@@ -283,7 +281,7 @@ input {
 .student-box,
 .score-box {
     max-width:
-        45%;
+        42%;
 
     padding:
         8px 12px;
@@ -540,6 +538,7 @@ input {
 
 /* =====================================================
    خط افقی محور
+   خط تا ابتدای نوک پیکان ادامه دارد
 ===================================================== */
 
 .number-line::before {
@@ -552,8 +551,13 @@ input {
     left:
         4%;
 
+    /*
+       کمی قبل از محل نوک پیکان
+       تمام می‌شود تا نوک دقیقاً
+       به انتهای خط متصل شود.
+    */
     right:
-        4%;
+        calc(4% + 2px);
 
     top:
         88px;
@@ -574,7 +578,7 @@ input {
 
 /* =====================================================
    پیکان محور
-   نوک پیکان کمی جلوتر از انتهای محور
+   کاملاً متصل به خط افقی
 ===================================================== */
 
 .number-line::after {
@@ -585,13 +589,11 @@ input {
         absolute;
 
     /*
-       انتهای خط در right: 4% است.
-       نوک پیکان کمی جلوتر از عدد ۲۰
-       قرار می‌گیرد.
+       محل نوک پیکان دقیقاً
+       2 پیکسل جلوتر از انتهای خط است.
     */
-
     right:
-        calc(4% - 12px);
+        calc(4% - 7px);
 
     top:
         88px;
@@ -853,10 +855,10 @@ input {
         100%;
 
     max-width:
-        850px;
+        600px;
 
     margin-top:
-        2px;
+        4px;
 
     display:
         flex;
@@ -871,11 +873,38 @@ input {
         wrap;
 
     gap:
-        8px;
+        7px;
 
     flex-shrink:
         0;
 }
+
+
+/*
+   دو دکمه اول در ردیف بالا
+*/
+
+.buttons .secondary-button {
+    flex:
+        0 1 auto;
+}
+
+
+/*
+   بررسی جواب در ردیف دوم
+*/
+
+.buttons .check-button {
+    flex-basis:
+        100%;
+
+    max-width:
+        190px;
+
+    margin-top:
+        2px;
+}
+
 
 .buttons button {
     min-height:
@@ -1048,7 +1077,6 @@ input {
 
 /* =====================================================
    امضای سازنده
-   بالاتر از انتهای صفحه
 ===================================================== */
 
 .start-screen footer,
@@ -1060,10 +1088,13 @@ input {
         100%;
 
     margin-top:
-        18px;
+        auto;
 
-    margin-bottom:
-        18px;
+    position:
+        relative;
+
+    top:
+        -22px;
 
     padding:
         5px 12px 5px;
@@ -1117,6 +1148,11 @@ input {
             9px 7px 6px;
     }
 
+    .game-header {
+        width:
+            92%;
+    }
+
     .game-title {
         font-size:
             28px;
@@ -1158,13 +1194,22 @@ input {
         top:
             74px;
 
+        /*
+           خط کمی قبل از نوک پیکان تمام می‌شود.
+        */
+        right:
+            calc(4% + 2px);
+
         height:
             3px;
     }
 
     .number-line::after {
+        /*
+           نوک پیکان نزدیک‌تر به خط
+        */
         right:
-            calc(4% - 11px);
+            calc(4% - 6px);
 
         top:
             74px;
@@ -1218,8 +1263,14 @@ input {
     ----------------------------------------------- */
 
     .buttons {
+        max-width:
+            330px;
+
         gap:
             5px;
+
+        margin-top:
+            3px;
     }
 
     .buttons button {
@@ -1227,27 +1278,32 @@ input {
             41px;
 
         padding:
-            6px 9px;
+            6px 10px;
 
         font-size:
             11px;
     }
 
+    .buttons .check-button {
+        max-width:
+            175px;
+
+        margin-top:
+            1px;
+    }
+
 
     /* -----------------------------------------------
-       امضا در موبایل
+       امضا
     ----------------------------------------------- */
 
     .start-screen footer,
     .game-screen footer {
-        margin-top:
-            12px;
-
-        margin-bottom:
-            12px;
+        top:
+            -18px;
 
         padding:
-            5px 8px 5px;
+            4px 8px 4px;
 
         font-size:
             13px;
@@ -1294,13 +1350,16 @@ input {
         top:
             68px;
 
+        right:
+            calc(4% + 2px);
+
         height:
             3px;
     }
 
     .number-line::after {
         right:
-            calc(4% - 11px);
+            calc(4% - 6px);
 
         top:
             68px;
@@ -1345,16 +1404,13 @@ input {
 
 
     /* -----------------------------------------------
-       امضا در گوشی خیلی کوچک
+       امضا
     ----------------------------------------------- */
 
     .start-screen footer,
     .game-screen footer {
-        margin-top:
-            10px;
-
-        margin-bottom:
-            10px;
+        top:
+            -16px;
 
         padding:
             4px 6px 4px;
