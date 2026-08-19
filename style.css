@@ -296,7 +296,7 @@ input {
         #695b72;
 
     font-size:
-        clamp(12px, 3vw, 17px);
+        clamp(13px, 3.2vw, 18px);
 
     box-shadow:
         0 4px 12px
