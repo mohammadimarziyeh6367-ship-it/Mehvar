@@ -1,2134 +1,1910 @@
-/* =====================================================
-   بازی «محور اعداد»
-   مناسب کلاس اول
-   نسخه نهایی
-===================================================== */
+/* =========================================================
+   بازی «الگوی منظم» | ریاضی پایه اول
+   ========================================================= */
 
 
-/* =====================================================
-   گرفتن عناصر HTML
-===================================================== */
+/* =========================================================
+   تنظیمات
+   ========================================================= */
 
-const startScreen =
-    document.getElementById("startScreen");
+const TOTAL_COLUMNS = 21;
 
-const gameScreen =
-    document.getElementById("gameScreen");
-
-const studentNameInput =
-    document.getElementById("studentName");
-
-const startButton =
-    document.getElementById("startButton");
-
-const playerName =
-    document.getElementById("playerName");
-
-const scoreElement =
-    document.getElementById("score");
-
-const questionTypeElement =
-    document.getElementById("questionType");
-
-const expressionElement =
-    document.getElementById("expression");
-
-const answerInput =
-    document.getElementById("answerInput");
-
-const numberLine =
-    document.getElementById("numberLine");
-
-const undoButton =
-    document.getElementById("undoButton");
-
-const clearButton =
-    document.getElementById("clearButton");
-
-const checkButton =
-    document.getElementById("checkButton");
-
-const feedback =
-    document.getElementById("feedback");
-
-const fireworkContainer =
-    document.getElementById("fireworkContainer");
-
-
-/* =====================================================
-   وضعیت بازی
-===================================================== */
-
+let studentName = "";
+let currentStage = 0;
 let score = 0;
 
-let currentQuestion = null;
+let selectedTool = null;
 
-let drawnMoves = [];
+let currentCells = [];
+let repeatCells = [];
 
-let isDrawing = false;
-
-let drawingStart = null;
-
-let previewSvg = null;
+let selectedShapeAnswer = null;
 
 let audioContext = null;
 
 
-/* =====================================================
-   تبدیل اعداد
-===================================================== */
+/* =========================================================
+   رنگ ها
+   ========================================================= */
 
-function toPersianNumber(value) {
-
-    const digits =
-        "۰۱۲۳۴۵۶۷۸۹";
-
-    return String(value).replace(
-        /\d/g,
-        digit => digits[digit]
-    );
-}
-
-
-function toEnglishNumber(value) {
-
-    const persian =
-        "۰۱۲۳۴۵۶۷۸۹";
-
-    const arabic =
-        "٠١٢٣٤٥٦٧٨٩";
-
-    return String(value)
-        .replace(
-            /[۰-۹]/g,
-            digit =>
-                persian.indexOf(digit)
-        )
-        .replace(
-            /[٠-٩]/g,
-            digit =>
-                arabic.indexOf(digit)
-        );
-}
+const COLORS = {
+  green: "#58c86b",
+  blue: "#42a5f5",
+  yellow: "#ffd84d",
+  red: "#ef5350",
+  pink: "#ff73ad",
+  purple: "#9c64e8",
+  white: "#ffffff"
+};
 
 
-/* =====================================================
-   عدد تصادفی
-===================================================== */
+/* =========================================================
+   تعریف مراحل
+   ========================================================= */
 
-function randomInt(min, max) {
+const stages = [
 
-    return Math.floor(
-        Math.random() *
-        (max - min + 1)
-    ) + min;
-}
+  /* -----------------------------------------
+     مرحله 1
+  ----------------------------------------- */
+
+  {
+    type: "color",
+    pattern: ["green", "green", "red"],
+    blanks: [6, 7, 8, 9, 10, 11],
+    instruction:
+      "الگوی تکرارشونده را ادامه بده. سپس الگویی را که پیدا کردی، یک بار در سمت راست رسم کن."
+  },
 
 
-/* =====================================================
-   سیستم صدا
-===================================================== */
+  /* -----------------------------------------
+     مرحله 2
+  ----------------------------------------- */
 
-function initializeAudio() {
+  {
+    type: "color",
+    pattern: ["blue", "yellow"],
+    blanks: [5, 6, 7, 8, 9, 10, 11, 12],
+    instruction:
+      "الگوی تکرارشونده را ادامه بده. سپس الگویی را که پیدا کردی، یک بار در سمت راست رسم کن."
+  },
 
-    if (!audioContext) {
 
-        const AudioContext =
-            window.AudioContext ||
-            window.webkitAudioContext;
+  /* -----------------------------------------
+     مرحله 3
+  ----------------------------------------- */
 
-        if (AudioContext) {
+  {
+    type: "color",
+    pattern: ["green", "red", "red"],
+    blanks: [6, 7, 8, 9, 10, 11, 12],
+    instruction:
+      "الگوی تکرارشونده را پیدا کن و ادامه بده. سپس الگو را یک بار در سمت راست رسم کن."
+  },
 
-            audioContext =
-                new AudioContext();
-        }
+
+  /* -----------------------------------------
+     مرحله 4
+  ----------------------------------------- */
+
+  {
+    type: "color",
+    pattern: ["yellow", "blue", "green"],
+    blanks: [6, 7, 8, 9, 10, 11, 12],
+    instruction:
+      "الگوی تکرارشونده را پیدا کن و ادامه بده. سپس الگو را یک بار در سمت راست رسم کن."
+  },
+
+
+  /* -----------------------------------------
+     مرحله 5
+  ----------------------------------------- */
+
+  {
+    type: "color",
+    pattern: ["red", "red", "yellow"],
+    blanks: [6, 7, 8, 9, 10, 11, 12],
+    instruction:
+      "الگوی تکرارشونده را پیدا کن و ادامه بده. سپس الگو را یک بار در سمت راست رسم کن."
+  },
+
+
+  /* -----------------------------------------
+     مرحله 6
+  ----------------------------------------- */
+
+  {
+    type: "color",
+    pattern: ["green", "blue", "blue"],
+    blanks: [6, 7, 8, 9, 10, 11, 12],
+    instruction:
+      "الگوی تکرارشونده را پیدا کن و ادامه بده. سپس الگو را یک بار در سمت راست رسم کن."
+  },
+
+
+  /* -----------------------------------------
+     مرحله 7
+  ----------------------------------------- */
+
+  {
+    type: "color",
+    pattern: ["pink", "yellow", "pink"],
+    blanks: [6, 7, 8, 9, 10, 11, 12],
+    instruction:
+      "الگوی تکرارشونده را پیدا کن و ادامه بده. سپس الگو را یک بار در سمت راست رسم کن."
+  },
+
+
+  /* -----------------------------------------
+     مرحله 8
+  ----------------------------------------- */
+
+  {
+    type: "color",
+    pattern: ["purple", "green", "yellow", "green"],
+    blanks: [8, 9, 10, 11, 12, 13, 14],
+    instruction:
+      "الگوی تکرارشونده را پیدا کن و الگو را ادامه بده. سپس الگو را یک بار در سمت راست رسم کن."
+  },
+
+
+  /* -----------------------------------------
+     مرحله 9
+  ----------------------------------------- */
+
+  {
+    type: "shape",
+    pattern: ["circle", "circle", "triangle", "circle", "circle", "triangle"],
+    blanks: [6, 7, 8, 9, 10, 11, 12, 13],
+    instruction:
+      "الگوی تکرارشونده را پیدا کن و الگو را ادامه بده."
+  },
+
+
+  /* -----------------------------------------
+     مرحله 10
+     سوال حذف شکل
+  ----------------------------------------- */
+
+  {
+    type: "remove",
+    shapes: [
+      "circle",
+      "circle",
+      "square",
+      "circle",
+      "circle",
+      "triangle",
+      "circle"
+    ],
+    answer: 5,
+    instruction:
+      "کدام شکل را حذف کنیم تا الگو منظم شود؟"
+  },
+
+
+  /* -----------------------------------------
+     مرحله 11
+  ----------------------------------------- */
+
+  {
+    type: "shape",
+    pattern: [
+      "star",
+      "star",
+      "heart",
+      "star",
+      "star",
+      "heart"
+    ],
+    blanks: [6, 7, 8, 9, 10, 11, 12, 13],
+    instruction:
+      "الگوی تکرارشونده را پیدا کن و الگو را ادامه بده."
+  },
+
+
+  /* -----------------------------------------
+     مرحله 12
+     سوال حذف شکل
+  ----------------------------------------- */
+
+  {
+    type: "remove",
+    shapes: [
+      "triangle",
+      "triangle",
+      "circle",
+      "triangle",
+      "triangle",
+      "square",
+      "triangle"
+    ],
+    answer: 5,
+    instruction:
+      "کدام شکل را حذف کنیم تا الگو منظم شود؟"
+  },
+
+
+  /* -----------------------------------------
+     مرحله 13
+     شطرنجی
+  ----------------------------------------- */
+
+  {
+    type: "checker",
+    rows: [
+      {
+        pattern: ["green", "white"],
+        blanks: [6, 7, 8, 9, 10, 11, 12]
+      }
+    ],
+    instruction:
+      "الگو را پیدا کن و سپس ادامه بده. الگوی تکرارشونده را در پایین یک بار تکرار کن."
+  },
+
+
+  /* -----------------------------------------
+     مرحله 14
+     شطرنجی
+  ----------------------------------------- */
+
+  {
+    type: "checker",
+    rows: [
+      {
+        pattern: ["white", "green", "white", "red"],
+        blanks: [8, 9, 10, 11, 12, 13, 14]
+      }
+    ],
+    instruction:
+      "الگو را پیدا کن و سپس ادامه بده. الگوی تکرارشونده را در پایین یک بار تکرار کن."
+  },
+
+
+  /* -----------------------------------------
+     مرحله 15
+     شطرنجی
+  ----------------------------------------- */
+
+  {
+    type: "checker",
+    rows: [
+      {
+        pattern: ["green", "white"],
+        blanks: [7, 8, 9, 10, 11, 12, 13]
+      }
+    ],
+    instruction:
+      "الگو را پیدا کن و سپس ادامه بده. الگوی تکرارشونده را در پایین یک بار تکرار کن."
+  },
+
+
+  /* -----------------------------------------
+     مرحله 16
+     چالش پایانی
+  ----------------------------------------- */
+
+  {
+    type: "color",
+    pattern: ["green", "white", "red", "white"],
+    blanks: [8, 9, 10, 11, 12, 13, 14],
+    instruction:
+      "چالش آخر! الگوی تکرارشونده را پیدا کن و الگو را ادامه بده. سپس یک بار الگو را در سمت راست رسم کن."
+  }
+
+];
+
+
+/* =========================================================
+   ابزارهای صفحه
+   ========================================================= */
+
+const startScreen = document.getElementById("startScreen");
+const gameScreen = document.getElementById("gameScreen");
+const finishScreen = document.getElementById("finishScreen");
+
+const studentNameInput = document.getElementById("studentName");
+const startBtn = document.getElementById("startBtn");
+
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+const stageCounter = document.getElementById("stageCounter");
+
+const instruction = document.getElementById("instruction");
+
+const taskArea = document.getElementById("taskArea");
+
+const repeatBox = document.getElementById("repeatBox");
+const repeatArea = document.getElementById("repeatArea");
+
+const paletteBox = document.getElementById("paletteBox");
+const palette = document.getElementById("palette");
+
+const checkBtn = document.getElementById("checkBtn");
+const clearBtn = document.getElementById("clearBtn");
+
+const feedback = document.getElementById("feedback");
+
+const restartBtn = document.getElementById("restartBtn");
+
+const finishText = document.getElementById("finishText");
+const finalScore = document.getElementById("finalScore");
+
+
+/* =========================================================
+   شروع صدا
+   ========================================================= */
+
+function initAudio() {
+
+  if (!audioContext) {
+
+    const AudioCtx =
+      window.AudioContext ||
+      window.webkitAudioContext;
+
+    if (AudioCtx) {
+      audioContext = new AudioCtx();
     }
 
-    if (
-        audioContext &&
-        audioContext.state === "suspended"
-    ) {
+  }
 
-        audioContext.resume();
-    }
 }
 
+
+/* =========================================================
+   صدای کوتاه
+   ========================================================= */
 
 function playTone(
-    frequency,
-    duration,
-    type = "sine",
-    volume = 0.08,
-    delay = 0
+  frequency = 500,
+  duration = 0.09,
+  type = "sine",
+  volume = 0.045
 ) {
 
-    initializeAudio();
+  try {
 
-    if (!audioContext) {
-        return;
+    initAudio();
+
+    if (!audioContext) return;
+
+    if (audioContext.state === "suspended") {
+      audioContext.resume();
     }
 
     const oscillator =
-        audioContext.createOscillator();
+      audioContext.createOscillator();
 
     const gain =
-        audioContext.createGain();
+      audioContext.createGain();
 
-    const startTime =
-        audioContext.currentTime +
-        delay;
+    oscillator.type = type;
 
-    oscillator.type =
-        type;
-
-    oscillator.frequency.setValueAtTime(
-        frequency,
-        startTime
-    );
+    oscillator.frequency.value =
+      frequency;
 
     gain.gain.setValueAtTime(
-        0,
-        startTime
-    );
-
-    gain.gain.linearRampToValueAtTime(
-        volume,
-        startTime + 0.02
+      volume,
+      audioContext.currentTime
     );
 
     gain.gain.exponentialRampToValueAtTime(
-        0.001,
-        startTime + duration
+      0.001,
+      audioContext.currentTime + duration
     );
 
     oscillator.connect(gain);
+    gain.connect(audioContext.destination);
 
-    gain.connect(
-        audioContext.destination
-    );
-
-    oscillator.start(
-        startTime
-    );
+    oscillator.start();
 
     oscillator.stop(
-        startTime +
-        duration +
-        0.05
+      audioContext.currentTime + duration
     );
+
+  } catch (e) {}
+
 }
 
 
-function playCorrectSound() {
+/* =========================================================
+   صدای کلیک
+   ========================================================= */
 
-    initializeAudio();
+function playClick() {
+
+  playTone(
+    620,
+    0.07,
+    "sine",
+    0.035
+  );
+
+}
+
+
+/* =========================================================
+   صدای درست
+   ========================================================= */
+
+function playCorrect() {
+
+  playTone(523, 0.10, "sine", 0.05);
+
+  setTimeout(() => {
+    playTone(659, 0.10, "sine", 0.05);
+  }, 100);
+
+  setTimeout(() => {
+    playTone(784, 0.18, "sine", 0.05);
+  }, 210);
+
+}
+
+
+/* =========================================================
+   صدای اشتباه
+   ========================================================= */
+
+function playWrong() {
+
+  playTone(
+    190,
+    0.15,
+    "sawtooth",
+    0.035
+  );
+
+  setTimeout(() => {
 
     playTone(
-        523.25,
-        0.18,
-        "sine",
-        0.10,
-        0
+      140,
+      0.13,
+      "sawtooth",
+      0.03
     );
 
-    playTone(
-        659.25,
-        0.18,
-        "sine",
-        0.10,
-        0.13
+  }, 120);
+
+}
+
+
+/* =========================================================
+   نام شکل ها
+   ========================================================= */
+
+const shapeInfo = {
+
+  circle: {
+    symbol: "●",
+    color: "#42a5f5"
+  },
+
+  square: {
+    symbol: "■",
+    color: "#ffd84d"
+  },
+
+  triangle: {
+    symbol: "▲",
+    color: "#ef5350"
+  },
+
+  star: {
+    symbol: "★",
+    color: "#ffb52e"
+  },
+
+  heart: {
+    symbol: "♥",
+    color: "#ff73ad"
+  },
+
+  diamond: {
+    symbol: "◆",
+    color: "#58c86b"
+  }
+
+};
+
+
+/* =========================================================
+   ساخت خانه رنگی
+   ========================================================= */
+
+function createColorCell(
+  color,
+  editable,
+  index,
+  containerType = "main"
+) {
+
+  const cell =
+    document.createElement("div");
+
+  cell.className =
+    "pattern-cell " +
+    (editable ? "editable" : "locked");
+
+  cell.dataset.index = index;
+
+  cell.dataset.container =
+    containerType;
+
+  if (color) {
+
+    cell.classList.add(
+      "cell-" + color
     );
 
-    playTone(
-        783.99,
-        0.28,
-        "sine",
-        0.11,
-        0.26
+    cell.dataset.color = color;
+
+  } else {
+
+    cell.classList.add(
+      "cell-white"
     );
 
-    playTone(
-        1046.50,
-        0.35,
-        "sine",
-        0.09,
-        0.42
-    );
-}
+    cell.dataset.color = "";
 
+  }
 
-function playWrongSound() {
-
-    initializeAudio();
-
-    playTone(
-        300,
-        0.18,
-        "triangle",
-        0.07,
-        0
-    );
-
-    playTone(
-        220,
-        0.28,
-        "triangle",
-        0.06,
-        0.17
-    );
-}
-
-
-/* =====================================================
-   ساخت محور ۰ تا ۲۰
-===================================================== */
-
-function createNumberLine() {
-
-    if (!numberLine) {
-        return;
-    }
-
-    numberLine.innerHTML = "";
-
-    for (
-        let i = 0;
-        i <= 20;
-        i++
-    ) {
-
-        const position =
-            4 + (i / 20) * 92;
-
-
-        /* خطک کوچک */
-
-        const tick =
-            document.createElement(
-                "div"
-            );
-
-        tick.className =
-            "tick";
-
-        tick.style.left =
-            `${position}%`;
-
-        numberLine.appendChild(
-            tick
-        );
-
-
-        /* عدد */
-
-        const number =
-            document.createElement(
-                "div"
-            );
-
-        number.className =
-            "number";
-
-        number.dataset.value =
-            i;
-
-        number.textContent =
-            toPersianNumber(i);
-
-        number.style.left =
-            `${position}%`;
-
-        numberLine.appendChild(
-            number
-        );
-    }
-}
-
-
-/* =====================================================
-   ساخت سؤال
-===================================================== */
-
-function generateQuestion() {
-
-    clearDrawing();
-
-    resetAnswer();
-
-    if (feedback) {
-        feedback.textContent = "";
-    }
-
-
-    const type =
-        randomInt(1, 3);
-
-
-    /* =================================================
-       جمع
-    ================================================= */
-
-    if (type === 1) {
-
-        const a =
-            randomInt(1, 15);
-
-        const b =
-            randomInt(
-                1,
-                20 - a
-            );
-
-
-        currentQuestion = {
-
-            type: "جمع",
-
-            start: 0,
-
-            operations: [
-
-                {
-                    operator: "+",
-                    value: a
-                },
-
-                {
-                    operator: "+",
-                    value: b
-                }
-
-            ],
-
-            answer:
-                a + b
-        };
-
-
-        questionTypeElement.textContent =
-            "جمع";
-
-
-        expressionElement.textContent =
-            `${toPersianNumber(a)} + ${toPersianNumber(b)}`;
-
-        return;
-    }
-
-
-    /* =================================================
-       تفریق
-    ================================================= */
-
-    if (type === 2) {
-
-        const a =
-            randomInt(2, 20);
-
-        const b =
-            randomInt(
-                1,
-                a - 1
-            );
-
-
-        currentQuestion = {
-
-            type: "تفریق",
-
-            start: 0,
-
-            operations: [
-
-                {
-                    operator: "+",
-                    value: a
-                },
-
-                {
-                    operator: "-",
-                    value: b
-                }
-
-            ],
-
-            answer:
-                a - b
-        };
-
-
-        questionTypeElement.textContent =
-            "تفریق";
-
-
-        expressionElement.textContent =
-            `${toPersianNumber(a)} − ${toPersianNumber(b)}`;
-
-        return;
-    }
-
-
-    /* =================================================
-       سه عبارتی
-    ================================================= */
-
-    let a;
-    let b;
-    let c;
-
-    let op1;
-    let op2;
-
-    let firstResult;
-    let finalResult;
-
-    let valid = false;
-
-
-    while (!valid) {
-
-        a =
-            randomInt(1, 12);
-
-        b =
-            randomInt(1, 8);
-
-        c =
-            randomInt(1, 8);
-
-
-        const combinations = [
-
-            ["+", "+"],
-            ["+", "-"],
-            ["-", "+"],
-            ["-", "-"]
-
-        ];
-
-
-        const selected =
-            combinations[
-                randomInt(
-                    0,
-                    combinations.length - 1
-                )
-            ];
-
-
-        op1 =
-            selected[0];
-
-        op2 =
-            selected[1];
-
-
-        firstResult =
-            a;
-
-
-        if (op1 === "+") {
-
-            firstResult =
-                a + b;
-
-        } else {
-
-            firstResult =
-                a - b;
-        }
-
-
-        if (op2 === "+") {
-
-            finalResult =
-                firstResult + c;
-
-        } else {
-
-            finalResult =
-                firstResult - c;
-        }
-
-
-        if (
-            firstResult >= 0 &&
-            firstResult <= 20 &&
-            finalResult >= 0 &&
-            finalResult <= 20
-        ) {
-
-            valid = true;
-        }
-    }
-
-
-    currentQuestion = {
-
-        type:
-            "سه‌عبارتی",
-
-        start:
-            0,
-
-        operations: [
-
-            {
-                operator: "+",
-                value: a
-            },
-
-            {
-                operator: op1,
-                value: b
-            },
-
-            {
-                operator: op2,
-                value: c
-            }
-
-        ],
-
-        answer:
-            finalResult
-    };
-
-
-    questionTypeElement.textContent =
-        "جمع و تفریق";
-
-
-    const visibleOp1 =
-        op1 === "+"
-            ? "+"
-            : "−";
-
-
-    const visibleOp2 =
-        op2 === "+"
-            ? "+"
-            : "−";
-
-
-    expressionElement.textContent =
-        `${toPersianNumber(a)} ${visibleOp1} ${toPersianNumber(b)} ${visibleOp2} ${toPersianNumber(c)}`;
-}
-
-
-/* =====================================================
-   جواب
-===================================================== */
-
-function resetAnswer() {
-
-    if (!answerInput) {
-        return;
-    }
-
-    answerInput.value = "";
-
-    answerInput.classList.remove(
-        "correct",
-        "wrong"
-    );
-}
-
-
-/* =====================================================
-   اندازه واقعی محور
-===================================================== */
-
-function getLineSize() {
-
-    const rect =
-        numberLine.getBoundingClientRect();
-
-    return {
-
-        width:
-            rect.width,
-
-        height:
-            rect.height
-    };
-}
-
-
-/* =====================================================
-   موقعیت واقعی عدد روی محور
-===================================================== */
-
-function getNumberPosition(value) {
-
-    const number =
-        numberLine.querySelector(
-            `.number[data-value="${value}"]`
-        );
-
-
-    if (!number) {
-        return null;
-    }
-
-
-    const lineRect =
-        numberLine.getBoundingClientRect();
-
-    const numberRect =
-        number.getBoundingClientRect();
-
-
-    const x =
-        numberRect.left +
-        numberRect.width / 2 -
-        lineRect.left;
-
-
-    const axisLine =
-        getComputedStyle(
-            numberLine,
-            "::before"
-        );
-
-
-    let axisTop =
-        parseFloat(
-            axisLine.top
-        );
-
-
-    if (
-        !Number.isFinite(axisTop)
-    ) {
-
-        const tick =
-            numberLine.querySelector(
-                `.tick`
-            );
-
-        if (tick) {
-
-            const tickRect =
-                tick.getBoundingClientRect();
-
-            axisTop =
-                tickRect.top -
-                lineRect.top +
-                tickRect.height / 2;
-        }
-    }
-
-
-    const y =
-        axisTop +
-        2;
-
-
-    return {
-
-        x:
-            x,
-
-        y:
-            y
-    };
-}
-
-
-/* =====================================================
-   تبدیل انگشت به عدد
-===================================================== */
-
-function getNumberFromPointer(event) {
-
-    const rect =
-        numberLine.getBoundingClientRect();
-
-
-    const x =
-        event.clientX -
-        rect.left;
-
-
-    const percent =
-        Math.max(
-            4,
-            Math.min(
-                96,
-                (x / rect.width) * 100
-            )
-        );
-
-
-    const value =
-        Math.round(
-            (
-                (percent - 4) /
-                92
-            ) * 20
-        );
-
-
-    return Math.max(
-        0,
-        Math.min(
-            20,
-            value
-        )
-    );
-}
-
-
-/* =====================================================
-   مبدأ حرکت بعدی
-===================================================== */
-
-function getExpectedStart() {
-
-    if (!currentQuestion) {
-        return 0;
-    }
-
-
-    if (
-        drawnMoves.length === 0
-    ) {
-
-        return 0;
-    }
-
-
-    return drawnMoves[
-        drawnMoves.length - 1
-    ].end;
-}
-
-
-/* =====================================================
-   شروع کشیدن
-===================================================== */
-
-numberLine.addEventListener(
-    "pointerdown",
-    event => {
-
-        if (!currentQuestion) {
-            return;
-        }
-
-
-        event.preventDefault();
-
-
-        const value =
-            getNumberFromPointer(
-                event
-            );
-
-
-        const expected =
-            getExpectedStart();
-
-
-        if (
-            value !== expected
-        ) {
-
-            feedback.textContent =
-                `از ${toPersianNumber(expected)} شروع کن 🌱`;
-
-            feedback.style.color =
-                "#d65b70";
-
-            return;
-        }
-
-
-        isDrawing = true;
-
-        drawingStart =
-            value;
-
-
-        try {
-
-            numberLine.setPointerCapture(
-                event.pointerId
-            );
-
-        } catch (error) {}
-
-
-        createPreview(
-            drawingStart,
-            event
-        );
-    }
-);
-
-
-/* =====================================================
-   حرکت انگشت
-===================================================== */
-
-numberLine.addEventListener(
-    "pointermove",
-    event => {
-
-        if (
-            !isDrawing ||
-            drawingStart === null
-        ) {
-
-            return;
-        }
-
-
-        event.preventDefault();
-
-
-        updatePreview(
-            drawingStart,
-            event
-        );
-    }
-);
-
-
-/* =====================================================
-   پایان کشیدن
-===================================================== */
-
-numberLine.addEventListener(
-    "pointerup",
-    event => {
-
-        if (
-            !isDrawing ||
-            drawingStart === null
-        ) {
-
-            return;
-        }
-
-
-        event.preventDefault();
-
-
-        const end =
-            getNumberFromPointer(
-                event
-            );
-
-
-        removePreview();
-
-
-        isDrawing = false;
-
-
-        try {
-
-            numberLine.releasePointerCapture(
-                event.pointerId
-            );
-
-        } catch (error) {}
-
-
-        if (
-            end === drawingStart
-        ) {
-
-            drawingStart =
-                null;
-
-            return;
-        }
-
-
-        addMove(
-            drawingStart,
-            end
-        );
-
-
-        drawingStart =
-            null;
-    }
-);
-
-
-/* =====================================================
-   لغو کشیدن
-===================================================== */
-
-numberLine.addEventListener(
-    "pointercancel",
+  cell.addEventListener(
+    "click",
     () => {
 
-        removePreview();
+      if (!editable) return;
 
-        isDrawing = false;
+      if (!selectedTool) return;
 
-        drawingStart = null;
+      playClick();
+
+      if (selectedTool === "eraser") {
+
+        cell.dataset.color = "";
+
+        cell.className =
+          "pattern-cell editable cell-white";
+
+      } else {
+
+        cell.dataset.color =
+          selectedTool;
+
+        cell.className =
+          "pattern-cell editable cell-" +
+          selectedTool;
+
+      }
+
     }
-);
+  );
 
-
-/* =====================================================
-   ساخت پیش‌نمایش
-===================================================== */
-
-function createPreview(
-    start,
-    event
-) {
-
-    removePreview();
-
-
-    const size =
-        getLineSize();
-
-
-    previewSvg =
-        document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "svg"
-        );
-
-
-    previewSvg.classList.add(
-        "drawing-preview"
-    );
-
-
-    previewSvg.setAttribute(
-        "viewBox",
-        `0 0 ${size.width} ${size.height}`
-    );
-
-
-    previewSvg.setAttribute(
-        "preserveAspectRatio",
-        "none"
-    );
-
-
-    const path =
-        document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "path"
-        );
-
-
-    previewSvg.appendChild(
-        path
-    );
-
-
-    numberLine.appendChild(
-        previewSvg
-    );
-
-
-    updatePreview(
-        start,
-        event
-    );
+  return cell;
 }
 
 
-/* =====================================================
-   به‌روزرسانی پیش‌نمایش
-===================================================== */
+/* =========================================================
+   ساخت پالت رنگ
+   ========================================================= */
 
-function updatePreview(
-    start,
-    event
-) {
+function createColorPalette() {
 
-    if (!previewSvg) {
-        return;
-    }
+  palette.innerHTML = "";
 
+  const colors = [
+    "green",
+    "red",
+    "blue",
+    "yellow",
+    "pink",
+    "purple"
+  ];
 
-    const startPos =
-        getNumberPosition(
-            start
-        );
+  colors.forEach(color => {
 
+    const item =
+      document.createElement("button");
 
-    const current =
-        getNumberFromPointer(
-            event
-        );
+    item.type = "button";
 
+    item.className =
+      "palette-item";
 
-    const endPos =
-        getNumberPosition(
-            current
-        );
+    item.style.background =
+      COLORS[color];
 
+    item.dataset.tool = color;
 
-    if (
-        !startPos ||
-        !endPos
-    ) {
-
-        return;
-    }
-
-
-    const distance =
-        Math.abs(
-            endPos.x -
-            startPos.x
-        );
-
-
-    const curve =
-        Math.min(
-            getLineSize().height * 0.32,
-            Math.max(
-                20,
-                distance * 0.22
-            )
-        );
-
-
-    const middleX =
-        (
-            startPos.x +
-            endPos.x
-        ) / 2;
-
-
-    const middleY =
-        startPos.y -
-        curve;
-
-
-    const path =
-        previewSvg.querySelector(
-            "path"
-        );
-
-
-    path.setAttribute(
-        "d",
-        `
-        M ${startPos.x} ${startPos.y}
-        Q ${middleX} ${middleY}
-          ${endPos.x} ${endPos.y}
-        `
+    item.setAttribute(
+      "aria-label",
+      color
     );
+
+    item.addEventListener(
+      "click",
+      () => {
+
+        selectedTool = color;
+
+        document
+          .querySelectorAll(".palette-item")
+          .forEach(x =>
+            x.classList.remove("selected")
+          );
+
+        item.classList.add("selected");
+
+        playClick();
+
+      }
+    );
+
+    palette.appendChild(item);
+
+  });
+
+
+  /* پاک کن */
+
+  const eraser =
+    document.createElement("button");
+
+  eraser.type = "button";
+
+  eraser.className =
+    "palette-item eraser";
+
+  eraser.textContent = "⌫";
+
+  eraser.dataset.tool =
+    "eraser";
+
+  eraser.addEventListener(
+    "click",
+    () => {
+
+      selectedTool = "eraser";
+
+      document
+        .querySelectorAll(".palette-item")
+        .forEach(x =>
+          x.classList.remove("selected")
+        );
+
+      eraser.classList.add("selected");
+
+      playClick();
+
+    }
+  );
+
+  palette.appendChild(eraser);
 }
 
 
-/* =====================================================
-   حذف پیش‌نمایش
-===================================================== */
+/* =========================================================
+   ساخت پالت شکل
+   ========================================================= */
 
-function removePreview() {
+function createShapePalette() {
 
-    if (previewSvg) {
+  palette.innerHTML = "";
 
-        previewSvg.remove();
+  const shapes = [
+    "circle",
+    "square",
+    "triangle",
+    "star",
+    "heart",
+    "diamond"
+  ];
 
-        previewSvg = null;
+  shapes.forEach(shape => {
+
+    const item =
+      document.createElement("button");
+
+    item.type = "button";
+
+    item.className =
+      "palette-item";
+
+    item.style.background = "#fff";
+
+    item.innerHTML =
+      `<span style="
+        color:${shapeInfo[shape].color};
+        font-size:25px;
+      ">${shapeInfo[shape].symbol}</span>`;
+
+    item.dataset.tool =
+      shape;
+
+    item.addEventListener(
+      "click",
+      () => {
+
+        selectedTool = shape;
+
+        document
+          .querySelectorAll(".palette-item")
+          .forEach(x =>
+            x.classList.remove("selected")
+          );
+
+        item.classList.add("selected");
+
+        playClick();
+
+      }
+    );
+
+    palette.appendChild(item);
+
+  });
+
+
+  /* پاک کن */
+
+  const eraser =
+    document.createElement("button");
+
+  eraser.type = "button";
+
+  eraser.className =
+    "palette-item eraser";
+
+  eraser.textContent = "⌫";
+
+  eraser.addEventListener(
+    "click",
+    () => {
+
+      selectedTool = "eraser";
+
+      document
+        .querySelectorAll(".palette-item")
+        .forEach(x =>
+          x.classList.remove("selected")
+        );
+
+      eraser.classList.add("selected");
+
+      playClick();
+
     }
+  );
+
+  palette.appendChild(eraser);
 }
 
 
-/* =====================================================
-   ثبت حرکت
-===================================================== */
+/* =========================================================
+   ساخت جدول اصلی
+   ========================================================= */
 
-function addMove(
-    start,
-    end
-) {
+function createMainColorGrid(stage) {
 
-    const direction =
-        end > start
-            ? "right"
-            : "left";
+  taskArea.innerHTML = "";
 
+  const wrap =
+    document.createElement("div");
 
-    const distance =
-        Math.abs(
-            end - start
-        );
+  wrap.className =
+    "task-wrap";
 
+  const grid =
+    document.createElement("div");
 
-    drawnMoves.push({
+  grid.className =
+    "pattern-grid";
 
-        start:
-            start,
+  currentCells = [];
 
-        end:
-            end,
+  for (
+    let i = 0;
+    i < TOTAL_COLUMNS;
+    i++
+  ) {
 
-        direction:
-            direction,
+    const patternIndex =
+      i % stage.pattern.length;
 
-        distance:
-            distance
-    });
+    const shouldBeBlank =
+      stage.blanks.includes(i);
 
+    let color = null;
 
-    drawMove(
-        start,
-        end,
-        direction,
-        distance
-    );
+    if (!shouldBeBlank) {
+
+      color =
+        stage.pattern[patternIndex];
+
+    }
+
+    const cell =
+      createColorCell(
+        color,
+        shouldBeBlank,
+        i,
+        "main"
+      );
+
+    grid.appendChild(cell);
+
+    currentCells.push(cell);
+
+  }
+
+  wrap.appendChild(grid);
+
+  taskArea.appendChild(wrap);
+
+  createColorPalette();
+
+  createRepeatGrid(stage.pattern);
 }
 
 
-/* =====================================================
-   رسم کمان
-===================================================== */
+/* =========================================================
+   ساخت جدول شکل
+   ========================================================= */
 
-function drawMove(
-    start,
-    end,
-    direction,
-    distance
-) {
+function createShapeGrid(stage) {
 
-    const startPos =
-        getNumberPosition(
-            start
-        );
+  taskArea.innerHTML = "";
 
+  const wrap =
+    document.createElement("div");
 
-    const endPos =
-        getNumberPosition(
-            end
-        );
+  wrap.className =
+    "task-wrap";
 
+  const grid =
+    document.createElement("div");
 
-    if (
-        !startPos ||
-        !endPos
-    ) {
+  grid.className =
+    "pattern-grid";
 
-        return;
-    }
+  currentCells = [];
 
+  for (
+    let i = 0;
+    i < TOTAL_COLUMNS;
+    i++
+  ) {
 
-    const size =
-        getLineSize();
+    const patternIndex =
+      i % stage.pattern.length;
 
+    const shouldBeBlank =
+      stage.blanks.includes(i);
 
-    const curve =
-        Math.min(
-            size.height * 0.32,
-            Math.max(
-                20,
-                Math.abs(
-                    endPos.x -
-                    startPos.x
-                ) * 0.22
-            )
-        );
+    const cell =
+      document.createElement("div");
 
+    cell.className =
+      "pattern-cell " +
+      (shouldBeBlank
+        ? "editable"
+        : "locked");
 
-    const middleX =
-        (
-            startPos.x +
-            endPos.x
-        ) / 2;
+    cell.dataset.index = i;
 
+    if (!shouldBeBlank) {
 
-    const middleY =
-        startPos.y -
-        curve;
+      const shape =
+        stage.pattern[patternIndex];
 
+      cell.dataset.shape =
+        shape;
 
-    const svg =
-        document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "svg"
-        );
+      cell.innerHTML =
+        `<span style="
+          color:${shapeInfo[shape].color};
+          font-size:clamp(12px,3vw,38px);
+          line-height:1;
+        ">${shapeInfo[shape].symbol}</span>`;
 
+    } else {
 
-    svg.classList.add(
-        "curved-move"
-    );
+      cell.dataset.shape = "";
 
+      cell.classList.add(
+        "cell-white"
+      );
 
-    svg.setAttribute(
-        "viewBox",
-        `0 0 ${size.width} ${size.height}`
-    );
-
-
-    svg.setAttribute(
-        "preserveAspectRatio",
-        "none"
-    );
-
-
-    /* =================================================
-       فلش
-    ================================================= */
-
-    const defs =
-        document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "defs"
-        );
-
-
-    const marker =
-        document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "marker"
-        );
-
-
-    const markerId =
-        "arrow_" +
-        Date.now() +
-        "_" +
-        Math.random()
-            .toString(36)
-            .slice(2);
-
-
-    marker.setAttribute(
-        "id",
-        markerId
-    );
-
-
-    marker.setAttribute(
-        "markerWidth",
-        "6"
-    );
-
-
-    marker.setAttribute(
-        "markerHeight",
-        "6"
-    );
-
-
-    /*
-       مهم:
-       نوک پیکان دقیقاً روی انتهای مسیر قرار می‌گیرد.
-       قبلاً 5 بود و باعث می‌شد نوک کمی از انتهای
-       مسیر جلوتر قرار بگیرد.
-    */
-
-    marker.setAttribute(
-        "refX",
-        "6"
-    );
-
-
-    marker.setAttribute(
-        "refY",
-        "3"
-    );
-
-
-    marker.setAttribute(
-        "orient",
-        "auto"
-    );
-
-
-    const head =
-        document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "path"
-        );
-
-
-    head.setAttribute(
-        "d",
-        "M 0 0 L 6 3 L 0 6 Z"
-    );
-
-
-    head.setAttribute(
-        "fill",
-        direction === "right"
-            ? "#ed7097"
-            : "#62a4e6"
-    );
-
-
-    marker.appendChild(
-        head
-    );
-
-
-    defs.appendChild(
-        marker
-    );
-
-
-    svg.appendChild(
-        defs
-    );
-
-
-    /* =================================================
-       مسیر منحنی
-    ================================================= */
-
-    const path =
-        document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "path"
-        );
-
-
-    path.classList.add(
-        "curved-path"
-    );
-
-
-    if (
-        direction === "left"
-    ) {
-
-        svg.classList.add(
-            "left"
-        );
-    }
-
-
-    path.setAttribute(
-        "d",
-        `
-        M ${startPos.x} ${startPos.y}
-        Q ${middleX} ${middleY}
-          ${endPos.x} ${endPos.y}
-        `
-    );
-
-
-    path.setAttribute(
-        "marker-end",
-        `url(#${markerId})`
-    );
-
-
-    svg.appendChild(
-        path
-    );
-
-
-    /* =================================================
-       مقدار حرکت
-    ================================================= */
-
-    const text =
-        document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "text"
-        );
-
-
-    text.setAttribute(
-        "x",
-        middleX
-    );
-
-
-    text.setAttribute(
-        "y",
-        middleY - 7
-    );
-
-
-    text.setAttribute(
-        "text-anchor",
-        "middle"
-    );
-
-
-    text.textContent =
-        direction === "right"
-            ? `+${toPersianNumber(distance)}`
-            : `−${toPersianNumber(distance)}`;
-
-
-    svg.appendChild(
-        text
-    );
-
-
-    numberLine.appendChild(
-        svg
-    );
-
-
-    /* =================================================
-       نقطه شروع
-    ================================================= */
-
-    const dot =
-        document.createElement(
-            "div"
-        );
-
-
-    dot.className =
-        "start-dot";
-
-
-    dot.style.left =
-        `${startPos.x}px`;
-
-
-    dot.style.top =
-        `${startPos.y}px`;
-
-
-    numberLine.appendChild(
-        dot
-    );
-}
-
-
-/* =====================================================
-   پاک کردن آخرین حرکت
-===================================================== */
-
-if (undoButton) {
-
-    undoButton.addEventListener(
+      cell.addEventListener(
         "click",
         () => {
 
-            if (
-                drawnMoves.length === 0
-            ) {
+          if (!selectedTool) return;
 
-                return;
-            }
+          playClick();
 
+          if (
+            selectedTool ===
+            "eraser"
+          ) {
 
-            drawnMoves.pop();
+            cell.innerHTML = "";
 
+            cell.dataset.shape =
+              "";
 
-            const curves =
-                numberLine.querySelectorAll(
-                    ".curved-move"
-                );
+          } else {
 
+            const shape =
+              selectedTool;
 
-            if (curves.length) {
+            cell.dataset.shape =
+              shape;
 
-                curves[
-                    curves.length - 1
-                ].remove();
-            }
+            cell.innerHTML =
+              `<span style="
+                color:${shapeInfo[shape].color};
+                font-size:clamp(12px,3vw,38px);
+                line-height:1;
+              ">${shapeInfo[shape].symbol}</span>`;
 
+          }
 
-            const dots =
-                numberLine.querySelectorAll(
-                    ".start-dot"
-                );
-
-
-            if (dots.length) {
-
-                dots[
-                    dots.length - 1
-                ].remove();
-            }
-
-
-            feedback.textContent =
-                "";
         }
-    );
+      );
+
+    }
+
+    grid.appendChild(cell);
+
+    currentCells.push(cell);
+
+  }
+
+  wrap.appendChild(grid);
+
+  taskArea.appendChild(wrap);
+
+  createShapePalette();
+
+  repeatBox.classList.add("hidden");
 }
 
 
-/* =====================================================
-   پاک کردن همه
-===================================================== */
+/* =========================================================
+   ساخت جدول تکرار
+   دقیقاً ۶ خانه
+   ========================================================= */
 
-if (clearButton) {
+function createRepeatGrid(pattern) {
 
-    clearButton.addEventListener(
+  repeatBox.classList.remove("hidden");
+
+  repeatArea.innerHTML = "";
+
+  repeatCells = [];
+
+  for (
+    let i = 0;
+    i < 6;
+    i++
+  ) {
+
+    const cell =
+      document.createElement("div");
+
+    cell.className =
+      "repeat-cell";
+
+    cell.dataset.index =
+      i;
+
+    cell.dataset.value =
+      "";
+
+    cell.addEventListener(
+      "click",
+      () => {
+
+        if (!selectedTool) return;
+
+        playClick();
+
+        if (
+          selectedTool ===
+          "eraser"
+        ) {
+
+          cell.dataset.value =
+            "";
+
+          cell.className =
+            "repeat-cell";
+
+        } else {
+
+          const value =
+            selectedTool;
+
+          cell.dataset.value =
+            value;
+
+          if (
+            COLORS[value]
+          ) {
+
+            cell.className =
+              "repeat-cell cell-" +
+              value;
+
+          } else {
+
+            cell.className =
+              "repeat-cell";
+
+            cell.innerHTML =
+              `<span style="
+                color:${shapeInfo[value].color};
+                font-size:28px;
+              ">${shapeInfo[value].symbol}</span>`;
+
+          }
+
+        }
+
+      }
+    );
+
+    repeatArea.appendChild(cell);
+
+    repeatCells.push(cell);
+
+  }
+}
+
+
+/* =========================================================
+   ساخت سوال حذف شکل
+   ========================================================= */
+
+function createRemoveStage(stage) {
+
+  taskArea.innerHTML = "";
+
+  repeatBox.classList.add("hidden");
+
+  paletteBox.classList.add("hidden");
+
+  const row =
+    document.createElement("div");
+
+  row.className =
+    "shape-row";
+
+  selectedShapeAnswer = null;
+
+  stage.shapes.forEach(
+    (shape, index) => {
+
+      const option =
+        document.createElement("div");
+
+      option.className =
+        "shape-option";
+
+      option.dataset.index =
+        index;
+
+      option.innerHTML =
+        `<span style="
+          color:${shapeInfo[shape].color};
+          font-size:clamp(25px,6vw,60px);
+          line-height:1;
+        ">${shapeInfo[shape].symbol}</span>`;
+
+      option.addEventListener(
         "click",
         () => {
 
-            clearDrawing();
+          document
+            .querySelectorAll(
+              ".shape-option"
+            )
+            .forEach(x =>
+              x.classList.remove(
+                "selected"
+              )
+            );
 
-            feedback.textContent =
-                "";
+          option.classList.add(
+            "selected"
+          );
 
-            resetAnswer();
+          selectedShapeAnswer =
+            index;
+
+          playClick();
+
         }
-    );
+      );
+
+      row.appendChild(option);
+
+    }
+  );
+
+  taskArea.appendChild(row);
 }
 
 
-function clearDrawing() {
+/* =========================================================
+   ساخت مرحله شطرنجی
+   ========================================================= */
 
-    drawnMoves = [];
+function createCheckerStage(stage) {
+
+  taskArea.innerHTML = "";
+
+  repeatBox.classList.add("hidden");
+
+  paletteBox.classList.remove("hidden");
+
+  currentCells = [];
+
+  stage.rows.forEach(
+    (rowData, rowIndex) => {
+
+      const wrap =
+        document.createElement("div");
+
+      wrap.className =
+        "task-wrap";
+
+      const grid =
+        document.createElement("div");
+
+      grid.className =
+        "pattern-grid";
+
+      for (
+        let i = 0;
+        i < TOTAL_COLUMNS;
+        i++
+      ) {
+
+        const shouldBeBlank =
+          rowData.blanks.includes(i);
+
+        const patternIndex =
+          i % rowData.pattern.length;
+
+        const color =
+          shouldBeBlank
+            ? null
+            : rowData.pattern[
+                patternIndex
+              ];
+
+        const cell =
+          createColorCell(
+            color,
+            shouldBeBlank,
+            i,
+            "checker-" + rowIndex
+          );
+
+        grid.appendChild(cell);
+
+        currentCells.push({
+          cell,
+          expected:
+            rowData.pattern[
+              patternIndex
+            ]
+        });
+
+      }
+
+      wrap.appendChild(grid);
+
+      taskArea.appendChild(wrap);
+
+    }
+  );
+
+  createColorPalette();
+}
 
 
-    numberLine
-        .querySelectorAll(
-            ".curved-move"
+/* =========================================================
+   پاک کردن پاسخ مرحله
+   ========================================================= */
+
+function clearCurrentAnswer() {
+
+  playClick();
+
+  const stage =
+    stages[currentStage];
+
+  if (
+    stage.type ===
+    "remove"
+  ) {
+
+    selectedShapeAnswer = null;
+
+    document
+      .querySelectorAll(
+        ".shape-option"
+      )
+      .forEach(x =>
+        x.classList.remove(
+          "selected"
         )
-        .forEach(
-            element =>
-                element.remove()
+      );
+
+    feedback.textContent = "";
+
+    return;
+  }
+
+
+  if (
+    stage.type ===
+    "checker"
+  ) {
+
+    currentCells.forEach(
+      item => {
+
+        if (
+          item.cell.classList
+            .contains("editable")
+        ) {
+
+          item.cell.dataset.color =
+            "";
+
+          item.cell.className =
+            "pattern-cell editable cell-white";
+
+        }
+
+      }
+    );
+
+    feedback.textContent = "";
+
+    return;
+  }
+
+
+  currentCells.forEach(
+    cell => {
+
+      if (
+        cell.classList
+          .contains("editable")
+      ) {
+
+        if (
+          stage.type ===
+          "shape"
+        ) {
+
+          cell.dataset.shape =
+            "";
+
+          cell.innerHTML = "";
+
+        } else {
+
+          cell.dataset.color =
+            "";
+
+          cell.className =
+            "pattern-cell editable cell-white";
+
+        }
+
+      }
+
+    }
+  );
+
+
+  repeatCells.forEach(
+    cell => {
+
+      cell.dataset.value =
+        "";
+
+      cell.className =
+        "repeat-cell";
+
+      cell.innerHTML =
+        "";
+
+    }
+  );
+
+  feedback.textContent = "";
+}
+
+
+/* =========================================================
+   بررسی رنگ
+   ========================================================= */
+
+function checkColorStage(stage) {
+
+  let correct = true;
+
+  currentCells.forEach(
+    cell => {
+
+      const index =
+        Number(
+          cell.dataset.index
         );
 
-
-    numberLine
-        .querySelectorAll(
-            ".start-dot"
+      if (
+        !stage.blanks.includes(
+          index
         )
-        .forEach(
-            element =>
-                element.remove()
-        );
+      ) {
+        return;
+      }
+
+      const expected =
+        stage.pattern[
+          index %
+          stage.pattern.length
+        ];
+
+      const actual =
+        cell.dataset.color;
+
+      if (actual !== expected) {
+        correct = false;
+      }
+
+    }
+  );
 
 
-    removePreview();
+  /* بررسی الگوی سمت راست */
+
+  const unitLength =
+    stage.pattern.length;
+
+  for (
+    let i = 0;
+    i < 6;
+    i++
+  ) {
+
+    const actual =
+      repeatCells[i]
+        .dataset.value;
+
+    if (i < unitLength) {
+
+      if (
+        actual !==
+        stage.pattern[i]
+      ) {
+
+        correct = false;
+
+      }
+
+    } else {
+
+      if (actual !== "") {
+
+        correct = false;
+
+      }
+
+    }
+
+  }
+
+  return correct;
 }
 
 
-/* =====================================================
-   بررسی پاسخ
-===================================================== */
+/* =========================================================
+   بررسی شکل
+   ========================================================= */
 
-if (checkButton) {
+function checkShapeStage(stage) {
 
-    checkButton.addEventListener(
-        "click",
-        checkAnswer
-    );
+  for (
+    const cell of currentCells
+  ) {
+
+    const index =
+      Number(
+        cell.dataset.index
+      );
+
+    if (
+      !stage.blanks.includes(
+        index
+      )
+    ) {
+      continue;
+    }
+
+    const expected =
+      stage.pattern[
+        index %
+        stage.pattern.length
+      ];
+
+    if (
+      cell.dataset.shape !==
+      expected
+    ) {
+
+      return false;
+
+    }
+
+  }
+
+  return true;
 }
 
+
+/* =========================================================
+   بررسی شطرنجی
+   ========================================================= */
+
+function checkCheckerStage(stage) {
+
+  let correct = true;
+
+  currentCells.forEach(
+    item => {
+
+      const cell =
+        item.cell;
+
+      if (
+        !cell.classList
+          .contains("editable")
+      ) {
+        return;
+      }
+
+      if (
+        cell.dataset.color !==
+        item.expected
+      ) {
+
+        correct = false;
+
+      }
+
+    }
+  );
+
+  return correct;
+}
+
+
+/* =========================================================
+   بررسی سوال حذف
+   ========================================================= */
+
+function checkRemoveStage(stage) {
+
+  return (
+    selectedShapeAnswer ===
+    stage.answer
+  );
+
+}
+
+
+/* =========================================================
+   بررسی کلی
+   ========================================================= */
 
 function checkAnswer() {
 
-    if (!currentQuestion) {
-        return;
-    }
+  const stage =
+    stages[currentStage];
+
+  let correct = false;
 
 
-    const correctMoves = [];
+  if (
+    stage.type ===
+    "color"
+  ) {
 
-    let position = 0;
+    correct =
+      checkColorStage(stage);
 
-
-    for (
-        const operation
-        of currentQuestion.operations
-    ) {
-
-        let newPosition;
+  }
 
 
-        if (
-            operation.operator === "+"
-        ) {
+  else if (
+    stage.type ===
+    "shape"
+  ) {
 
-            newPosition =
-                position +
-                operation.value;
+    correct =
+      checkShapeStage(stage);
 
-        } else {
-
-            newPosition =
-                position -
-                operation.value;
-        }
+  }
 
 
-        correctMoves.push({
+  else if (
+    stage.type ===
+    "remove"
+  ) {
 
-            start:
-                position,
+    correct =
+      checkRemoveStage(stage);
 
-            end:
-                newPosition
-        });
-
-
-        position =
-            newPosition;
-    }
+  }
 
 
-    if (
-        drawnMoves.length !==
-        correctMoves.length
-    ) {
+  else if (
+    stage.type ===
+    "checker"
+  ) {
 
-        showWrong(
-            "مسیر را کامل روی محور بکش 🌱"
-        );
+    correct =
+      checkCheckerStage(stage);
 
-        return;
-    }
+  }
 
 
-    for (
-        let i = 0;
-        i < correctMoves.length;
-        i++
-    ) {
-
-        if (
-            drawnMoves[i].start !==
-                correctMoves[i].start ||
-
-            drawnMoves[i].end !==
-                correctMoves[i].end
-        ) {
-
-            showWrong(
-                "مسیرت را دوباره بررسی کن 🌱"
-            );
-
-            return;
-        }
-    }
-
-
-    if (!answerInput) {
-        return;
-    }
-
-
-    const raw =
-        answerInput.value.trim();
-
-
-    if (
-        raw === ""
-    ) {
-
-        showWrong(
-            "جوابت را داخل کادر بنویس 🌷"
-        );
-
-        return;
-    }
-
-
-    const userAnswer =
-        Number(
-            toEnglishNumber(raw)
-        );
-
-
-    if (
-        userAnswer !==
-        currentQuestion.answer
-    ) {
-
-        answerInput.classList.remove(
-            "correct"
-        );
-
-        answerInput.classList.add(
-            "wrong"
-        );
-
-
-        showWrong(
-            "عدد جواب درست نیست؛ دوباره محور را نگاه کن 🌱"
-        );
-
-        return;
-    }
-
-
-    answerInput.classList.remove(
-        "wrong"
-    );
-
-
-    answerInput.classList.add(
-        "correct"
-    );
-
-
-    showCorrect();
-}
-
-
-/* =====================================================
-   پاسخ صحیح
-===================================================== */
-
-function showCorrect() {
+  if (correct) {
 
     score++;
 
+    playCorrect();
 
-    if (scoreElement) {
-
-        scoreElement.textContent =
-            toPersianNumber(score);
-    }
-
-
-    feedback.textContent =
-        "آفرین! کاملاً درست انجام دادی 🎉";
-
+    feedback.innerHTML =
+      `🌟 آفرین ${studentName || "قهرمان"}! خیلی خوب الگو را پیدا کردی!`;
 
     feedback.style.color =
-        "#39956c";
+      "#21a454";
 
-
-    playCorrectSound();
-
-
-    launchFireworks();
-
-
-    setTimeout(
-        () => {
-
-            generateQuestion();
-
-        },
-        1800
+    taskArea.classList.add(
+      "success-animation"
     );
-}
 
+    setTimeout(() => {
 
-/* =====================================================
-   پاسخ غلط
-===================================================== */
+      taskArea.classList.remove(
+        "success-animation"
+      );
 
-function showWrong(message) {
+    }, 600);
 
-    feedback.textContent =
-        message;
+  } else {
 
+    playWrong();
+
+    feedback.innerHTML =
+      "🌱 اشکالی ندارد! دوباره با دقت به تکرار الگو نگاه کن.";
 
     feedback.style.color =
-        "#d65b70";
+      "#e34c86";
 
+  }
 
-    playWrongSound();
 }
 
 
-/* =====================================================
-   فشفشه
-===================================================== */
+/* =========================================================
+   نمایش مرحله
+   ========================================================= */
 
-function launchFireworks() {
+function renderStage() {
 
-    if (!fireworkContainer) {
-        return;
-    }
+  const stage =
+    stages[currentStage];
 
+  instruction.textContent =
+    stage.instruction;
 
-    fireworkContainer.innerHTML =
-        "";
+  feedback.textContent =
+    "";
 
+  selectedTool = null;
 
-    const colors = [
+  selectedShapeAnswer = null;
 
-        "#ff5c8a",
-        "#ffd166",
-        "#55c2ff",
-        "#8bd450",
-        "#a875ff",
-        "#ff8c42"
+  repeatCells = [];
 
-    ];
+  currentCells = [];
 
 
-    const centers = [
-
-        {
-            x: "25%",
-            y: "32%"
-        },
-
-        {
-            x: "50%",
-            y: "25%"
-        },
-
-        {
-            x: "75%",
-            y: "35%"
-        },
-
-        {
-            x: "40%",
-            y: "55%"
-        },
-
-        {
-            x: "65%",
-            y: "52%"
-        }
-
-    ];
+  paletteBox.classList.remove(
+    "hidden"
+  );
 
 
-    centers.forEach(
-        center => {
+  if (
+    stage.type ===
+    "color"
+  ) {
 
-            for (
-                let i = 0;
-                i < 24;
-                i++
-            ) {
-
-                const particle =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                particle.className =
-                    "firework-particle";
-
-
-                particle.style.left =
-                    center.x;
-
-
-                particle.style.top =
-                    center.y;
-
-
-                particle.style.background =
-                    colors[
-                        randomInt(
-                            0,
-                            colors.length - 1
-                        )
-                    ];
-
-
-                const angle =
-                    Math.random() *
-                    Math.PI *
-                    2;
-
-
-                const distance =
-                    randomInt(
-                        70,
-                        190
-                    );
-
-
-                particle.style.setProperty(
-                    "--x",
-                    `${Math.cos(angle) * distance}px`
-                );
-
-
-                particle.style.setProperty(
-                    "--y",
-                    `${Math.sin(angle) * distance}px`
-                );
-
-
-                particle.style.animationDelay =
-                    `${Math.random() * 0.18}s`;
-
-
-                fireworkContainer.appendChild(
-                    particle
-                );
-            }
-        }
+    createMainColorGrid(
+      stage
     );
 
+  }
 
-    setTimeout(
-        () => {
 
-            fireworkContainer.innerHTML =
-                "";
+  else if (
+    stage.type ===
+    "shape"
+  ) {
 
-        },
-        1300
+    createShapeGrid(
+      stage
     );
+
+  }
+
+
+  else if (
+    stage.type ===
+    "remove"
+  ) {
+
+    createRemoveStage(
+      stage
+    );
+
+  }
+
+
+  else if (
+    stage.type ===
+    "checker"
+  ) {
+
+    createCheckerStage(
+      stage
+    );
+
+  }
+
+
+  stageCounter.textContent =
+    `مرحله ${currentStage + 1} از ${stages.length}`;
+
+
+  prevBtn.disabled =
+    currentStage === 0;
+
+  nextBtn.disabled =
+    currentStage ===
+    stages.length - 1;
+
+
+  /* دکمه بررسی */
+
+  checkBtn.classList.remove(
+    "hidden"
+  );
+
 }
 
 
-/* =====================================================
+/* =========================================================
+   رفتن به مرحله بعد
+   ========================================================= */
+
+function nextStage() {
+
+  if (
+    currentStage <
+    stages.length - 1
+  ) {
+
+    currentStage++;
+
+    renderStage();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  } else {
+
+    showFinish();
+
+  }
+
+}
+
+
+/* =========================================================
+   مرحله قبل
+   ========================================================= */
+
+function previousStage() {
+
+  if (
+    currentStage > 0
+  ) {
+
+    currentStage--;
+
+    renderStage();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+
+}
+
+
+/* =========================================================
+   پایان بازی
+   ========================================================= */
+
+function showFinish() {
+
+  gameScreen.classList.add(
+    "hidden"
+  );
+
+  finishScreen.classList.remove(
+    "hidden"
+  );
+
+  finishText.innerHTML =
+    `خیلی خوب پیش رفتی، <strong>${studentName || "قهرمان کوچولو"}</strong>!`;
+
+  finalScore.textContent =
+    `امتیاز: ${score} از ${stages.length} 🌟`;
+
+  playCorrect();
+
+}
+
+
+/* =========================================================
    شروع بازی
-===================================================== */
+   ========================================================= */
 
-if (startButton) {
+function startGame() {
 
-    startButton.addEventListener(
-        "click",
-        () => {
+  initAudio();
 
-            initializeAudio();
+  studentName =
+    studentNameInput.value.trim();
 
+  if (!studentName) {
 
-            const name =
-                studentNameInput.value.trim();
+    studentName =
+      "قهرمان کوچولو";
 
+  }
 
-            if (!name) {
+  score = 0;
 
-                studentNameInput.focus();
+  currentStage = 0;
 
-                studentNameInput.placeholder =
-                    "اول نام زیبایت را بنویس 🌷";
+  startScreen.classList.add(
+    "hidden"
+  );
 
-                return;
-            }
+  finishScreen.classList.add(
+    "hidden"
+  );
 
+  gameScreen.classList.remove(
+    "hidden"
+  );
 
-            playerName.textContent =
-                name;
+  renderStage();
 
-
-            score = 0;
-
-
-            scoreElement.textContent =
-                toPersianNumber(0);
-
-
-            startScreen.classList.add(
-                "hidden"
-            );
-
-
-            gameScreen.classList.remove(
-                "hidden"
-            );
-
-
-            createNumberLine();
-
-
-            requestAnimationFrame(
-                () => {
-
-                    createNumberLine();
-
-                    generateQuestion();
-
-                }
-            );
-        }
-    );
 }
 
 
-/* =====================================================
-   شروع با Enter
-===================================================== */
+/* =========================================================
+   شروع مجدد
+   ========================================================= */
 
-if (studentNameInput) {
+function restartGame() {
 
-    studentNameInput.addEventListener(
-        "keydown",
-        event => {
+  score = 0;
 
-            if (
-                event.key === "Enter"
-            ) {
+  currentStage = 0;
 
-                startButton.click();
-            }
-        }
-    );
+  finishScreen.classList.add(
+    "hidden"
+  );
+
+  startScreen.classList.remove(
+    "hidden"
+  );
+
 }
 
 
-/* =====================================================
-   اصلاح اندازه هنگام چرخاندن گوشی
-===================================================== */
+/* =========================================================
+   رویدادها
+   ========================================================= */
 
-window.addEventListener(
-    "resize",
-    () => {
+startBtn.addEventListener(
+  "click",
+  startGame
+);
 
-        if (!numberLine) {
-            return;
-        }
+prevBtn.addEventListener(
+  "click",
+  () => {
 
+    playClick();
 
-        if (
-            drawnMoves.length === 0
-        ) {
+    previousStage();
 
-            createNumberLine();
+  }
+);
 
-            return;
-        }
+nextBtn.addEventListener(
+  "click",
+  () => {
 
+    playClick();
 
-        const savedMoves =
-            [...drawnMoves];
+    nextStage();
 
+  }
+);
 
-        numberLine
-            .querySelectorAll(
-                ".curved-move"
-            )
-            .forEach(
-                element =>
-                    element.remove()
-            );
+checkBtn.addEventListener(
+  "click",
+  checkAnswer
+);
 
+clearBtn.addEventListener(
+  "click",
+  clearCurrentAnswer
+);
 
-        numberLine
-            .querySelectorAll(
-                ".start-dot"
-            )
-            .forEach(
-                element =>
-                    element.remove()
-            );
-
-
-        requestAnimationFrame(
-            () => {
-
-                savedMoves.forEach(
-                    move => {
-
-                        drawMove(
-                            move.start,
-                            move.end,
-                            move.direction,
-                            move.distance
-                        );
-                    }
-                );
-            }
-        );
-    }
+restartBtn.addEventListener(
+  "click",
+  restartGame
 );
 
 
-/* =====================================================
-   اجرای اولیه
-===================================================== */
+/* Enter برای شروع */
 
-if (numberLine) {
+studentNameInput.addEventListener(
+  "keydown",
+  event => {
 
-    createNumberLine();
-}
+    if (
+      event.key ===
+      "Enter"
+    ) {
+
+      startGame();
+
+    }
+
+  }
+);
